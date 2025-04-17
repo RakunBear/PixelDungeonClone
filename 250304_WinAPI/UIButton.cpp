@@ -3,16 +3,6 @@
 
 using namespace UI;
 
-void UIButton::Init(UIObject* parent, RECT rect, ImageData imgData, ImageData bgData, RECT margin)
-{
-	UIIcon::Init(parent, rect, imgData, bgData, margin);
-}
-
-void UIButton::Init(UIObject* parent, int dx, int dy, int width, int height, ImageData imgData, ImageData bgData, RECT margin)
-{
-	UIIcon::Init(parent, dx, dy, width, height, imgData, bgData, margin);
-}
-
 void UIButton::Release()
 {
 	if (textUI)
@@ -46,9 +36,9 @@ void UIButton::SetText(string& txt)
 	}
 }
 
-void UIButton::ResourceInit(ImageData imgData, ImageData bgData, RECT margin)
+void UIButton::ResourceInit(ImageData imgData, ImageData bgData)
 {
-	UIIcon::ResourceInit(imgData, bgData, margin);
+	UIIcon::ResourceInit(imgData, bgData);
 	textUI = new UIText();
-	textUI->Init(nullptr, rectTransform);
+	textUI->Init(nullptr, localTransform.transform);
 }

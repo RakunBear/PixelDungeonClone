@@ -4,72 +4,75 @@ using namespace UI;
 
 
 
-void UIObject::Init(UIObject* parent, RECT rect)
+void UIObject::Init(UIObject* parent, FRECT relativeRect, FPOINT scale)
 {
 	SetParent(parent);
 
-	centerX = (rect.right + rect.left) / 2;
-	centerY = (rect.bottom + rect.top) / 2;
-	width = rect.right - rect.left;
-	height = rect.bottom - rect.top;
-	rectTransform = rect;
+	this->localTransform.scale = scale;
+	this->localTransform.transform = relativeRect.AplyScale(scale);
+
+	UpdateWorldTransform();
 }
 
-void UIObject::Init(UIObject* parent, int dx, int dy, int width, int height)
+void UIObject::Init(UIObject* parent, int dx, int dy, int width, int height, FPOINT scale)
 {
-	SetParent(parent);
-
-	this->centerX = dx;
-	this->centerY = dy;
-	this->width = width;
-	this->height = height;
-
-	UpdateRectTransform();
+	int halfWidth = width / 2;
+	int halfHeight = height / 2;
+	FRECT rect = { dx - halfWidth, dy - halfHeight, dx + halfWidth, dy + halfHeight };
+	
+	Init(parent, rect, scale);
 }
 
 void UI::UIObject::SetParent(UIObject* parent)
 {
-	this->parent = parent;
+	if (parent != nullptr)
+	{
+		this->parent = parent;
+	}
 }
 
-void UIObject::SetPos(int dx, int dy)
+void UIObject::SetPos(float dx, float dy)
 {
-	this->centerX = dx;
-	this->centerY = dy;
-
-	UpdateRectTransform();
+	POINT size = GetSize();
+	int halfWidth = size.x / 2;
+	int halfHeight = size.y / 2;
+	FRECT rect = { dx - halfWidth, dy - halfHeight, dx + halfWidth, dy + halfHeight };
+	
+	SetRect(rect);
 }
 
-void UIObject::SetScale(int width, int height)
+void UIObject::SetScale(FPOINT scale)
 {
-	this->width = width;
-	this->height = height;
+	this->localTransform.scale = scale;
 
-	UpdateRectTransform();
+	UpdateWorldTransform();
 }
 
-void UIObject::SetRect(RECT rect)
+void UI::UIObject::SetSize(int w, int h)
 {
-	this->rectTransform = rect;
-	this->width = rect.right - rect.left;
-	this->height = rect.bottom - rect.top;
-	this->centerX = (rect.left + rect.right) / 2;
-	this->centerY = (rect.top + rect.bottom) / 2;
+	this->localTransform.transform.right = this->localTransform.transform.left + w;
+	this->localTransform.transform.bottom = this->localTransform.transform.bottom + h;
+
+	UpdateWorldTransform();
 }
 
-void UIObject::SetRect(int dx, int dy, int width, int height)
+void UIObject::SetRect(FRECT rect)
 {
-	this->centerX = dx;
-	this->centerY = dy;
-	this->width = width;
-	this->height = height;
-	UpdateRectTransform();
+	this->localTransform.transform = rect;
+
+	UpdateWorldTransform();
 }
 
-void UIObject::UpdateRectTransform()
+void UIObject::UpdateWorldTransform()
 {
-	int halfWidth = this->width / 2;
-	int halfHeight = this->height / 2;
-	this->rectTransform = { this->centerX - halfWidth, this->centerY - halfHeight,
-		this->centerX + halfWidth, this->centerY + halfHeight };
+	if (parent)
+	{
+		this->worldTransform.scale = parent->worldTransform.scale * this->localTransform.scale;
+		this->worldTransform.transform = parent->worldTransform.transform + this->localTransform.transform;
+	}
+	else
+	{
+		this->worldTransform.scale = this->localTransform.scale;
+		this->worldTransform.transform = this->localTransform.transform;
+	}
 }

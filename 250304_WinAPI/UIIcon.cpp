@@ -4,18 +4,21 @@
 
 using namespace UI;
 
-void UIIcon::Init(UIObject* parent, RECT rect, ImageData imgData, ImageData bgData, RECT margin)
+void UIIcon::Init(UIObject* parent, FRECT rect, FPOINT scale,
+	ImageData imgData, ImageData bgData, FRECT margin)
 {
-	UIObject::Init(parent, rect);
+	UIObject::Init(parent, rect, scale);
+	this->margin = margin;
 
-	ResourceInit(imgData, bgData, margin);
+	ResourceInit(imgData, bgData);
 }
 
-void UIIcon::Init(UIObject* parent, int dx, int dy, int width, int height, ImageData imgData, ImageData bgData, RECT margin)
+void UI::UIIcon::Init(UIObject* parent, int dx, int dy, int width, int height, FPOINT scale, 
+	ImageData imgData, ImageData bgData, FRECT margin)
 {
-	UIObject::Init(parent, dx, dy, width, height);
+	UIObject::Init(parent, dx, dy, width, height, scale);
 
-	ResourceInit(imgData, bgData, margin);
+	ResourceInit(imgData, bgData);
 }
 
 void UIIcon::Release()
@@ -39,15 +42,15 @@ void UIIcon::Render()
 {
 	if (bg)
 	{
-		bg->RenderFrameScale(rectTransform.left, rectTransform.top, 1.0f, 1.0f, 0, 0);
+		bg->RenderFrameScale(worldTransform.transform.left, worldTransform.transform.top, worldTransform.scale.x, worldTransform.scale.y, 0, 0);
 	}
 	if (icon)
 	{
-		icon->RenderFrameScale( rectTransform.left + margin.left, rectTransform.top + margin.top, 1.0f, 1.0f, 0, 0);
+		icon->RenderFrameScale( worldTransform.transform.left + margin.left, worldTransform.transform.top + margin.top, worldTransform.scale.x, worldTransform.scale.y, 0, 0);
 	}
 }
 
-void UIIcon::ResourceInit( ImageData imgData, ImageData bgData, RECT margin )
+void UIIcon::ResourceInit( ImageData imgData, ImageData bgData )
 {
 	this->margin = margin;
 

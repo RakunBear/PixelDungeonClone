@@ -4,16 +4,16 @@
 
 using namespace UI;
 
-void UI::UIImage::Init(UIObject* parent, RECT rect, ImageData imgData)
+void UI::UIImage::Init(UIObject* parent, FRECT rect, FPOINT scale, ImageData imgData)
 {
-	UIObject::Init(parent, rect);
+	UIObject::Init(parent, rect, scale);
 
 	ResourceInit(imgData);
 }
 
-void UI::UIImage::Init(UIObject* parent, int dx, int dy, int width, int height, ImageData imgData)
+void UI::UIImage::Init(UIObject* parent, int dx, int dy, int width, int height, FPOINT scale, ImageData imgData)
 {
-	UIObject::Init(parent, dx, dy, width, height);
+	UIObject::Init(parent, dx, dy, width, height, scale);
 
 	ResourceInit(imgData);
 }
@@ -32,10 +32,11 @@ void UI::UIImage::Update()
 
 void UI::UIImage::Render()
 {
-	img->Render(rectTransform.left, rectTransform.top);
+	img->RenderFrameScale(worldTransform.transform.left, worldTransform.transform.top, worldTransform.scale.x, worldTransform.scale.y, 0, 0);
 }
 
 void UI::UIImage::ResourceInit(ImageData imgData)
 {
 	img = D2DImageManager::GetInstance()->AddImage(imgData.keyName, imgData.filePath);
+	SetSize(img->GetWidth(), img->GetHeight());
 }

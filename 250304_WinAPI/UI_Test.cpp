@@ -49,13 +49,13 @@ void UI_TestScene::Update()
 	if (KeyManager::GetInstance()->IsOnceKeyDown('R'))
 	{
 		UIManager.Reset();
-		mopHPBar.SetHP(10);
+		mopHPBar.SetHP(30);
 	}
 }
 
 void UI_TestScene::Render()
 {
-	backGround->DrawRect({ 0,0 }, { WINSIZE_X, WINSIZE_Y }, 5, 1.0f);
+	backGround->DrawRect({ 0,0 }, { WINSIZE_X, WINSIZE_Y }, 4, 1.0f);
 	UIManager.Render();
 	mopHPBar.Render();
 }

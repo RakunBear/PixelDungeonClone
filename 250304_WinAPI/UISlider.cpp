@@ -4,26 +4,30 @@
 
 using namespace UI;
 
-void UISlider::Init(UIObject* parent, RECT rect,
-    ImageData imgData, ImageData bgData, ImageData handleData, RECT margin)
+void UI::UISlider::Init(UIObject* parent, FRECT rect, FPOINT scale,
+    ImageData imgData, ImageData bgData, ImageData handleData, FRECT margin)
 {
-    this->UIObject::Init(parent, rect);
+    UIObject::Init(parent, rect, scale);
+    this->margin = margin;
 
-    ResourceInit(imgData, bgData, handleData, margin);
+    ResourceInit(imgData, bgData, handleData);
 }
 
-void UISlider::Init(UIObject* parent, int dx, int dy, int width, int height,
-    ImageData imgData, ImageData bgData , ImageData handleData, RECT margin)
+void UISlider::Init(UIObject* parent, int dx, int dy, int width, int height, FPOINT scale,
+    ImageData imgData, ImageData bgData, ImageData handleData, FRECT margin)
 {
-    this->UIObject::Init(parent, dx, dy, width, height);
+    UIObject::Init(parent, dx, dy, width, height, scale);
+    this->margin = margin;
 
-    ResourceInit(imgData, bgData, handleData, margin);
+    ResourceInit(imgData, bgData, handleData);
 }
 
 void UISlider::Release()
 {
     if (fill)
     {
+        fill->Release();
+        delete fill;
         fill = nullptr;
     }
 
@@ -60,23 +64,16 @@ void UISlider::Render()
 {
     if (bg)
     {
-        bg->Render(rectTransform.left, rectTransform.top);
+        bg->RenderFrameScale(worldTransform.transform.left, worldTransform.transform.top, worldTransform.scale.x, worldTransform.scale.y, 0, 0);
     }
     if (fill)
     {
-        fill->RenderPercent({ (float)fillRectTransfrom.left, (float)fillRectTransfrom.top }, 0.0f, fillValue * 100.0f, 1.0f);
+        fill->RenderPercent(fillFPoint, 0.0f, fillValue * 100.0f, worldTransform.scale.x, worldTransform.scale.y);
     }
     if (handleImg)
     {
-        handleImg->Render(fillRectTransfrom.right, fillRectTransfrom.top);
+        //handleImg->Render(worldTransform.transform.right, worldTransform.transform.top);
     }
-}
-
-void UI::UISlider::SetPos(int dx, int dy)
-{
-    UIObject::SetPos(dx, dy);
-    fillRectTransfrom = { rectTransform.left + margin.left, rectTransform.top + margin.top,
-        rectTransform.left + (int)(width * fillValue), rectTransform.bottom };
 }
 
 void UISlider::SetMaxValue(float value)
@@ -93,10 +90,19 @@ void UISlider::SetValue(float value)
     UpdateFill();
 }
 
-void UISlider::ResourceInit(ImageData fillData, ImageData bgData, ImageData handleData, RECT margin)
+void UI::UISlider::SetPos(float dx, float dy)
 {
-    fill = D2DImageManager::GetInstance()->AddImage(fillData.keyName, fillData.filePath);
+    UIObject::SetPos(dx, dy);
+    fillFPoint = { worldTransform.transform.left + margin.left, worldTransform.transform.top + margin.top };
+}
 
+void UISlider::ResourceInit(ImageData fillData, ImageData bgData, ImageData handleData)
+{
+    if (fillData.keyName != "")
+    {
+        fill = D2DImageManager::GetInstance()->CreateImage(fillData.filePath);
+        fillFPoint = { worldTransform.transform.left + margin.left, worldTransform.transform.top + margin.top };
+    }
     if (bgData.keyName != "")
     {
         bg = D2DImageManager::GetInstance()->AddImage(bgData.keyName, bgData.filePath);
@@ -106,11 +112,6 @@ void UISlider::ResourceInit(ImageData fillData, ImageData bgData, ImageData hand
     {
         handleImg = D2DImageManager::GetInstance()->AddImage(handleData.keyName, handleData.filePath);
     }
-
-    this->margin = margin;
-
-	fillRectTransfrom = { rectTransform.left + margin.left, rectTransform.top + margin.top,
-		rectTransform.left + (int)(width * fillValue), rectTransform.bottom};
 }
 
 void UI::UISlider::UpdateFill()

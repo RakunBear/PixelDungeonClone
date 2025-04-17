@@ -11,9 +11,6 @@ namespace UI
 	public :
 		virtual ~UIButton() = default;
 
-		void Init(UIObject* parent, RECT rect, ImageData imgData, ImageData bgData = { "", L"", 0, 0 }, RECT margin = { 0,0,0,0 });
-		void Init(UIObject* parent, int dx, int dy, int width, int height,
-			ImageData imgData, ImageData bgData = { "", L"", 0, 0 }, RECT margin = { 0,0,0,0 });
 		void Release() override;
 		void Update() override;
 		void Render() override;
@@ -21,7 +18,7 @@ namespace UI
 		void SetText(string& txt);
 
 	protected:
-		void ResourceInit(ImageData imgData, ImageData bgData = { "", L"", 0, 0 }, RECT margin = { 0,0,0,0 }) override;
+		void ResourceInit(ImageData imgData, ImageData bgData = { "", L"", 0, 0 }) override;
 
 	protected:
 		UIText* textUI;

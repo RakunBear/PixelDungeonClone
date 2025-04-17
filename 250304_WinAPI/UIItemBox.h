@@ -19,7 +19,7 @@ namespace UI
 		void SetItem(ImageData itemImgData);
 
 	protected:
-		void ResourceInit(ImageData imgData, ImageData bgData = { "", L"", 0, 0 }, RECT margin = { 0,0,0,0 }) override;
+		void ResourceInit(ImageData imgData, ImageData bgData = { "", L"", 0, 0 }) override;
 
 	protected:
 		UIText* textUI2;

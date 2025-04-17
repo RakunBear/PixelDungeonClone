@@ -32,7 +32,57 @@ typedef struct tagFPOINT
 {
 	float x;
 	float y;
+
+    // + 연산자 오버로딩 (FPOINT끼리의 합)
+    tagFPOINT operator+(const tagFPOINT& other) const {
+        return {
+            x + other.x,
+            y + other.y
+        };
+    }
+    tagFPOINT operator*(const tagFPOINT& other) const {
+        return {
+            x * other.x,
+            y * other.y
+        };
+    }
+    // 대입 연산자 오버로딩 (POINT 대입)
+    tagFPOINT& operator=(const POINT& other) {
+        x = static_cast<float>(other.x);
+        y = static_cast<float>(other.y);
+        return *this;
+    }
 } FPOINT;
+
+typedef struct tagFRECT
+{
+	float left;
+	float top;
+	float right;
+	float bottom;
+
+    // + 연산자 오버로딩 (FRECT끼리의 합)
+    tagFRECT operator+(const tagFRECT& other) const {
+        return {
+            left + other.left,
+            top + other.top,
+            right + other.right,
+            bottom + other.bottom
+        };
+    }
+
+    tagFRECT AplyScale(const FPOINT& scale) {
+        float cx = (left + right) / 2.0f;
+        float cy = (top + bottom) / 2.0f;
+
+        left = cx + (left - cx) * scale.x;
+        right = cx + (right - cx) * scale.x;
+        top = cy + (top - cy) * scale.y;
+        bottom = cy + (bottom - cy) * scale.y;
+        return { left, top, right, bottom };
+    }
+
+} FRECT;
 
 /*
 	extern 키워드 : 변수나 함수가 다른 파일에 정의되어 있다 라는

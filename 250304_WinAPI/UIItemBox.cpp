@@ -49,18 +49,20 @@ void UIItemBox::SetText2(const string& str)
 
 void UIItemBox::SetItem(ImageData itemImgData)
 {
-	itemIcon->Init(nullptr, rectTransform, itemImgData);
+	itemIcon->Init(nullptr, localTransform.zero(), localTransform.scale, itemImgData);
 }
 
-void UIItemBox::ResourceInit(ImageData imgData, ImageData bgData, RECT margin)
+void UIItemBox::ResourceInit(ImageData imgData, ImageData bgData)
 {
-	UIButton::ResourceInit(imgData, bgData, margin);
+	UIButton::ResourceInit(imgData, bgData);
 
-	textUI->SetRect(CaculateRelativeRECT(rectTransform, { 0,0, width, height/2 }));
+	POINT tempSize = GetSize();
+	FPOINT size = { tempSize.x, tempSize.y };
+	textUI->SetRect({ 0,0, size.x, size.y/2 });
 	textUI->SetText("TESTSTMI");
 
 	textUI2 = new UIText;
-	textUI2->Init(nullptr, CaculateRelativeRECT(rectTransform, { 0,height/2, width, height }), "ㄴㄹㄴㄹㄴ");
+	textUI2->Init(nullptr, { 0, size.y/2, size.x, size.y }, "ㄴㄹㄴㄹㄴ");
 
 	itemIcon = new UIIcon;
 }

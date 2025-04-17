@@ -11,7 +11,7 @@ namespace UI
 		void Update() override;
 		void Render() override;
 
-		void SetPos(int dx, int dy) override;
+		void SetPos(float dx, float dy) override;
 		void SetMaxHP(int hp);
 		void SetHP(int hp);
 	protected:

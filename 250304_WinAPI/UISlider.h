@@ -13,23 +13,22 @@ namespace UI
         UISlider() = default;
         ~UISlider() override = default;
 
-        void Init(UIObject* parent, RECT rect,
-            ImageData imgSData, ImageData bgData = { "", L"", 0, 0 }, ImageData handleData = { "", L"", 0, 0 },
-            RECT margin = {0,0,0,0});
-        void Init(UIObject* parent, int dx,int dy, int width, int height,
-            ImageData imgData, ImageData bgData = { "", L"", 0, 0 }, ImageData handleData = { "", L"", 0, 0 },
-            RECT margin = { 0,0,0,0 });
+        void Init(UIObject* parent, FRECT rect, FPOINT scale = { 1.0f, 1.0f },
+            ImageData imgData = { "", L"", 0, 0 }, ImageData bgData = { "", L"", 0, 0 }, ImageData handleData = { "", L"", 0, 0 },
+            FRECT margin = {0,0,0,0});
+        void Init(UIObject* parent, int dx, int dy, int width, int height, FPOINT scale = { 1.0f, 1.0f },
+            ImageData imgData = { "", L"", 0, 0 }, ImageData bgData = { "", L"", 0, 0 }, ImageData handleData = { "", L"", 0, 0 },
+            FRECT margin = { 0,0,0,0 });
         void Release() override;
         void Update() override;
         void Render() override;
 
-        void SetPos(int dx, int dy) override;
         virtual void SetMaxValue(float value);
         virtual void SetValue(float value);
+        void SetPos(float dx, float dy) override;
 
     protected:
-        virtual void ResourceInit(ImageData imgData, ImageData bgData = { "", L"", 0, 0 }, ImageData handleData = { "", L"", 0, 0 },
-            RECT margin = { 0,0,0,0 });
+        virtual void ResourceInit(ImageData imgData, ImageData bgData = { "", L"", 0, 0 }, ImageData handleData = { "", L"", 0, 0 });
         virtual void UpdateFill();
         float SmoothDamp(float current, float target, float& velocity, float smoothTime, float deltaTime);
 
@@ -38,10 +37,8 @@ namespace UI
         D2DImage* fill;
         D2DImage* handleImg;
 
-        RECT margin{ 0,0,0,0 };
-        RECT fillRectTransfrom{ 0,0,0,0 };
-        float fillOriginWidth;
-        float fillOriginHeight;
+        FRECT margin{ 0,0,0,0 };
+        FPOINT fillFPoint{ 0.0f, 0.0f };
         int handleWidth;
         int handleHeight;
 

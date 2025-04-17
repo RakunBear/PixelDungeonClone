@@ -1,25 +1,27 @@
 ﻿#include "UITextBox.h"  
 #include "UIText.h"  
+#include "UIImage.h"
 #include "D2DImageManager.h"  
 #include "D2DImage.h"
 
 using namespace UI;  
 
-void UITextBox::Init(UIObject* parent, RECT rect, const string& text, ImageData bgData, RECT margin)
+void UITextBox::Init(UIObject* parent, FRECT rect, FPOINT scale, const string& text, ImageData bgData, FRECT margin)
 {  
-   UIObject::Init(parent, rect);  
+   UIObject::Init(parent, rect, scale);  
 
-   ResourceInit(text, bgData, margin);
+   this->margin = margin;
+   ResourceInit(text, bgData);
 }  
 
-void UITextBox::Init(UIObject* parent, int dx, int dy, int width, int height, const string& text, ImageData bgData, RECT margin)
+void UITextBox::Init(UIObject* parent, int dx, int dy, int width, int height, FPOINT scale, const string& text, ImageData bgData, FRECT margin)
 {  
-   UIObject::Init(parent, dx, dy, width, height);  
+   UIObject::Init(parent, dx, dy, width, height, scale);  
 
-   ResourceInit(text, bgData, margin); 
+   ResourceInit(text, bgData); 
 }  
 
-void UITextBox::Release()  
+void UITextBox::Release()
 {  
    if (textUI)  
    {  
@@ -42,7 +44,7 @@ void UITextBox::Render()
 {  
     if (bg)
     {
-        bg->RenderFrameScale(rectTransform.left, rectTransform.top, 1.0f, 1.0f, 0, 0);
+        bg->Render();
     }
 
    if (textUI)  
@@ -59,13 +61,16 @@ void UITextBox::SetText(const string& text)
    }  
 }  
 
-void UITextBox::ResourceInit(const string& text, ImageData bgData, RECT margin)
+void UITextBox::ResourceInit(const string& text, ImageData bgData)
 {  
+    textUI = new UIText();
+    bg = new UIImage();
+
     if (bgData.keyName != "")
     {
-        bg = D2DImageManager::GetInstance()->AddImage(bgData.keyName, bgData.filePath);
+        bg->Init(this, { 0,0,0,0 }, { 1.0f, 1.0f }, bgData);
     }
-   textUI = new UIText();  
-   textUI->Init(nullptr, rectTransform, text);  
-   textUI->SetPos(centerX + margin.left, centerY + margin.top);
+   FPOINT centerPos = GetLocalPos();
+   textUI->Init(nullptr, {centerPos.x, centerPos.y,0,0}, text);
+   textUI->SetPos(centerPos.x + margin.left, centerPos.y + margin.top);
 }

@@ -2,18 +2,20 @@
 
 using namespace UI;
 
-void UIText::Init(UIObject* parent, RECT rect, const string& text, COLORREF textColor)
+void UIText::Init(UIObject* parent, FRECT rect, 
+	const string& text, COLORREF textColor, FPOINT scale)
 {
-	UIObject::Init(parent, rect);
-	this->text = text;
-	this->textColor = textColor;
+	UIObject::Init(parent, rect, scale);
+
+	ResourceInit();
 }
 
-void UIText::Init(UIObject* parent, int dx, int dy, int width, int height, const string& text, COLORREF textColor)
+void UIText::Init(UIObject* parent, int dx, int dy, int width, int height,
+	const string& text, COLORREF textColor, FPOINT scale)
 {
-	UIObject::Init(parent, dx, dy, width, height);
-	this->text = text;
-	this->textColor = textColor;
+	UIObject::Init(parent, dx, dy, width, height, scale);
+	
+	ResourceInit();
 }
 
 void UIText::Release()
@@ -37,4 +39,10 @@ void UIText::Render()
 	//SetBkMode(TRANSPARENT);
 	//SetTextAlign(TA_CENTER | TA_BASELINE);
 	//TextOutA(hdc, centerX, centerY, text.c_str(), text.length());
+}
+
+void UI::UIText::ResourceInit()
+{
+	this->text = text;
+	this->textColor = textColor;
 }

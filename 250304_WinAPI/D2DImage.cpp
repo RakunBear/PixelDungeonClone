@@ -271,7 +271,50 @@ void D2DImage::RenderFrame(float x, float y, int frameX, int frameY, float angle
 
 void D2DImage::RenderFrameScale(float x, float y, float scaleX, float scaleY, int frameX, int frameY, float angle, bool flipX, bool flipY, float alpha)
 {
-    Middle_RenderFrameScale(x + frameWidth / 2, y + frameHeight / 2, scaleX, scaleY, frameX, frameY,angle, flipX, flipY, alpha);
+    if (!bitmap || !renderTarget || maxFrameX <= 0 || maxFrameY <= 0) return;
+
+    int fx = frameX;
+    int fy = frameY;
+
+    D2D1_RECT_F srcRect = D2D1::RectF(
+        static_cast<float>(fx * frameWidth),
+        static_cast<float>(fy * frameHeight),
+        static_cast<float>((fx + 1) * frameWidth),
+        static_cast<float>((fy + 1) * frameHeight)
+    );
+
+    float halfWidth = frameWidth / 2.0f;
+    float halfHeight = frameHeight / 2.0f;
+
+    float centerX = x;
+    float centerY = y;
+
+    // ✅ 좌상단 기준으로 destRect 설정
+    D2D1_RECT_F destRect = D2D1::RectF(
+        x,
+        y,
+        x + frameWidth,
+        y + frameHeight
+    );
+
+    D2D1::Matrix3x2F transform = D2D1::Matrix3x2F::Identity();
+
+    float finalScaleX = scaleX * (flipX ? -1.0f : 1.0f);
+    float finalScaleY = scaleY * (flipY ? -1.0f : 1.0f);
+
+    transform = transform * D2D1::Matrix3x2F::Scale(
+        finalScaleX, finalScaleY,
+        D2D1::Point2F(centerX, centerY)
+    );
+
+    transform = transform * D2D1::Matrix3x2F::Rotation(
+        angle,
+        D2D1::Point2F(centerX, centerY)
+    );
+
+    renderTarget->SetTransform(transform);
+    renderTarget->DrawBitmap(bitmap, destRect, alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, srcRect);
+    renderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 }
 
 void D2DImage::InitBrushes() {

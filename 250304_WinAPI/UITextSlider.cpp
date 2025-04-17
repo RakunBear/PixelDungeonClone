@@ -45,12 +45,12 @@ namespace UI
 
 	void UITextSlider::ResourceInit(ImageData imgData, ImageData bgData, ImageData handleData, RECT margin)
 	{
-		UISlider::ResourceInit(imgData, bgData, handleData, margin);
+		UISlider::ResourceInit(imgData, bgData, handleData);
 
 		valueText = new UIText();
 		string ValueString = (to_string((int)goalValue) + " / " + to_string((int)maxValue));
-		valueText->Init(nullptr, { rectTransform.left + margin.left, rectTransform.top + margin.top + 10, 
-			rectTransform.right - margin.right, rectTransform.bottom - margin.bottom  }
+		valueText->Init(nullptr, { localTransform.transform.left + margin.left, localTransform.transform.top + margin.top + 10, 
+			localTransform.transform.right - margin.right, localTransform.transform.bottom - margin.bottom  }
 		, ValueString, RGB(255, 255, 255));
 	}
 }

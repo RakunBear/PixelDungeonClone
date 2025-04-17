@@ -29,7 +29,8 @@ void UI::UIDefeat::Render()
 void UI::UIDefeat::ResourceInit()
 {
     defeatImage = new UIImage();
-    defeatImage->Init(this, CaculateRelativeRECT(rectTransform, { 0, 0, width/3, height/5}),
+    defeatImage->Init(this, { 0, 0, 0, 0 }, {3.0f, 3.0f},
         ImageData{ "defeat_img", L"assets/interfaces/defeat_img.png", true, RGB(255, 255, 255) });
-    defeatImage->SetPos(centerX, height / 3);
+    POINT size = GetSize();
+    defeatImage->SetPos(GetLocalPos().x, size.y / 3);
 }
