@@ -126,14 +126,17 @@ void D2DImage::Middle_RenderFrame(float x, float y, int frameX, int frameY,
         static_cast<float>((fy + 1) * frameHeight)
     );
 
+    float halfWidth = frameWidth / 2.0f;
+    float halfHeight = frameHeight / 2.0f;
+
     float centerX = x;
     float centerY = y;
 
     D2D1_RECT_F destRect = D2D1::RectF(
-        centerX - (float)frameWidth / 2.0f,
-        centerY - (float)frameHeight / 2.0f,
-        centerX + (float)frameWidth / 2.0f,
-        centerY + (float)frameHeight / 2.0f
+        centerX - halfWidth,
+        centerY - halfHeight,
+        centerX + halfWidth,
+        centerY + halfHeight
     );
 
     D2D1::Matrix3x2F transform = D2D1::Matrix3x2F::Identity();
@@ -209,9 +212,51 @@ void D2DImage::RenderPercent(FPOINT pos, float spercent, float epercent, float a
     D2D1_RECT_F destRect = D2D1::RectF(pos.x + sp, pos.y,
         pos.x + ep, pos.y + bmpSize.height);
 
+    D2D1::Matrix3x2F transform = D2D1::Matrix3x2F::Identity();
+
     renderTarget->DrawBitmap(bitmap, destRect, alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, &srcRect);
     renderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 }
+
+void D2DImage::RenderPercent(FPOINT pos, float spercent, float epercent, float scaleX, float scaleY, float angle, bool flipX, bool flipY, float alpha)
+{
+    if (!bitmap || !renderTarget) return;
+
+    D2D1_SIZE_F bmpSize = bitmap->GetSize();
+    float sp = bmpSize.width * (spercent / 100.0f);
+    float ep = bmpSize.width * (epercent / 100.0f);
+
+    D2D1_RECT_F srcRect = D2D1::RectF(sp, 0, ep, bmpSize.height);
+
+    D2D1_RECT_F destRect = D2D1::RectF(pos.x + sp, pos.y,
+        pos.x + ep, pos.y + bmpSize.height);
+
+    D2D1::Matrix3x2F transform = D2D1::Matrix3x2F::Identity();
+
+    float centerX = pos.x;
+    float centerY = pos.y;
+
+    float finalScaleX = scaleX * (flipX ? -1.0f : 1.0f);
+    float finalScaleY = scaleY * (flipY ? -1.0f : 1.0f);
+
+    transform = transform * D2D1::Matrix3x2F::Scale(
+        finalScaleX, finalScaleY,
+        D2D1::Point2F(centerX, centerY)
+    );
+
+    if (angle != 0.0f)
+    {
+        transform = transform * D2D1::Matrix3x2F::Rotation(
+            angle,
+            D2D1::Point2F(centerX, centerY)
+        );
+    }
+
+    renderTarget->SetTransform(transform);
+    renderTarget->DrawBitmap(bitmap, destRect, alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, srcRect);
+    renderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+}
+
 
 void D2DImage::Render(float x, float y, float angle, bool flipX, bool flipY, float alpha)
 {
@@ -271,10 +316,7 @@ void D2DImage::DrawCircle(FPOINT center, float radius, int color, float lineThic
 
 
 void D2DImage::Release() {
-    if (renderTarget) {
-        renderTarget->Release();
-        renderTarget = nullptr;
-    }
+
     if (bitmap) {
         bitmap->Release();
         bitmap = nullptr;
@@ -295,5 +337,10 @@ void D2DImage::ReleaseLast()
             brushes[i]->Release();
             brushes[i] = nullptr;
         }
+    }
+
+    if (renderTarget) {
+        renderTarget->Release();
+        renderTarget = nullptr;
     }
 }

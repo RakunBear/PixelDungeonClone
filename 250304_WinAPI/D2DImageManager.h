@@ -26,5 +26,9 @@ public:
 
     void DeleteImage(string key);
     D2DImage* FindImage(string key);
+
+    D2DImage* CreateImage(const wchar_t* filePath);
+    D2DImage* CreaetImage(const wchar_t* filePath, int maxFrameX, int maxFrameY);
+
 };
 

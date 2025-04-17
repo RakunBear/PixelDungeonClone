@@ -59,6 +59,10 @@ public:
         bool flipX = false, bool flipY = false,
         float alpha = 1.0f);
     void RenderPercent(FPOINT pos,float spercent, float epercent, float alpha);
+    void RenderPercent(FPOINT pos, float spercent, float epercent,
+        float scaleX, float scaleY, float angle = 0.0f,
+        bool flipX = false, bool flipY = false,
+        float alpha = 1.0f);
     void InitBrushes();
     void ReleaseBrushes();
     void DrawLine(FPOINT point1, FPOINT point2, int color, float lineThickness);
