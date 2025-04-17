@@ -32,9 +32,9 @@ void UIText::Update()
 {
 }
 
-void UIText::Render(HDC hdc)
+void UIText::Render()
 {
-	SetBkMode(hdc, TRANSPARENT);
-	SetTextAlign(hdc, TA_CENTER | TA_BASELINE);
-	TextOutA(hdc, centerX, centerY, text.c_str(), text.length());
+	//SetBkMode(TRANSPARENT);
+	//SetTextAlign(TA_CENTER | TA_BASELINE);
+	//TextOutA(hdc, centerX, centerY, text.c_str(), text.length());
 }

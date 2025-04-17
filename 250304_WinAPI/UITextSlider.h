@@ -10,7 +10,7 @@ namespace UI
 	public:
 		~UITextSlider() override = default;
         void Release() override;
-        void Render(HDC hdc) override;
+        void Render() override;
 
 		void SetMaxValue(float value) override;
 		void SetValue(float value) override;

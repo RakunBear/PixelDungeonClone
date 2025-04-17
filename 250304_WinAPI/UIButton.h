@@ -16,7 +16,7 @@ namespace UI
 			ImageData imgData, ImageData bgData = { "", L"", 0, 0 }, RECT margin = { 0,0,0,0 });
 		void Release() override;
 		void Update() override;
-		void Render(HDC hdc) override;
+		void Render() override;
 
 		void SetText(string& txt);
 

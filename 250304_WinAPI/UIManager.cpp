@@ -47,12 +47,12 @@ void UI::UIManager::Update()
 	defeatUI->Update();
 }
 
-void UI::UIManager::Render(HDC hdc)
+void UI::UIManager::Render()
 {
-	RenderIsVisible(hdc, statToolbar);
-	RenderIsVisible(hdc, quickSlot);
-	RenderIsVisible(hdc, menueToolbar);
-	RenderIsVisible(hdc, defeatUI);
+	RenderIsVisible(statToolbar);
+	RenderIsVisible(quickSlot);
+	RenderIsVisible(menueToolbar);
+	RenderIsVisible(defeatUI);
 }
 
 void UI::UIManager::Reset()

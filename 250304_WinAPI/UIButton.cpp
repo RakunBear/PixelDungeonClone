@@ -29,12 +29,12 @@ void UIButton::Update()
 {
 }
 
-void UIButton::Render(HDC hdc)
+void UIButton::Render()
 {
-	UIIcon::Render(hdc);
+	UIIcon::Render();
 	if (textUI)
 	{
-		textUI->Render(hdc);
+		textUI->Render();
 	}
 }
 

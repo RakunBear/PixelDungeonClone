@@ -11,9 +11,9 @@ void UI::UIMopHPBar::Update()
     hpBar->Update();
 }
 
-void UI::UIMopHPBar::Render(HDC hdc)
+void UI::UIMopHPBar::Render()
 {
-    hpBar->Render(hdc);
+    hpBar->Render();
 }
 
 void UI::UIMopHPBar::SetPos(int dx, int dy)
@@ -36,8 +36,8 @@ void UI::UIMopHPBar::ResourceInit()
 {
     hpBar = new UISlider();
     hpBar->Init(this, CaculateRelativeRECT(rectTransform, { 0, 0, 100, height}),
-        ImageData{ "status_hp_bar2", L"assets/interfaces/HPBar.bmp", true, RGB(255, 255, 255) },
-        ImageData{ "status_hp_bg2", L"assets/interfaces/BarBg.bmp", true, RGB(255, 255, 255) },
+        ImageData{ "status_hp_bar2", L"assets/interfaces/HPBar.png", true, RGB(255, 255, 255) },
+        ImageData{ "status_hp_bg2", L"assets/interfaces/BarBg.png", true, RGB(255, 255, 255) },
         ImageData{ "",L"",0,0 },
         { 3, 3, 3, 3 });
     hpBar->SetMaxValue(100);

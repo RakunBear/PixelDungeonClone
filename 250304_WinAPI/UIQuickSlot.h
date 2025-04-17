@@ -13,7 +13,7 @@ namespace UI
 
 		void Release() override;
 		void Update() override;
-		void Render(HDC hdc) override;
+		void Render() override;
 
 	protected:
 		void ResourceInit() override;

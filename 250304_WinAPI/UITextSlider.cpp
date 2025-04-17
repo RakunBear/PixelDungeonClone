@@ -17,13 +17,13 @@ namespace UI
 		}
 	}
 
-	void UITextSlider::Render(HDC hdc)
+	void UITextSlider::Render()
 	{
-		UISlider::Render(hdc);
+		UISlider::Render();
 
 		if (valueText)
 		{
-			valueText->Render(hdc);
+			valueText->Render();
 		}
 	}
 

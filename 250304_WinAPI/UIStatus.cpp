@@ -52,23 +52,23 @@ void UIStatus::Update()
 	}
 }
 
-void UIStatus::Render(HDC hdc)
+void UIStatus::Render()
 {
     if (icon)
     {
-        icon->Render(hdc);
+        icon->Render();
     }
 	if (hpBar)
 	{
-		hpBar->Render(hdc);
+		hpBar->Render();
 	}
 	if (expBar)
 	{
-		expBar->Render(hdc);
+		expBar->Render();
 	}
 	if (levelTextUI)
 	{
-		levelTextUI->Render(hdc);
+		levelTextUI->Render();
 	}
 }
 
@@ -95,13 +95,13 @@ void UIStatus::ResourceInit()
 
    icon = new UIIcon();  
    icon->Init(this, CaculateRelativeRECT(rectTransform, { 0, 0, 67, 68 }),  
-       ImageData{ "status_character_ico", L"assets/sprites/TempCh.bmp", true, RGB(255, 255, 255) },  
-       ImageData{ "status_character_bg", L"assets/sprites/TempChBg.bmp", true, RGB(255, 255, 255) }  
-       , { 10, 10 , 0, 0 });  
+       ImageData{ "status_character_ico", L"assets/interfaces/status_ico.png", true, RGB(255, 255, 255) },  
+       ImageData{ "status_character_bg", L"assets/interfaces/status_bg.png", true, RGB(255, 255, 255) }  
+       , { 3, 3 , 0, 0 });  
    hpBar = new UITextSlider();  
    hpBar->Init(this, CaculateRelativeRECT(rectTransform, { 67, 34, 355, 68 }),  
-       ImageData{ "status_hp_bar", L"assets/interfaces/HPBar.bmp", true, RGB(255, 255, 255) },  
-       ImageData{ "status_hp_bg", L"assets/interfaces/BarBg.bmp", true, RGB(255, 255, 255) }, 
+       ImageData{ "status_hp_bar", L"assets/interfaces/HPBar.png", true, RGB(255, 255, 255) },  
+       ImageData{ "status_hp_bg", L"assets/interfaces/BarBg.png", true, RGB(255, 255, 255) }, 
        ImageData{"",L"",0,0},
        {5, 9, 10, 5});
    hpBar->SetMaxValue(100);
@@ -109,8 +109,8 @@ void UIStatus::ResourceInit()
 
    expBar = new UITextSlider();  
    expBar->Init(this, CaculateRelativeRECT(rectTransform, { 67, 68, 355, 97 }),  
-       ImageData{ "status_exp_bar", L"assets/interfaces/ExpBar.bmp", true, RGB(255, 255, 255) },  
-       ImageData{ "status_exp_bg", L"assets/interfaces/BarBg.bmp", true, RGB(255, 255, 255) },
+       ImageData{ "status_exp_bar", L"assets/interfaces/ExpBar.png", true, RGB(255, 255, 255) },  
+       ImageData{ "status_exp_bg", L"assets/interfaces/BarBg.png", true, RGB(255, 255, 255) },
        ImageData{ "",L"",0,0 },
        { 5, 7, 10, 5 });
    expBar->SetMaxValue(30);
@@ -118,6 +118,6 @@ void UIStatus::ResourceInit()
 
    levelTextUI = new UITextBox();  
    levelTextUI->Init(this, CaculateRelativeRECT(rectTransform, { 0, 68, 67, 97 }), "lv. 1",
-       ImageData{ "status_level", L"assets/interfaces/level_box.bmp", true, RGB(255,255,255) }
+       ImageData{ "status_level", L"assets/interfaces/level_box.png", true, RGB(255,255,255) }
    , { 0, 5, 0, 0 });
 }

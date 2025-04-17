@@ -1,15 +1,15 @@
 ﻿#pragma once
-#include "GameObject.h"
+#include "config.h"
 
-class Image;
-class UI_TestScene : public GameObject
+class D2DImage;
+class UI_TestScene
 {
 private:
-	Image* backGround;
+	D2DImage* backGround;
 public:
-	virtual HRESULT Init() override;
-	virtual void Release() override;
-	virtual void Update() override;
-	virtual void Render(HDC hdc) override;
+	virtual HRESULT Init() ;
+	virtual void Release() ;
+	virtual void Update() ;
+	virtual void Render() ;
 };
 

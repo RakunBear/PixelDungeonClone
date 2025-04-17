@@ -9,7 +9,7 @@ namespace UI
 	public:
 		void Release() override;
 		void Update() override;
-		void Render(HDC hdc) override;
+		void Render() override;
 
 		void SetPos(int dx, int dy) override;
 		void SetMaxHP(int hp);

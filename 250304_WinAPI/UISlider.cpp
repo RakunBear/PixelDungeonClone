@@ -1,5 +1,6 @@
 ﻿#include "UISlider.h"
-#include "Image.h"
+#include "D2DImage.h"
+#include "D2DImageManager.h"
 
 using namespace UI;
 
@@ -50,24 +51,24 @@ void UISlider::Update()
         
         if (fill)
         {
-            fill->SetWidth(fill->GetWidth() * fillValue);
+            UpdateFill();
         }
     }
 }
 
-void UISlider::Render(HDC hdc)
+void UISlider::Render()
 {
     if (bg)
     {
-        bg->Render(hdc, rectTransform.left, rectTransform.top);
+        bg->Render(rectTransform.left, rectTransform.top);
     }
     if (fill)
     {
-        fill->Render(hdc, fillRectTransfrom.left, fillRectTransfrom.top);
+        fill->RenderPercent({ (float)fillRectTransfrom.left, (float)fillRectTransfrom.top }, 0.0f, fillValue * 100.0f, 1.0f);
     }
     if (handleImg)
     {
-        handleImg->Render(hdc, fillRectTransfrom.right, fillRectTransfrom.top);
+        handleImg->Render(fillRectTransfrom.right, fillRectTransfrom.top);
     }
 }
 
@@ -88,41 +89,33 @@ void UISlider::SetMaxValue(float value)
 void UISlider::SetValue(float value)
 {
     goalValue = value;
-    fillValue = max(0.0f, min((goalValue / maxValue), 1.0f));
 
-    ApplyFillImage();
+    UpdateFill();
 }
 
 void UISlider::ResourceInit(ImageData fillData, ImageData bgData, ImageData handleData, RECT margin)
 {
-    fill = ImageManager::GetInstance()->AddImage(fillData.keyName, fillData.filePath, width, height, fillData.isTransparent, fillData.transColor);
+    fill = D2DImageManager::GetInstance()->AddImage(fillData.keyName, fillData.filePath);
 
     if (bgData.keyName != "")
     {
-        bg = ImageManager::GetInstance()->AddImage(bgData.keyName, bgData.filePath, width, height, bgData.isTransparent, bgData.transColor);
+        bg = D2DImageManager::GetInstance()->AddImage(bgData.keyName, bgData.filePath);
     }
 
     if (handleData.keyName != "")
     {
-        handleImg = ImageManager::GetInstance()->AddImage(handleData.keyName, handleData.filePath, handleWidth, handleHeight, handleData.isTransparent, handleData.transColor);
+        handleImg = D2DImageManager::GetInstance()->AddImage(handleData.keyName, handleData.filePath);
     }
 
     this->margin = margin;
 
 	fillRectTransfrom = { rectTransform.left + margin.left, rectTransform.top + margin.top,
 		rectTransform.left + (int)(width * fillValue), rectTransform.bottom};
-    fill->SetWidth(width - margin.left - margin.right);
-    fillOriginWidth = fill->GetWidth();
-    fill->SetHeight(height - margin.top - margin.bottom);
-    fillOriginHeight = fill->GetHeight();
 }
 
-void UI::UISlider::ApplyFillImage()
+void UI::UISlider::UpdateFill()
 {
-    if (fill)
-    {
-        fill->SetWidth(fillOriginWidth * fillValue);
-    }
+    fillValue = max(0.0f, min((goalValue / maxValue), 1.0f));
 }
 
 float UISlider::SmoothDamp(float current, float target, float& velocity, float smoothTime, float deltaTime)

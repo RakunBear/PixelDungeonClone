@@ -12,7 +12,7 @@ namespace UI
 		void Init(UIObject* parent, int dx, int dy, int width, int height, const string& text = "", COLORREF textColor = RGB(0, 0, 0));
 		void Release() override;
 		void Update() override;
-		void Render(HDC hdc) override;
+		void Render() override;
 		void SetText(const string& text) { this->text = text; }
 		void SetTextColor(COLORREF color) { this->textColor = color; }
 

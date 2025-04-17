@@ -13,7 +13,7 @@ namespace UI
 		~UIItemBox() override = default;
 
 		void Release() override;
-		void Render(HDC hdc) override;
+		void Render() override;
 
 		void SetText2(const string& str);
 		void SetItem(ImageData itemImgData);

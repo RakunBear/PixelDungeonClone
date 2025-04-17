@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "UIObject.h"
 
+class D2DImage;
+
 namespace UI
 {
 	class UIText;
@@ -14,7 +16,7 @@ namespace UI
 		void Init(UIObject* parent, int dx, int dy, int width, int height, const string& text="", ImageData bgData = {"", L"", 0, 0}, RECT margin = { 0,0,0,0 });
 		void Release() override;
 		void Update() override;
-		void Render(HDC hdc) override;
+		void Render() override;
 
 		void SetText(const string& text);
 
@@ -23,7 +25,7 @@ namespace UI
 
 	protected:
 		UIText* textUI;
-		Image* bg;
+		D2DImage* bg;
 
 	};
 

@@ -1,5 +1,6 @@
 ﻿#include "UI_Test.h"
-#include "Image.h"
+#include "D2DImage.h"
+#include "D2DImageManager.h"
 #include "CommonFunction.h"
 #include "config.h"
 #include "UIManager.h"
@@ -12,13 +13,7 @@ HRESULT UI_TestScene::Init()
 {
 	SetClientRect(g_hWnd, WINSIZE_X, WINSIZE_Y);
 
-	backGround = new Image();
-	if (FAILED(backGround->Init(TEXT("Image/BackGround.bmp"), WINSIZE_X, WINSIZE_Y)))
-	{
-		MessageBox(g_hWnd,
-			TEXT("Image/backGround.bmp 생성 실패"), TEXT("경고"), MB_OK);
-		return E_FAIL;
-	}
+	backGround = new D2DImage();
 
 	UIManager.Init();
 	mopHPBar.Init(nullptr, WINSIZE_X/2, WINSIZE_Y/2, 50, 10);
@@ -58,9 +53,9 @@ void UI_TestScene::Update()
 	}
 }
 
-void UI_TestScene::Render(HDC hdc)
+void UI_TestScene::Render()
 {
-	backGround->Render(hdc);
-	UIManager.Render(hdc);
-	mopHPBar.Render(hdc);
+	backGround->DrawRect({ 0,0 }, { WINSIZE_X, WINSIZE_Y }, 5, 1.0f);
+	UIManager.Render();
+	mopHPBar.Render();
 }

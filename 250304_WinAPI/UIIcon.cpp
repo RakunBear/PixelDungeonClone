@@ -1,6 +1,6 @@
 ﻿#include "UIIcon.h"
-#include "Image.h"
-#include "ImageManager.h"
+#include "D2DImage.h"
+#include "D2DImageManager.h"
 
 using namespace UI;
 
@@ -35,15 +35,15 @@ void UIIcon::Update()
 {
 }
 
-void UIIcon::Render(HDC hdc)
+void UIIcon::Render()
 {
 	if (bg)
 	{
-		bg->Render(hdc, rectTransform.left, rectTransform.top);
+		bg->RenderFrameScale(rectTransform.left, rectTransform.top, 1.0f, 1.0f, 0, 0);
 	}
 	if (icon)
 	{
-		icon->Render(hdc, rectTransform.left + margin.left, rectTransform.top + margin.top);
+		icon->RenderFrameScale( rectTransform.left + margin.left, rectTransform.top + margin.top, 1.0f, 1.0f, 0, 0);
 	}
 }
 
@@ -53,13 +53,12 @@ void UIIcon::ResourceInit( ImageData imgData, ImageData bgData, RECT margin )
 
 	if (imgData.keyName != "")
 	{
-		icon = ImageManager::GetInstance()->AddImage(imgData.keyName, imgData.filePath,
-			width - margin.left * 2, height - margin.top * 2, imgData.isTransparent, imgData.transColor);
+		icon = D2DImageManager::GetInstance()->AddImage(imgData.keyName, imgData.filePath);
 	}
 
 	if (bgData.keyName != "")
 	{
-		bg = ImageManager::GetInstance()->AddImage(bgData.keyName, bgData.filePath, width, height, bgData.isTransparent, bgData.transColor);
+		bg = D2DImageManager::GetInstance()->AddImage(bgData.keyName, bgData.filePath);
 		return;
 	}
 }

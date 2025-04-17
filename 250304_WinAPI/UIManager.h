@@ -8,11 +8,11 @@ namespace UI
 	class UIMenueBtns;
 	class UIDefeat;
 
-	inline void RenderIsVisible(HDC hdc, UIObject* object)
+	inline void RenderIsVisible(UIObject* object)
 	{
 		if (object->isVisible)
 		{
-			object->Render(hdc);
+			object->Render();
 		}
 	}
 
@@ -22,7 +22,7 @@ namespace UI
 		void Init();
 		void Release();
 		void Update();
-		void Render(HDC hdc);
+		void Render();
 
 		void Reset();
 

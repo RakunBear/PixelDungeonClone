@@ -16,7 +16,7 @@ namespace UI
 
 		void Release() override;
 		void Update() override;
-		void Render(HDC hdc) override;
+		void Render() override;
 
 		void SetText(const string& text);
 		void SetStatus(StatInfo statInfo);

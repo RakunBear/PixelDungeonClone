@@ -1,7 +1,7 @@
 ﻿#include "UITextBox.h"  
 #include "UIText.h"  
-#include "ImageManager.h"  
-#include "Image.h"
+#include "D2DImageManager.h"  
+#include "D2DImage.h"
 
 using namespace UI;  
 
@@ -38,16 +38,16 @@ void UITextBox::Update()
 {  
 }  
 
-void UITextBox::Render(HDC hdc)  
+void UITextBox::Render()  
 {  
     if (bg)
     {
-        bg->Render(hdc, rectTransform.left, rectTransform.top);
+        bg->RenderFrameScale(rectTransform.left, rectTransform.top, 1.0f, 1.0f, 0, 0);
     }
 
    if (textUI)  
    {  
-       textUI->Render(hdc);  
+       textUI->Render();  
    }  
 }  
 
@@ -63,7 +63,7 @@ void UITextBox::ResourceInit(const string& text, ImageData bgData, RECT margin)
 {  
     if (bgData.keyName != "")
     {
-        bg = ImageManager::GetInstance()->AddImage(bgData.keyName, bgData.filePath, width, height);
+        bg = D2DImageManager::GetInstance()->AddImage(bgData.keyName, bgData.filePath);
     }
    textUI = new UIText();  
    textUI->Init(nullptr, rectTransform, text);  

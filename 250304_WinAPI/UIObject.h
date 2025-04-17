@@ -30,7 +30,7 @@ namespace UI
 		virtual void Init(UIObject* parent = nullptr, int dx = 0, int dy = 0, int width = 0, int height = 0);
 		virtual void Release() = 0;
 		virtual void Update() = 0;
-		virtual void Render(HDC hdc) = 0;
+		virtual void Render() = 0;
 
 		void SetParent(UIObject* parent);
 		virtual void SetPos(int dx, int dy);

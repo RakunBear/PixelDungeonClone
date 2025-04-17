@@ -24,18 +24,18 @@ void UIItemBox::Release()
 	}
 }
 
-void UIItemBox::Render(HDC hdc)
+void UIItemBox::Render()
 {
-	UIButton::Render(hdc);
+	UIButton::Render();
 
 	if (textUI2)
 	{
-		textUI2->Render(hdc);
+		textUI2->Render();
 	}
 
 	if (itemIcon)
 	{
-		itemIcon->Render(hdc);
+		itemIcon->Render();
 	}
 }
 

@@ -2,7 +2,7 @@
 #include "config.h"
 #include "UIObject.h"
 
-class Image;
+class D2DImage;
 
 namespace UI
 {
@@ -21,7 +21,7 @@ namespace UI
             RECT margin = { 0,0,0,0 });
         void Release() override;
         void Update() override;
-        void Render(HDC hdc) override;
+        void Render() override;
 
         void SetPos(int dx, int dy) override;
         virtual void SetMaxValue(float value);
@@ -30,13 +30,13 @@ namespace UI
     protected:
         virtual void ResourceInit(ImageData imgData, ImageData bgData = { "", L"", 0, 0 }, ImageData handleData = { "", L"", 0, 0 },
             RECT margin = { 0,0,0,0 });
-        virtual void ApplyFillImage();
+        virtual void UpdateFill();
         float SmoothDamp(float current, float target, float& velocity, float smoothTime, float deltaTime);
 
     protected:
-        Image* bg;
-        Image* fill;
-        Image* handleImg;
+        D2DImage* bg;
+        D2DImage* fill;
+        D2DImage* handleImg;
 
         RECT margin{ 0,0,0,0 };
         RECT fillRectTransfrom{ 0,0,0,0 };
