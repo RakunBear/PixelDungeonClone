@@ -133,6 +133,8 @@
     <ClCompile Include="IButton.cpp" />
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UIComposit.cpp" />
+    <ClCompile Include="D2DImage.cpp" />
+    <ClCompile Include="D2DImageManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="UIDefeat.cpp" />
     <ClCompile Include="UIImage.cpp" />
@@ -171,6 +173,8 @@
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UIComposit.h" />
     <ClInclude Include="config.h" />
+    <ClInclude Include="D2DImage.h" />
+    <ClInclude Include="D2DImageManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="UIDefeat.h" />
     <ClInclude Include="UIImage.h" />

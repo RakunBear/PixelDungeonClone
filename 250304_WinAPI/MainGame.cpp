@@ -1,4 +1,4 @@
-ï»¿#include "MainGame.h"
+#include "MainGame.h"
 #include "CommonFunction.h"
 #include "Image.h"
 #include "Timer.h"
@@ -6,7 +6,8 @@
 #include "TilemapTool.h"
 #include "AstarScene.h"
 #include "LoadingScene.h"
-#include "UI_Test.h"
+#include "D2DImage.h"
+#include "D2DImageManager.h"
 
 HRESULT MainGame::Init()
 {
@@ -14,12 +15,11 @@ HRESULT MainGame::Init()
 	KeyManager::GetInstance()->Init();
 	SceneManager::GetInstance()->Init();
 
-	SceneManager::GetInstance()->AddScene("A*ì•Œê³ ë¦¬ì¦˜", new AstarScene());
-	SceneManager::GetInstance()->AddScene("ì „íˆ¬ì”¬_1", new BattleScene());
-	SceneManager::GetInstance()->AddScene("íƒ€ì¼ë§µíˆ´", new TilemapTool());
-	SceneManager::GetInstance()->AddLoadingScene("ë¡œë”©_1", new LoadingScene());
-	SceneManager::GetInstance()->AddScene("UI_TEST", new UI_TestScene());
-	SceneManager::GetInstance()->ChangeScene("UI_TEST");
+	SceneManager::GetInstance()->AddScene("A*¾Ë°í¸®Áò", new AstarScene());
+	SceneManager::GetInstance()->AddScene("ÀüÅõ¾À_1", new BattleScene());
+	SceneManager::GetInstance()->AddScene("Å¸ÀÏ¸ÊÅø", new TilemapTool());
+	SceneManager::GetInstance()->AddLoadingScene("·Îµù_1", new LoadingScene());
+	SceneManager::GetInstance()->ChangeScene("A*¾Ë°í¸®Áò");
 
 	hdc = GetDC(g_hWnd);
 
@@ -27,10 +27,14 @@ HRESULT MainGame::Init()
 	if (FAILED(backBuffer->Init(TILEMAPTOOL_X, TILEMAPTOOL_Y)))
 	{
 		MessageBox(g_hWnd, 
-			TEXT("ë°±ë²„í¼ ìƒì„± ì‹¤íŒ¨"), TEXT("ê²½ê³ "), MB_OK);
+			TEXT("¹é¹öÆÛ »ı¼º ½ÇÆĞ"), TEXT("°æ°í"), MB_OK);
 		return E_FAIL;
 	}
 
+	test = D2DImageManager::GetInstance()->AddImage("banner", L"Image/banners.png", 2, 4);
+	// test = new D2DImage();
+	// test->LoadFromFile(L"Image/banners.png", 2, 4);
+	
 	return S_OK;
 }
 
@@ -43,6 +47,13 @@ void MainGame::Release()
 		backBuffer = nullptr;
 	}
 
+	// if (test)
+	// {
+	// 	test->Release();
+	// 	delete test;
+	// 	test = nullptr;
+	// }
+	
 	ReleaseDC(g_hWnd, hdc);
 
 	SceneManager::GetInstance()->Release();
@@ -58,17 +69,23 @@ void MainGame::Update()
 
 void MainGame::Render()
 {
-	// ë°±ë²„í¼ì— ë¨¼ì € ë³µì‚¬
-	HDC hBackBufferDC = backBuffer->GetMemDC();
+	D2DImage::BeginDraw();
+	D2DImage::Clear(D2D1::ColorF(D2D1::ColorF::Black));
 
-	SceneManager::GetInstance()->Render(hBackBufferDC);
-
-	TimerManager::GetInstance()->Render(hBackBufferDC);
-	wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), g_ptMouse.x, g_ptMouse.y);
-	TextOut(hBackBufferDC, 20, 60, szText, wcslen(szText));
-
-	// ë°±ë²„í¼ì— ìˆëŠ” ë‚´ìš©ì„ ë©”ì¸ hdcì— ë³µì‚¬
-	backBuffer->Render(hdc);
+	test->Middle_RenderFrame(WINSIZE_X/2, WINSIZE_Y/2, 0, 3, DEG_TO_RAD(135),false,false,0.5f);
+	
+	// // ¹é¹öÆÛ¿¡ ¸ÕÀú º¹»ç
+	// HDC hBackBufferDC = backBuffer->GetMemDC();
+	//
+	// SceneManager::GetInstance()->Render(hBackBufferDC);
+	//
+	// TimerManager::GetInstance()->Render(hBackBufferDC);
+	// wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), g_ptMouse.x, g_ptMouse.y);
+	// TextOut(hBackBufferDC, 20, 60, szText, wcslen(szText));
+	//
+	// // ¹é¹öÆÛ¿¡ ÀÖ´Â ³»¿ëÀ» ¸ŞÀÎ hdc¿¡ º¹»ç
+	// backBuffer->Render(hdc);
+	D2DImage::EndDraw();
 }
 
 LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
@@ -79,10 +96,10 @@ LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 		switch (wParam)
 		{
 		case 'a': case 'A':
-			SceneManager::GetInstance()->ChangeScene("ì „íˆ¬ì”¬_1");
+			SceneManager::GetInstance()->ChangeScene("ÀüÅõ¾À_1");
 			break;
 		case 'd': case 'D':
-			SceneManager::GetInstance()->ChangeScene("íƒ€ì¼ë§µíˆ´");
+			SceneManager::GetInstance()->ChangeScene("Å¸ÀÏ¸ÊÅø");
 			break;
 		}
 		break;
