@@ -6,6 +6,8 @@
 #include "TilemapTool.h"
 #include "AstarScene.h"
 #include "LoadingScene.h"
+#include "DungeonScene.h"
+#include "Camera.h"
 #include "D2DImage.h"
 #include "D2DImageManager.h"
 #include "UI_Test.h"
@@ -21,6 +23,7 @@ HRESULT MainGame::Init()
 	SceneManager::GetInstance()->AddScene("A*알고리즘", new AstarScene());
 	SceneManager::GetInstance()->AddScene("전투씬_1", new BattleScene());
 	SceneManager::GetInstance()->AddScene("타일맵툴", new TilemapTool());
+	SceneManager::GetInstance()->AddScene("�ȼ�����", new DungeonScene());
 	SceneManager::GetInstance()->AddLoadingScene("로딩_1", new LoadingScene());
 	SceneManager::GetInstance()->ChangeScene("A*알고리즘");
 
@@ -79,6 +82,7 @@ void MainGame::Render()
 
 	test->Middle_RenderFrame(WINSIZE_X/2, WINSIZE_Y/2, 0, 3, DEG_TO_RAD(135),false,false,0.5f);
 	uiTest.Render();
+	D2DImage::EndDraw();
 	
 	// // 백버퍼에 먼저 복사
 	// HDC hBackBufferDC = backBuffer->GetMemDC();
@@ -91,7 +95,6 @@ void MainGame::Render()
 	//
 	// // 백버퍼에 있는 내용을 메인 hdc에 복사
 	// backBuffer->Render(hdc);
-	D2DImage::EndDraw();
 }
 
 LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
@@ -107,18 +110,30 @@ LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 		case 'd': case 'D':
 			SceneManager::GetInstance()->ChangeScene("타일맵툴");
 			break;
+		case 'p': case 'P':
+			SceneManager::GetInstance()->ChangeScene("�ȼ�����");
+			break;
 		}
 		break;
 	case WM_LBUTTONDOWN:
 		g_ptMouse.x = LOWORD(lParam);
 		g_ptMouse.y = HIWORD(lParam);
-
 		break;
 	case WM_LBUTTONUP:
 		break;
 	case WM_MOUSEMOVE:
 		g_ptMouse.x = LOWORD(lParam);
 		g_ptMouse.y = HIWORD(lParam);
+		break;
+	case WM_MOUSEWHEEL:
+		// ���콺 �� �޽��� ó��
+		{
+			// zDelta �� ���� (�� ȸ�� ������ ��)
+			int zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+			
+			// ī�޶� �ý��ۿ� ���콺 �� �Է� ����
+			// Camera::GetInstance()->HandleMouseWheel(zDelta);
+		}
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);

@@ -127,12 +127,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="AstarTile.cpp" />
+    <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="AstarScene.cpp" />
     <ClCompile Include="BattleScene.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="IButton.cpp" />
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UIComposit.cpp" />
+    <ClCompile Include="CombatComponent.cpp" />
+    <ClCompile Include="CombatManager.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DungeonScene.cpp" />
+    <ClCompile Include="DungeonTilemap.cpp" />
     <ClCompile Include="D2DImage.cpp" />
     <ClCompile Include="D2DImageManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -150,6 +159,8 @@
     <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="PathFinder.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="UIIcon.cpp" />
     <ClCompile Include="UIStatus.cpp" />
@@ -162,17 +173,28 @@
     <ClCompile Include="UITextBox.cpp" />
     <ClCompile Include="UITextSlider.cpp" />
     <ClCompile Include="UI_Test.cpp" />
+    <ClCompile Include="Tilemap.cpp" />
+    <ClCompile Include="TurnManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actor.h" />
+    <ClInclude Include="AstarTile.h" />
+    <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="AstarScene.h" />
     <ClInclude Include="BattleScene.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="IButton.h" />
+    <ClInclude Include="CombatComponent.h" />
+    <ClInclude Include="CombatManager.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="FieldItem.h" />
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UIComposit.h" />
     <ClInclude Include="config.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="DungeonScene.h" />
+    <ClInclude Include="DungeonTilemap.h" />
     <ClInclude Include="D2DImage.h" />
     <ClInclude Include="D2DImageManager.h" />
     <ClInclude Include="GameObject.h" />
@@ -189,6 +211,8 @@
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="PathFinder.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="UIIcon.h" />
@@ -202,6 +226,8 @@
     <ClInclude Include="UITextBox.h" />
     <ClInclude Include="UITextSlider.h" />
     <ClInclude Include="UI_Test.h" />
+    <ClInclude Include="Tilemap.h" />
+    <ClInclude Include="TurnManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
