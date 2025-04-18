@@ -35,7 +35,7 @@ void UI::UIMopHPBar::SetHP(int hp)
 void UI::UIMopHPBar::ResourceInit()
 {
     hpBar = new UISlider();
-    hpBar->Init(this, { 0, 0, 0, 0 }, { 2.0f, 1.0f },
+    hpBar->Init(this, { 0, 0, 0, 0 }, { 0.5f, 0.5f },
         ImageData{ "status_hp_bar2", L"assets/interfaces/HPBar.png", true, RGB(255, 255, 255) },
         ImageData{ "status_hp_bg2", L"assets/interfaces/BarBg.png", true, RGB(255, 255, 255) },
         ImageData{ "",L"",0,0 },

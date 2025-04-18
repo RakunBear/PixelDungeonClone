@@ -57,17 +57,17 @@ void UIQuickSlot::ResourceInit()
 	for (int i = 0; i < 3; ++i)
 	{
 		auto itemBox = new UIItemBox();
-		itemBox->Init(this, { 22.0f * i, 2.0f, 55.0f * (i + 1), 67.0f }, { 1.0f, 1.0f },
+		itemBox->Init(this, { 60.1f * i, 5.46f, 55.0f, 67.0f }, { 1.0f, 1.0f },
 			ImageData{ "item_quick", L"assets/interfaces/item_quick.png", true, RGB(255, 255, 255) });
 		ItemBox.push_back(itemBox);
 	}
 	SearchBtn = new UIButton();
-	SearchBtn->Init(this, { 66.0f, 0.0f, 218.0f, 67.0f }, { 1.0f, 1.0f },
+	SearchBtn->Init(this, { 180.23f, 0.0f, 218.0f, 67.0f }, { 1.0f, 1.0f },
 		ImageData{ "search_quick", L"assets/interfaces/search_quick.png", true, RGB(255, 255, 255) });
 	SlepBtn = new UIButton();
-	SlepBtn->Init(this, { 86.0f, 0.0f, 271.0f, 67.0f }, { 1.0f, 1.0f },
+	SlepBtn->Init(this, { 234.85, 0.0f, 271.0f, 67.0f }, { 1.0f, 1.0f },
 		ImageData{ "sleep_quick", L"assets/interfaces/sleep_quick.png", true, RGB(255, 255, 255) });
 	BackpackBtn = new UIButton();
-	BackpackBtn->Init(this, { 106.0f, 0.0f, 337.0f, 67.0f }, { 1.0f, 1.0f },
+	BackpackBtn->Init(this, { 289.46f, 0.0f, 337.0f, 67.0f }, { 1.0f, 1.0f },
 		ImageData{ "inven_quick", L"assets/interfaces/inven_quick.png", true, RGB(255, 255, 255) });
 }

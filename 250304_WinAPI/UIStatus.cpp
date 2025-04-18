@@ -94,28 +94,28 @@ void UIStatus::ResourceInit()
    auto imageManager = ImageManager::GetInstance();  
 
    icon = new UIIcon();  
-   icon->Init(this, FRECT{ 0, 0, 67, 68 }, { 1.0f, 1.0f },
+   icon->Init(this, FRECT{ 0, 0, 67, 68 }, { 1.f, 1.f },
        ImageData{ "status_character_ico", L"assets/interfaces/status_ico.png", true, RGB(255, 255, 255) },
        ImageData{ "status_character_bg", L"assets/interfaces/status_bg.png", true, RGB(255, 255, 255) },
-       FRECT{ 3, 3 , 0, 0 });
+       FRECT{ 10, 10 , 0, 0 });
    hpBar = new UITextSlider();  
-   hpBar->Init(this, FRECT{ 30, 10, 355, 68 }, { 1.f, 1.f },
+   hpBar->Init(this, FRECT{ 74.25, 29.7, 355, 68 }, { 1.f, 1.f },
        ImageData{ "status_hp_bar", L"assets/interfaces/HPBar.png", true, RGB(255, 255, 255) },  
        ImageData{ "status_hp_bg", L"assets/interfaces/BarBg.png", true, RGB(255, 255, 255) }, 
-       ImageData{"",L"",0,0}, FRECT{ 0,3,0,0 });
+       ImageData{"",L"",0,0}, FRECT{ 0,8,0,0 });
    hpBar->SetMaxValue(100);
    hpBar->SetValue(70);
 
    expBar = new UITextSlider();  
-   expBar->Init(this, FRECT{ 30, 25, 355, 97 }, { 1.f, 1.f },
+   expBar->Init(this, FRECT{ 74.25, 67, 355, 97 }, { 1.f, 1.f },
        ImageData{ "status_exp_bar", L"assets/interfaces/ExpBar.png", true, RGB(255, 255, 255) },  
        ImageData{ "status_exp_bg", L"assets/interfaces/BarBg.png", true, RGB(255, 255, 255) },
-       ImageData{ "",L"",0,0 }, FRECT{0,3,0,0});
+       ImageData{ "",L"",0,0 }, FRECT{0,8,0,0});
    expBar->SetMaxValue(30);
    expBar->SetValue(13);
 
    levelTextUI = new UITextBox();  
-   levelTextUI->Init(this, FRECT{ 0, 30, 67, 97 }, {1.f, 1.f}, "lv. 1",
+   levelTextUI->Init(this, FRECT{ 0, 74.25, 67, 97 }, {1.f, 1.f}, "lv. 1",
        ImageData{ "status_level", L"assets/interfaces/level_box.png"},
        FRECT{ 0, 5, 0, 0 });
 }

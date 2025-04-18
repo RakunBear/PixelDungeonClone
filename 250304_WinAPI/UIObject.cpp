@@ -9,7 +9,13 @@ void UIObject::Init(UIObject* parent, FRECT relativeRect, FPOINT scale)
 	SetParent(parent);
 
 	this->localTransform.scale = scale;
-	this->localTransform.transform = relativeRect.AplyScale(scale);
+	// LT 기준 스케일링
+	this->localTransform.transform.left = relativeRect.left * scale.x;
+	this->localTransform.transform.top = relativeRect.top * scale.y;
+	this->localTransform.transform.right =
+		relativeRect.right * scale.x;
+	this->localTransform.transform.bottom +=
+		relativeRect.bottom * scale.y;
 
 	UpdateWorldTransform();
 }

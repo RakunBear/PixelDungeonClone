@@ -64,13 +64,13 @@ void UIMenueBtns::ResourceInit()
 	stairIcon->Init(this, { 0,5,33,29 }, { 1.0f, 1.0f },
 		ImageData{ "stair_ico", L"assets/interfaces/stair_ico.png", true, RGB(255, 255, 255) });
 	stairTextUI = new UIText();
-	stairTextUI->Init(this, {0,40,49,56},
+	stairTextUI->Init(this, {10,40,49,56},
 		"1", RGB(255, 255, 255));
 	guideBookBtn = new UIButton();
-	guideBookBtn->Init(this, { 7, 0, 104, 56 }, { 1.0f, 1.0f },
+	guideBookBtn->Init(this, { 28.33f, 0, 104, 56 }, { 1.0f, 1.0f },
 		ImageData{ "guidebook_btn", L"assets/interfaces/guidebook_btn.png", true, RGB(255, 255, 255) });
 	menuBtn = new UIButton();
-	menuBtn->Init(this, { 16, 0, 159, 56 }, { 1.0f, 1.0f },
+	menuBtn->Init(this, { 95.56f, 0, 159, 56 }, { 1.0f, 1.0f },
 		ImageData{ "menu_btn", L"assets/interfaces/menu_btn.png", true, RGB(255, 255, 255) });
 
 }
