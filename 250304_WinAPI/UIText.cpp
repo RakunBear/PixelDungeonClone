@@ -1,17 +1,18 @@
 ﻿#include "UIText.h"
+#include "D2DImage.h"
+#include "D2DTextRenderer.h"
 
 using namespace UI;
 
-void UIText::Init(UIObject* parent, FRECT rect, 
-	const string& text, COLORREF textColor, FPOINT scale)
+void UIText::Init(UIObject* parent, FRECT rect, FPOINT scale)
 {
 	UIObject::Init(parent, rect, scale);
 
 	ResourceInit();
 }
 
-void UIText::Init(UIObject* parent, int dx, int dy, int width, int height,
-	const string& text, COLORREF textColor, FPOINT scale)
+void UIText::Init(UIObject* parent, int dx, int dy, int width, int height, 
+	FPOINT scale)
 {
 	UIObject::Init(parent, dx, dy, width, height, scale);
 	
@@ -20,13 +21,10 @@ void UIText::Init(UIObject* parent, int dx, int dy, int width, int height,
 
 void UIText::Release()
 {
-	if (text != "")
+	if (m_pTextRenderer)
 	{
-		text.clear();
-	}
-	if (textColor != RGB(0, 0, 0))
-	{
-		textColor = RGB(0, 0, 0);
+		delete m_pTextRenderer;
+		m_pTextRenderer = nullptr;
 	}
 }
 
@@ -36,13 +34,26 @@ void UIText::Update()
 
 void UIText::Render()
 {
-	//SetBkMode(TRANSPARENT);
-	//SetTextAlign(TA_CENTER | TA_BASELINE);
-	//TextOutA(hdc, centerX, centerY, text.c_str(), text.length());
+	m_pTextRenderer->DrawText(text, layout, fontSize, {1.0f,1.0f,1.0f,1.0f});
+}
+
+void UI::UIText::SetPos(float dx, float dy)
+{
+	UIObject::SetPos(dx, dy);
+
+	layout.left = worldTransform.transform.left;
+	layout.top = worldTransform.transform.top;
+	layout.right = worldTransform.transform.right;
+	layout.bottom = worldTransform.transform.bottom;
 }
 
 void UI::UIText::ResourceInit()
 {
-	this->text = text;
-	this->textColor = textColor;
+	layout.left = worldTransform.transform.left;
+	layout.top = worldTransform.transform.top;
+	layout.right = worldTransform.transform.right;
+	layout.bottom = worldTransform.transform.bottom;
+
+	ID2D1RenderTarget* renderTarget = D2DImage::GetRenderTarget();
+	m_pTextRenderer = new D2DTextRenderer(renderTarget);
 }

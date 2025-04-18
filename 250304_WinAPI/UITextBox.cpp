@@ -6,19 +6,20 @@
 
 using namespace UI;  
 
-void UITextBox::Init(UIObject* parent, FRECT rect, FPOINT scale, const string& text, ImageData bgData, FRECT margin)
+void UITextBox::Init(UIObject* parent, FRECT rect, FPOINT scale, ImageData bgData, FRECT margin)
 {  
    UIObject::Init(parent, rect, scale);  
 
    this->margin = margin;
-   ResourceInit(text, bgData);
+   ResourceInit(bgData);
 }  
 
-void UITextBox::Init(UIObject* parent, int dx, int dy, int width, int height, FPOINT scale, const string& text, ImageData bgData, FRECT margin)
+void UITextBox::Init(UIObject* parent, int dx, int dy, int width, int height, 
+    FPOINT scale, ImageData bgData, FRECT margin)
 {  
    UIObject::Init(parent, dx, dy, width, height, scale);  
-
-   ResourceInit(text, bgData); 
+   this->margin = margin;
+   ResourceInit(bgData); 
 }  
 
 void UITextBox::Release()
@@ -51,17 +52,17 @@ void UITextBox::Render()
    {  
        textUI->Render();  
    }  
-}  
+}
 
-void UITextBox::SetText(const string& text)  
-{  
-   if (textUI)  
-   {  
-       textUI->SetText(text);  
-   }  
-}  
+void UI::UITextBox::SetTextStyle(TextStyle txtStyle)
+{
+    if (textUI)
+    {
+        textUI->SetTextStyle(txtStyle);
+    }
+}
 
-void UITextBox::ResourceInit(const string& text, ImageData bgData)
+void UITextBox::ResourceInit(ImageData bgData)
 {  
     textUI = new UIText();
     bg = new UIImage();
@@ -70,7 +71,5 @@ void UITextBox::ResourceInit(const string& text, ImageData bgData)
     {
         bg->Init(this, { 0,0,0,0 }, { 1.0f, 1.0f }, bgData);
     }
-   FPOINT centerPos = GetLocalPos();
-   textUI->Init(nullptr, {centerPos.x, centerPos.y,0,0}, text);
-   textUI->SetPos(centerPos.x + margin.left, centerPos.y + margin.top);
+   textUI->Init(this, { margin.left, margin.top, 0, 0});
 }

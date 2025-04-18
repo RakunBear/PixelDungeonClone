@@ -15,13 +15,14 @@ namespace UI
 		void Release() override;
 		void Render() override;
 
-		void SetText2(const string& str);
+		void SetTextStyle(TextStyle txtStyle1, TextStyle txtStyle2);
 		void SetItem(ImageData itemImgData);
 
 	protected:
 		void ResourceInit(ImageData imgData, ImageData bgData = { "", L"", 0, 0 }) override;
 
 	protected:
+		UIText* textUI1;
 		UIText* textUI2;
 		UIIcon* itemIcon;
 	};

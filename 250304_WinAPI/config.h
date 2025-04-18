@@ -12,6 +12,13 @@
 
 #pragma comment(lib, "Winmm.lib")
 
+
+#include <dwrite.h>
+#include <d2d1.h>
+
+#pragma comment(lib, "d2d1.lib")
+#pragma comment(lib, "dwrite.lib")
+
 #include <Windows.h>
 #include <string>
 #include <iostream>
@@ -135,3 +142,15 @@ enum Dir
 	DIR_RIGHT,
 };
 
+// 0.0f ~ 1.0f
+struct RGBA {
+    float r;
+    float g;
+    float b;
+    float a;
+};
+struct TextStyle {
+    std::wstring content;
+    float fontSize{ 10.0f };
+    RGBA colorA{ 0.0f, 0.0f, 0.0f, 0.0f }; // color값 0~1.0f
+};

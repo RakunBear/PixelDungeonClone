@@ -10,6 +10,12 @@ using namespace UI;
 void UIItemBox::Release()
 {
 	UIButton::Release();
+	if (textUI1)
+	{
+		textUI1->Release();
+		delete textUI1;
+		textUI1 = nullptr;
+	}
 	if (textUI2)
 	{
 		textUI2->Release();
@@ -28,6 +34,10 @@ void UIItemBox::Render()
 {
 	UIButton::Render();
 
+	if (textUI1)
+	{
+		textUI1->Render();
+	}
 	if (textUI2)
 	{
 		textUI2->Render();
@@ -39,11 +49,15 @@ void UIItemBox::Render()
 	}
 }
 
-void UIItemBox::SetText2(const string& str)
+void UIItemBox::SetTextStyle(TextStyle txtStyle1, TextStyle txtStyle2)
 {
+	if (textUI1)
+	{
+		textUI1->SetTextStyle(txtStyle1);
+	}
 	if (textUI2)
 	{
-		textUI2->SetText(str);
+		textUI2->SetTextStyle(txtStyle2);
 	}
 }
 
@@ -58,11 +72,11 @@ void UIItemBox::ResourceInit(ImageData imgData, ImageData bgData)
 
 	POINT tempSize = GetSize();
 	FPOINT size = { tempSize.x, tempSize.y };
-	textUI->SetRect({ 0,0, size.x, size.y/2 });
-	textUI->SetText("TESTSTMI");
+	textUI1 = new UIText;
+	textUI1->Init(nullptr, { 0,0, size.x, size.y/2 });
 
 	textUI2 = new UIText;
-	textUI2->Init(nullptr, { 0, size.y/2, size.x, size.y }, "ㄴㄹㄴㄹㄴ");
+	textUI2->Init(nullptr, { 0, size.y/2, size.x, size.y });
 
 	itemIcon = new UIIcon;
 }

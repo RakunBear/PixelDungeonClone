@@ -1,29 +1,47 @@
 ﻿#pragma once
 #include "UIObject.h"
+#include "D2DTextRenderer.h"
+
+class D2DTextRenderer;
 
 namespace UI
 {
-
 	class UIText : public UIObject
 	{
 	public:
 		~UIText() override = default;
 		void Init(UIObject* parent, FRECT rect,  
-			const string& text = "", COLORREF textColor = RGB(0, 0, 0), FPOINT scale = { 1.0f, 1.0f });
+			FPOINT scale = { 1.0f, 1.0f });
 		void Init(UIObject* parent, int dx, int dy, int width, int height, 
-			const string& text = "", COLORREF textColor = RGB(0, 0, 0), FPOINT scale = { 1.0f, 1.0f });
+			FPOINT scale = { 1.0f, 1.0f });
+
 		void Release() override;
 		void Update() override;
 		void Render() override;
-		void SetText(const string& text) { this->text = text; }
-		void SetTextColor(COLORREF color) { this->textColor = color; }
+		
+		void SetPos(float dx, float dy) override;
+		void SetTextStyle(const TextStyle& style) 
+		{ 
+			text = style.content;
+			fontSize = style.fontSize;
+			color =
+			{
+				style.colorA.r,
+				style.colorA.g,
+				style.colorA.b,
+				style.colorA.a
+			};
+		}
 
 	protected:
 		virtual void ResourceInit();
 
 	protected:
-		string text;
-		COLORREF textColor{ RGB(0, 0, 0) };
+		D2DTextRenderer* m_pTextRenderer{ nullptr };
+		wstring text = L"asda";
+		D2D1_RECT_F layout = D2D1::RectF();
+		float fontSize{ 10.0f };
+		D2D1::ColorF color{ 1.0f, 1.0f, 1.0f, 1.0f };
 		Image* bg;
 	};
 

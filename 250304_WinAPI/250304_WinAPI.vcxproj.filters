@@ -46,6 +46,9 @@
     <Filter Include="2D Framework\UI\Sets">
       <UniqueIdentifier>{d897708c-4bf5-4873-b67e-21e156bfe6c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\VFX">
+      <UniqueIdentifier>{bc6fc023-6a98-43d7-94d4-690e9a6aafde}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -123,9 +126,6 @@
     <ClCompile Include="UIMenueBtns.cpp">
       <Filter>2D Framework\UI\Composits</Filter>
     </ClCompile>
-    <ClCompile Include="UITextSlider.cpp">
-      <Filter>2D Framework\UI\Sets</Filter>
-    </ClCompile>
     <ClCompile Include="IButton.cpp">
       <Filter>2D Framework\UI</Filter>
     </ClCompile>
@@ -167,6 +167,33 @@
     </ClCompile>
     <ClCompile Include="EnemyAI.cpp">
       <Filter>2D Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="AstarTile.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonTilemap.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DImage.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DImageManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="PathFinder.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Tilemap.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DTextRenderer.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -248,9 +275,6 @@
     <ClInclude Include="UIMenueBtns.h">
       <Filter>2D Framework\UI\Composits</Filter>
     </ClInclude>
-    <ClInclude Include="UITextSlider.h">
-      <Filter>2D Framework\UI\Sets</Filter>
-    </ClInclude>
     <ClInclude Include="UIObject.h">
       <Filter>2D Framework\UI</Filter>
     </ClInclude>
@@ -277,6 +301,7 @@
     </ClInclude>
     <ClInclude Include="UIIcon.h">
       <Filter>2D Framework\UI\Parts</Filter>
+    </ClInclude>
     <ClInclude Include="Actor.h">
       <Filter>MainGame</Filter>
     </ClInclude>
@@ -297,6 +322,33 @@
     </ClInclude>
     <ClInclude Include="EnemyAI.h">
       <Filter>2D Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="AstarTile.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonTilemap.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DImage.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DImageManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="PathFinder.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Tilemap.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DTextRenderer.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

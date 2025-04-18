@@ -85,7 +85,7 @@ void UI::UIManager::ResourceInit()
 	menueToolbar = new UIMenueBtns;
 	defeatUI = new UIDefeat;
 
-	statToolbar->Init(nullptr, { 0.0f, 622.0f, 335, 720 });
+	statToolbar->Init(nullptr, { 0.0f, 610.0f, 335, 720 });
 	quickSlot->Init(nullptr, { 725.0f, 649.0f, 720 });
 	menueToolbar->Init(nullptr, { 922.0f, 0.0f, 1080, 56 });
 	defeatUI->Init(nullptr, {0.0f, 0.0f, WINSIZE_X, WINSIZE_Y});

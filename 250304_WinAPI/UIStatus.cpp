@@ -2,10 +2,11 @@
 #include "ImageManager.h"
 #include "Image.h"
 #include "UIIcon.h"
-#include "UITextSlider.h"
+#include "UISlider.h"
 #include "UITextBox.h"
 #include "CommonFunction.h"
 #include "string.h"
+#include "UIText.h"
 
 using namespace UI;
 
@@ -61,10 +62,12 @@ void UIStatus::Render()
 	if (hpBar)
 	{
 		hpBar->Render();
+        hpText->Render();
 	}
 	if (expBar)
 	{
 		expBar->Render();
+        expText->Render();
 	}
 	if (levelTextUI)
 	{
@@ -72,21 +75,37 @@ void UIStatus::Render()
 	}
 }
 
-void UI::UIStatus::SetText(const string& text)
+void UI::UIStatus::SetLevel(int level)
 {
-	if (levelTextUI)
-	{
-		levelTextUI->SetText(text);
-	}
+    if (levelTextUI)
+    {
+        levelTextStyle.content = { L"Lv. " + to_wstring(level) };
+        levelTextUI->SetTextStyle(levelTextStyle);
+    }
+}
+
+void UI::UIStatus::SetHPAndExp(int hp, int maxHP, int exp, int maxExp)
+{
+    hpBar->SetValue(hp);
+    hpBar->SetMaxValue(maxHP);
+    if (hpText)
+    {
+        hpTextStyle.content = { to_wstring(hp) + L" / " + to_wstring(maxHP) };
+        hpText->SetTextStyle(hpTextStyle);
+    }
+    expBar->SetValue(exp);
+    expBar->SetMaxValue(maxExp);
+    if (expText)
+    {
+        expTextStyle.content = { to_wstring(exp) + L" / " + to_wstring(maxExp) };
+        expText->SetTextStyle(expTextStyle);
+    }
 }
 
 void UI::UIStatus::SetStatus(StatInfo statInfo)
 {
-    hpBar->SetMaxValue(statInfo.MaxHP);
-    hpBar->SetValue(statInfo.HP);
-    expBar->SetMaxValue(statInfo.MaxExp);
-    expBar->SetValue(statInfo.Exp);
-    levelTextUI->SetText("Lv. " + to_string(statInfo.Level));
+    SetLevel(statInfo.Level);
+    SetHPAndExp(statInfo.HP, statInfo.MaxHP, statInfo.Exp, statInfo.MaxExp);
 }
 
 void UIStatus::ResourceInit()  
@@ -98,24 +117,31 @@ void UIStatus::ResourceInit()
        ImageData{ "status_character_ico", L"assets/interfaces/status_ico.png", true, RGB(255, 255, 255) },
        ImageData{ "status_character_bg", L"assets/interfaces/status_bg.png", true, RGB(255, 255, 255) },
        FRECT{ 10, 10 , 0, 0 });
-   hpBar = new UITextSlider();  
+   hpBar = new UISlider();  
    hpBar->Init(this, FRECT{ 74.25, 29.7, 355, 68 }, { 1.f, 1.f },
        ImageData{ "status_hp_bar", L"assets/interfaces/HPBar.png", true, RGB(255, 255, 255) },  
        ImageData{ "status_hp_bg", L"assets/interfaces/BarBg.png", true, RGB(255, 255, 255) }, 
        ImageData{"",L"",0,0}, FRECT{ 0,8,0,0 });
    hpBar->SetMaxValue(100);
    hpBar->SetValue(70);
+   hpText = new UIText();
+   hpText->Init(this, FRECT{ 200, 29.7, 355, 68 }, { 1.f, 1.f });
 
-   expBar = new UITextSlider();  
+   expBar = new UISlider();  
    expBar->Init(this, FRECT{ 74.25, 67, 355, 97 }, { 1.f, 1.f },
        ImageData{ "status_exp_bar", L"assets/interfaces/ExpBar.png", true, RGB(255, 255, 255) },  
        ImageData{ "status_exp_bg", L"assets/interfaces/BarBg.png", true, RGB(255, 255, 255) },
        ImageData{ "",L"",0,0 }, FRECT{0,8,0,0});
    expBar->SetMaxValue(30);
    expBar->SetValue(13);
+   expText = new UIText();
+   expText->Init(this, FRECT{ 200, 71, 355, 68 }, { 1.f, 1.f });
 
    levelTextUI = new UITextBox();  
-   levelTextUI->Init(this, FRECT{ 0, 74.25, 67, 97 }, {1.f, 1.f}, "lv. 1",
+   levelTextUI->Init(this, FRECT{ 0, 74.25, 67, 97 }, {1.f, 1.f},
        ImageData{ "status_level", L"assets/interfaces/level_box.png"},
-       FRECT{ 0, 5, 0, 0 });
+       FRECT{ 10, 0, 0, 0 });
+
+   SetHPAndExp(70, 100, 13, 30);
+   SetLevel(1);
 }

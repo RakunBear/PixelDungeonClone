@@ -48,7 +48,7 @@ void UIQuickSlot::Render()
 	}
 	for (int i = 0; i < ItemBox.size(); ++i)
 	{
-		ItemBox[i]->Render();
+		//ItemBox[i]->Render();
 	}
 }
 

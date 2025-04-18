@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="AstarTile.cpp" />
+    <ClCompile Include="D2DTextRenderer.cpp" />
     <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="AstarScene.cpp" />
     <ClCompile Include="BattleScene.cpp" />
@@ -171,7 +172,6 @@
     <ClCompile Include="UIObject.cpp" />
     <ClCompile Include="UIText.cpp" />
     <ClCompile Include="UITextBox.cpp" />
-    <ClCompile Include="UITextSlider.cpp" />
     <ClCompile Include="UI_Test.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TurnManager.cpp" />
@@ -179,6 +179,7 @@
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="AstarTile.h" />
+    <ClInclude Include="D2DTextRenderer.h" />
     <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="AstarScene.h" />
     <ClInclude Include="BattleScene.h" />
@@ -224,7 +225,6 @@
     <ClInclude Include="UIObject.h" />
     <ClInclude Include="UIText.h" />
     <ClInclude Include="UITextBox.h" />
-    <ClInclude Include="UITextSlider.h" />
     <ClInclude Include="UI_Test.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="TurnManager.h" />

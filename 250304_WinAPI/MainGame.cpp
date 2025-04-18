@@ -10,6 +10,7 @@
 #include "Camera.h"
 #include "D2DImage.h"
 #include "D2DImageManager.h"
+#include "D2DTextRenderer.h"
 #include "UI_Test.h"
 
 UI_TestScene uiTest;
@@ -23,7 +24,7 @@ HRESULT MainGame::Init()
 	SceneManager::GetInstance()->AddScene("A*알고리즘", new AstarScene());
 	SceneManager::GetInstance()->AddScene("전투씬_1", new BattleScene());
 	SceneManager::GetInstance()->AddScene("타일맵툴", new TilemapTool());
-	SceneManager::GetInstance()->AddScene("�ȼ�����", new DungeonScene());
+	SceneManager::GetInstance()->AddScene("픽셀던전", new DungeonScene());
 	SceneManager::GetInstance()->AddLoadingScene("로딩_1", new LoadingScene());
 	SceneManager::GetInstance()->ChangeScene("A*알고리즘");
 
@@ -37,9 +38,6 @@ HRESULT MainGame::Init()
 		return E_FAIL;
 	}
 
-	test = D2DImageManager::GetInstance()->AddImage("banner", L"Image/banners.png", 2, 4);
-	// test = new D2DImage();
-	// test->LoadFromFile(L"Image/banners.png", 2, 4);
 	uiTest.Init();
 	return S_OK;
 }
@@ -54,13 +52,6 @@ void MainGame::Release()
 	}
 	uiTest.Release();
 
-	// if (test)
-	// {
-	// 	test->Release();
-	// 	delete test;
-	// 	test = nullptr;
-	// }
-	
 	ReleaseDC(g_hWnd, hdc);
 
 	SceneManager::GetInstance()->Release();
@@ -80,8 +71,8 @@ void MainGame::Render()
 	D2DImage::BeginDraw();
 	D2DImage::Clear(D2D1::ColorF(D2D1::ColorF::Black));
 
-	test->Middle_RenderFrame(WINSIZE_X/2, WINSIZE_Y/2, 0, 3, DEG_TO_RAD(135),false,false,0.5f);
 	uiTest.Render();
+
 	D2DImage::EndDraw();
 	
 	// // 백버퍼에 먼저 복사
@@ -111,7 +102,7 @@ LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 			SceneManager::GetInstance()->ChangeScene("타일맵툴");
 			break;
 		case 'p': case 'P':
-			SceneManager::GetInstance()->ChangeScene("�ȼ�����");
+			SceneManager::GetInstance()->ChangeScene("픽셀던전");
 			break;
 		}
 		break;
@@ -126,12 +117,12 @@ LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 		g_ptMouse.y = HIWORD(lParam);
 		break;
 	case WM_MOUSEWHEEL:
-		// ���콺 �� �޽��� ó��
+		// 마우스 휠 메시지 처리
 		{
-			// zDelta �� ���� (�� ȸ�� ������ ��)
+			// zDelta 값 추출 (휠 회전 방향과 양)
 			int zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
-			
-			// ī�޶� �ý��ۿ� ���콺 �� �Է� ����
+
+			// 카메라 시스템에 마우스 휠 입력 전달
 			// Camera::GetInstance()->HandleMouseWheel(zDelta);
 		}
 		break;

@@ -16,6 +16,8 @@ namespace UI
 		void Update() override;
 		void Render() override;
 
+		void SetStairText(int stair);
+
 	protected:
 		void ResourceInit() override;
 
@@ -25,6 +27,8 @@ namespace UI
 		UIText* stairTextUI;
 		UIButton* guideBookBtn;
 		UIButton* menuBtn;
+
+		TextStyle stairTextStyle{ L"", 20, {0, 0, 0, 1.0} };
 	};
 
 }
