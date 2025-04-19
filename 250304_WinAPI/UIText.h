@@ -1,48 +1,69 @@
 ﻿#pragma once
-#include "UIObject.h"
-#include "D2DTextRenderer.h"
+#include "UIComponent.h"
+#include "VisualStyle.h"
+#include "DWriteFactory.h"
 
-class D2DTextRenderer;
+class UIText : public UIComponent {
+private:
+    std::wstring text;
+    TextStyle style;
 
-namespace UI
-{
-	class UIText : public UIObject
-	{
-	public:
-		~UIText() override = default;
-		void Init(UIObject* parent, FRECT rect,  
-			FPOINT scale = { 1.0f, 1.0f });
-		void Init(UIObject* parent, int dx, int dy, int width, int height, 
-			FPOINT scale = { 1.0f, 1.0f });
+    IDWriteTextFormat* format = nullptr;
+    ID2D1SolidColorBrush* brush = nullptr;
 
-		void Release() override;
-		void Update() override;
-		void Render() override;
-		
-		void SetPos(float dx, float dy) override;
-		void SetTextStyle(const TextStyle& style) 
-		{ 
-			text = style.content;
-			fontSize = style.fontSize;
-			color =
-			{
-				style.colorA.r,
-				style.colorA.g,
-				style.colorA.b,
-				style.colorA.a
-			};
-		}
+public:
+    ~UIText() {
+        if (format) format->Release();
+        if (brush) brush->Release();
+    }
 
-	protected:
-		virtual void ResourceInit();
+    void Init(const std::wstring& txt, const D2D1_RECT_F& layout, const TextStyle& s) {
+        text = txt;
+        SetRect(layout);
+        style = s;
 
-	protected:
-		D2DTextRenderer* m_pTextRenderer{ nullptr };
-		wstring text = L"asda";
-		D2D1_RECT_F layout = D2D1::RectF();
-		float fontSize{ 10.0f };
-		D2D1::ColorF color{ 1.0f, 1.0f, 1.0f, 1.0f };
-		Image* bg;
-	};
+        DWriteFactory::GetInstance()->CreateTextFormat(
+            style.fontName,
+            &format,
+            style.fontSize,
+            style.bold,
+            style.horizontalAlign,
+            style.verticalAlign
+        );
+    }
 
-}
+    void SetText(const std::wstring& txt) {
+        text = txt;
+    }
+
+    void SetStyle(const TextStyle& s) {
+        style = s;
+        if (format) { format->Release(); format = nullptr; }
+
+        DWriteFactory::GetInstance()->CreateTextFormat(
+            style.fontName,
+            &format,
+            style.fontSize,
+            style.bold,
+            style.horizontalAlign,
+            style.verticalAlign
+        );
+
+        if (brush) { brush->Release(); brush = nullptr; }
+    }
+
+    void Update(float) override {}
+
+    void Render(ID2D1HwndRenderTarget* rt) override {
+        if (!brush && rt)
+        {
+            rt->CreateSolidColorBrush(style.color, &brush);
+        }
+
+        if (format && brush)
+        {
+            D2D1_RECT_F rect = GetScaledDrawRect();
+            rt->DrawTextW(text.c_str(), static_cast<UINT32>(text.length()), format, &rect, brush);
+        }
+    }
+};

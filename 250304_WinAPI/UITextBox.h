@@ -1,36 +1,47 @@
 ﻿#pragma once
-#include "UIObject.h"
+#include "UIComponent.h"
+#include "VisualStyle.h"
+#include "UIImage.h"
+#include "UIText.h"
 
-class D2DImage;
+// ✅ 복합 UI: 배경 + 텍스트
+class UITextBox : public UIComponent {
+private:
+    UIImage* background = nullptr; // 선택적
+    UIText* text = nullptr;        // 필수
 
-namespace UI
-{
-	class UIText;
-	class UIImage;
+public:
+    void Init(const TextBoxStyle& style, const std::wstring& content, const D2D1_RECT_F& layout) {
+        SetRect(layout);
 
-	class UITextBox : public UIObject
-	{
-	public:
-		~UITextBox() override = default;
+        if (style.background.image) {
+            background = new UIImage();
+            background->Init(style.background, layout);
+            background->SetParent(this);
+        }
 
-		void Init(UIObject* parent, FRECT rect, FPOINT scale = { 1.0f, 1.0f }, 
-			ImageData bgData = { "", L"", 0, 0 }, FRECT margin = { 0,0,0,0 });
-		void Init(UIObject* parent, int dx, int dy, int width, int height, FPOINT scale = { 1.0f, 1.0f }, 
-			ImageData bgData = {"", L"", 0, 0}, FRECT margin = { 0,0,0,0 });
-		void Release() override;
-		void Update() override;
-		void Render() override;
+        text = new UIText();
+        text->Init(content, layout, style.textStyle);
+        text->SetParent(this);
+    }
 
-		void SetTextStyle(TextStyle txtStyle);
+    void SetText(const std::wstring& t) {
+        if (text) text->SetText(t);
+    }
 
-	protected:
-		void ResourceInit(ImageData bgData = {"", L"", 0, 0});
+    void SetRect(const D2D1_RECT_F& r) {
+        UIComponent::SetRect(r);
+        if (background) background->SetRect(r);
+        if (text) text->SetRect(r);
+    }
 
-	protected:
-		UIText* textUI;
-		UIImage* bg;
+    void Update(float dt) override {
+        if (background) background->Update(dt);
+        if (text) text->Update(dt);
+    }
 
-		FRECT margin;
-	};
-
-}
+    void Render(ID2D1HwndRenderTarget* rt) override {
+        if (background) background->Render(rt);
+        if (text) text->Render(rt);
+    }
+};

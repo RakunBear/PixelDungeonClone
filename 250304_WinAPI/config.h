@@ -149,8 +149,3 @@ struct RGBA {
     float b;
     float a;
 };
-struct TextStyle {
-    std::wstring content;
-    float fontSize{ 10.0f };
-    RGBA colorA{ 0.0f, 0.0f, 0.0f, 0.0f }; // color값 0~1.0f
-};

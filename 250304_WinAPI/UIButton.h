@@ -1,25 +1,56 @@
 ﻿#pragma once
-#include "UIIcon.h"
-#include "IButton.h"
+#include "UIComponent.h"
+#include "UIImage.h"
+#include "VisualStyle.h"
+#include "IUIInteractable.h"
+#include <functional>
 
-namespace UI
-{
-	class UIText;
+class UIButton : public UIComponent, public IUIInteractable {
+private:
+    ImageStyle style;             // 🔹 스타일 저장
+    UIImage* imageView = nullptr;
+    std::function<void()> onClick;
 
-	class UIButton : public UIIcon
-	{
-	public :
-		virtual ~UIButton() = default;
+public:
+    void Init(const ImageStyle& s) {
+        style = s;
 
-		void Release() override;
-		void Update() override;
-		void Render() override;
+        imageView = new UIImage();
+        imageView->SetStyle(style);
+        imageView->SetRect({ 0, 0, 0, 0 });
+        imageView->SetScale({ 1.0f, 1.0f });
+    }
 
-	protected:
-		void ResourceInit(ImageData imgData, ImageData bgData = { "", L"", 0, 0 }) override;
+    void SetOnClick(std::function<void()> fn) {
+        onClick = fn;
+    }
 
-	protected:
-		COLORREF bgColorRGB{ RGB(0, 0, 0) };
-	};
+    void Render(ID2D1HwndRenderTarget* rt) override {
+        if (imageView) {
+            imageView->SetRect(GetWorldRect());     // 버튼 자체 좌표에 맞춤
+            imageView->SetScale(GetScale());        // 버튼 scale과 일치
+            imageView->Render(rt);
+        }
+    }
 
-}
+    void Update(float dt) override {
+        if (imageView) imageView->Update(dt);
+    }
+
+    const ImageStyle& GetStyle() const { return style; }
+    void SetStyle(const ImageStyle& s) {
+        style = s;
+        if (imageView)
+            imageView->SetStyle(style);
+    }
+
+    bool HandleClick(int x, int y) override {
+        auto r = GetScaledDrawRect();
+        if (x >= r.left && x <= r.right &&
+            y >= r.top && y <= r.bottom) {
+            if (onClick) onClick();
+            return true;
+        }
+        return false;
+    }
+};

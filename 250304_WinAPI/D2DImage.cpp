@@ -257,7 +257,6 @@ void D2DImage::RenderPercent(FPOINT pos, float spercent, float epercent, float s
     renderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 }
 
-
 void D2DImage::Render(float x, float y, float angle, bool flipX, bool flipY, float alpha)
 {
     D2D1_SIZE_F bmpSize = bitmap->GetSize();
@@ -276,6 +275,7 @@ void D2DImage::RenderFrameScale(float x, float y, float scaleX, float scaleY, in
     int fx = frameX;
     int fy = frameY;
 
+    // 🔸 1. 원본 프레임 영역 설정
     D2D1_RECT_F srcRect = D2D1::RectF(
         static_cast<float>(fx * frameWidth),
         static_cast<float>(fy * frameHeight),
@@ -283,39 +283,42 @@ void D2DImage::RenderFrameScale(float x, float y, float scaleX, float scaleY, in
         static_cast<float>((fy + 1) * frameHeight)
     );
 
-    float halfWidth = frameWidth / 2.0f;
-    float halfHeight = frameHeight / 2.0f;
+    float width = static_cast<float>(frameWidth);
+    float height = static_cast<float>(frameHeight);
 
-    float centerX = x;
-    float centerY = y;
-
-    // ✅ 좌상단 기준으로 destRect 설정
+    // 🔸 2. 대상 렌더링 영역 (좌상단 기준)
     D2D1_RECT_F destRect = D2D1::RectF(
         x,
         y,
-        x + frameWidth,
-        y + frameHeight
+        x + width,
+        y + height
     );
 
-    D2D1::Matrix3x2F transform = D2D1::Matrix3x2F::Identity();
-
+    // 🔸 3. 변환 행렬 계산 (좌상단 기준)
     float finalScaleX = scaleX * (flipX ? -1.0f : 1.0f);
     float finalScaleY = scaleY * (flipY ? -1.0f : 1.0f);
 
+    D2D1::Matrix3x2F transform = D2D1::Matrix3x2F::Identity();
+
+    // 👉 스케일 & 회전 기준점을 좌상단으로 지정
     transform = transform * D2D1::Matrix3x2F::Scale(
         finalScaleX, finalScaleY,
-        D2D1::Point2F(centerX, centerY)
+        D2D1::Point2F(x, y)
     );
 
-    transform = transform * D2D1::Matrix3x2F::Rotation(
-        angle,
-        D2D1::Point2F(centerX, centerY)
-    );
+    if (angle != 0.0f) {
+        transform = transform * D2D1::Matrix3x2F::Rotation(
+            angle,
+            D2D1::Point2F(x, y)
+        );
+    }
 
+    // 🔸 4. 렌더링
     renderTarget->SetTransform(transform);
-    renderTarget->DrawBitmap(bitmap, destRect, alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, srcRect);
+    renderTarget->DrawBitmap(bitmap, destRect, alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, &srcRect);
     renderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 }
+
 
 void D2DImage::InitBrushes() {
 }

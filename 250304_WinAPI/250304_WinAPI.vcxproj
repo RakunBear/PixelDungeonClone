@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -130,13 +130,11 @@
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="AstarTile.cpp" />
     <ClCompile Include="D2DTextRenderer.cpp" />
+    <ClCompile Include="DWriteFactory.cpp" />
     <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="AstarScene.cpp" />
     <ClCompile Include="BattleScene.cpp" />
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="IButton.cpp" />
-    <ClCompile Include="UIButton.cpp" />
-    <ClCompile Include="UIComposit.cpp" />
     <ClCompile Include="CombatComponent.cpp" />
     <ClCompile Include="CombatManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -146,14 +144,6 @@
     <ClCompile Include="D2DImage.cpp" />
     <ClCompile Include="D2DImageManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="UIDefeat.cpp" />
-    <ClCompile Include="UIImage.cpp" />
-    <ClCompile Include="UIItemBox.cpp" />
-    <ClCompile Include="UIMenueBtns.cpp" />
-    <ClCompile Include="UIMopHPBar.cpp" />
-    <ClCompile Include="UIPanel.cpp" />
-    <ClCompile Include="UIQuickSlot.cpp" />
-    <ClCompile Include="UISlider.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="KeyManager.cpp" />
@@ -163,15 +153,11 @@
     <ClCompile Include="PathFinder.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="UIIcon.cpp" />
-    <ClCompile Include="UIStatus.cpp" />
     <ClCompile Include="TilemapTool.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
-    <ClCompile Include="UIManager.cpp" />
-    <ClCompile Include="UIObject.cpp" />
-    <ClCompile Include="UIText.cpp" />
-    <ClCompile Include="UITextBox.cpp" />
+    <ClCompile Include="UITester.cpp" />
+    <ClCompile Include="UIResourceSubManager.cpp" />
     <ClCompile Include="UI_Test.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TurnManager.cpp" />
@@ -179,18 +165,22 @@
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="AstarTile.h" />
+    <ClInclude Include="Container_FrontUIView.h" />
+    <ClInclude Include="D2DBrush.h" />
     <ClInclude Include="D2DTextRenderer.h" />
+    <ClInclude Include="DWriteFactory.h" />
     <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="AstarScene.h" />
     <ClInclude Include="BattleScene.h" />
     <ClInclude Include="Button.h" />
-    <ClInclude Include="IButton.h" />
     <ClInclude Include="CombatComponent.h" />
     <ClInclude Include="CombatManager.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="FieldItem.h" />
+    <ClInclude Include="IUIInteractable.h" />
+    <ClInclude Include="HPBarSet.h" />
     <ClInclude Include="UIButton.h" />
-    <ClInclude Include="UIComposit.h" />
+    <ClInclude Include="UIComponent.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Camera.h" />
@@ -199,14 +189,9 @@
     <ClInclude Include="D2DImage.h" />
     <ClInclude Include="D2DImageManager.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="UIDefeat.h" />
+    <ClInclude Include="UIContainer.h" />
+    <ClInclude Include="UIIcon.h" />
     <ClInclude Include="UIImage.h" />
-    <ClInclude Include="UIItemBox.h" />
-    <ClInclude Include="UIMenueBtns.h" />
-    <ClInclude Include="UIMopHPBar.h" />
-    <ClInclude Include="UIPanel.h" />
-    <ClInclude Include="UIQuickSlot.h" />
-    <ClInclude Include="UISlider.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="KeyManager.h" />
@@ -216,18 +201,21 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Singleton.h" />
-    <ClInclude Include="UIIcon.h" />
-    <ClInclude Include="UIStatus.h" />
     <ClInclude Include="TilemapTool.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
-    <ClInclude Include="UIManager.h" />
-    <ClInclude Include="UIObject.h" />
+    <ClInclude Include="UILayout.h" />
+    <ClInclude Include="UITester.h" />
+    <ClInclude Include="UIResourceSubManager.h" />
     <ClInclude Include="UIText.h" />
     <ClInclude Include="UITextBox.h" />
+    <ClInclude Include="UITextEffect.h" />
+    <ClInclude Include="UIValueBar.h" />
     <ClInclude Include="UI_Test.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="TurnManager.h" />
+    <ClInclude Include="ValueAnimator.h" />
+    <ClInclude Include="VisualStyle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

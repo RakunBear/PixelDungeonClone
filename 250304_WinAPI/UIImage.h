@@ -1,29 +1,27 @@
 ﻿#pragma once
-#include "UIObject.h"
+#include "UIComponent.h"
+#include "D2DImage.h"
 
-class D2DImage;
 
-namespace UI
-{
+class UIImage : public UIComponent {
+protected:
+    ImageStyle style;
 
-	class UIImage : public UIObject
-	{
-	public:
-		~UIImage() override = default;
+public:
+    void Init(const ImageStyle& s, const D2D1_RECT_F& layout) {
+        style = s;
+        SetRect(layout);
+    }
 
-		void Init(UIObject* parent, FRECT rect, 
-			FPOINT scale = { 1.0f, 1.0f }, ImageData imgData = { "", L"", 0, 0 });
-		void Init(UIObject* parent, int dx, int dy, int width, int height,
-			FPOINT scale = { 1.0f, 1.0f }, ImageData imgData = { "", L"", 0, 0 });
-		void Release() override;
-		void Update() override;
-		void Render() override;
+    void SetStyle(const ImageStyle& s) { style = s; }
 
-	protected:
-		void ResourceInit(ImageData imgData = { "", L"", 0, 0 });
+    void Update(float dt) override {}
 
-	protected:
-		D2DImage* img;
-	};
+    void Render(ID2D1HwndRenderTarget* rt) override {
+        if (!style.image || !rt) return;
 
-}
+        D2D1_RECT_F rect = GetScaledDrawRect();
+        
+        style.image->RenderFrameScale(rect.left, rect.top, scale.x, scale.y, 0, 0, style.alpha);
+    }
+};
