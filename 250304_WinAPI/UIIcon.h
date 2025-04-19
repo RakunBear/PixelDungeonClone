@@ -1,16 +1,17 @@
 ﻿#pragma once
-#include "UIComponent.h"
+#include "UIContainerBase.h"
 #include "D2DImageManager.h"
 #include "VisualStyle.h"
 
 
-class UIIcon : public UIComponent {
+class UIIcon : public UIContainerBase {
 private:
     IconStyle style;
 
 public:
-    void Init(const IconStyle& s) {
+    void Init(const IconStyle& s, const D2D1_RECT_F& layout) {
         style = s;
+        SetRect(layout);
     }
 
     void SetStyle(const IconStyle& s) {

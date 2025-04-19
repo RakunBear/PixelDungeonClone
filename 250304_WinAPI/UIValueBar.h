@@ -43,18 +43,19 @@ inline void UIValueBar::Update(float deltaTime) {
 
 inline void UIValueBar::Render(ID2D1HwndRenderTarget* rt) {
     D2D1_RECT_F rect = GetWorldRect();
+    FPOINT ws = GetWorldScale();
 
     float width = rect.right - rect.left;
     float height = rect.bottom - rect.top;
 
     // 🔹 배경
     if (style.background.image)
-        style.background.image->RenderFrameScale(rect.left, rect.top, scale.x, scale.y, 0, 0, style.background.alpha);
+        style.background.image->RenderFrameScale(rect.left, rect.top, ws.x, ws.y, 0, 0, style.background.alpha);
 
     // 🔹 fill (퍼센트 만큼만 채움)
     if (style.fill.image) {
         float fillWidth = width * fillPercent;
-        style.fill.image->RenderFrameScale(rect.left, rect.top, scale.x, scale.y, 0, 0, style.fill.alpha);
+        style.fill.image->RenderFrameScale(rect.left, rect.top, ws.x, ws.y, 0, 0, style.fill.alpha);
     }
 
     // 🔹 handle (필요시)
@@ -64,6 +65,6 @@ inline void UIValueBar::Render(ID2D1HwndRenderTarget* rt) {
         float handleWidth = 8.0f;
         float handleHeight = height;
 
-        style.handle.image->RenderFrameScale(handleX, handleY, scale.x, scale.y, 0, 0, style.handle.alpha);
+        style.handle.image->RenderFrameScale(handleX, handleY, ws.x, ws.y, 0, 0, style.handle.alpha);
     }
 }

@@ -9,11 +9,25 @@ protected:
 
 public:
     void Init(const ImageStyle& s, const D2D1_RECT_F& layout) {
-        style = s;
         SetRect(layout);
+
+        style = s;
     }
 
     void SetStyle(const ImageStyle& s) { style = s; }
+
+    POINT GetImgSize()
+    {
+        if (!style.image)
+        {
+            return
+            {
+                style.image->GetWidth(),
+                style.image->GetHeight()
+            };
+        }
+        return { 0, 0 };
+    }
 
     void Update(float dt) override {}
 
@@ -21,7 +35,8 @@ public:
         if (!style.image || !rt) return;
 
         D2D1_RECT_F rect = GetScaledDrawRect();
-        
-        style.image->RenderFrameScale(rect.left, rect.top, scale.x, scale.y, 0, 0, style.alpha);
+        FPOINT ws = GetWorldScale();
+
+        style.image->RenderFrameScale(rect.left, rect.top, ws.x, ws.y, 0, 0, style.alpha);
     }
 };

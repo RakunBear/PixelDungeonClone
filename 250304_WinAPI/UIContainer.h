@@ -1,33 +1,20 @@
 ﻿#pragma once
-#include "UIComponent.h"
+#include "UIContainerBase.h"
 #include "UILayout.h"
 
-class UIContainer : public UIComponent {
+class UIContainer : public UIContainerBase {
 protected:
-    std::vector<UIComponent*> children;
     UILayout* layout = nullptr;
 
 public:
-    void AddComponent(UIComponent* comp) {
-        comp->SetParent(this);
-        children.push_back(comp);
-        UpdateLayout();
+    void AddChild(UIComponent* child) override
+    {
+        UIContainerBase::AddChild(child);
     }
 
-    void SetLayout(UILayout* l) { layout = l; }
-
-    void SetRect(const D2D1_RECT_F& rect) override {
-        UIComponent::SetRect(rect);
-
-        if (layout)
-        {
-            layout->Apply(children, rect);
-        }
-
-        for (auto* c : children)
-        {
-            c->UpdateWorldRect();
-        }
+    void SetLayout(UILayout* l) {
+        layout = l;
+        UpdateLayout();
     }
 
     void UpdateLayout() {
@@ -38,17 +25,31 @@ public:
             c->UpdateWorldRect();
     }
 
-    void Update(float dt) override {
-        for (auto* c : children) 
-        {
-            c->Update(dt);
-        }
-    }
+    void SetRect(const D2D1_RECT_F& rect) override {
+        UIComponent::SetRect(rect);  // ✅ 부모 위치 갱신
 
-    void Render(ID2D1HwndRenderTarget* rt) override {
-        for (auto* c : children) 
+        UpdateLayout();
+    }
+};
+
+class UIAutoContainer : public UIContainer {
+protected:
+    UILayout* layout = nullptr;
+
+public:
+    void AddChild(UIComponent* child) override
+    {
+        UIContainerBase::AddChild(child);
+
+        // ✅ 자동 확장용
+        float totalHeight = 0.0f;
+        for (auto* c : children)
         {
-            c->Render(rt);
+            D2D1_RECT_F r = c->GetLocalRect();
+            totalHeight += (r.bottom - r.top); // 혹은 고정 lineHeight + spacing
         }
+
+        D2D1_RECT_F local = GetLocalRect();
+        SetRect(D2D1::RectF(local.left, local.top, local.right, local.top + totalHeight));
     }
 };

@@ -5,9 +5,9 @@ void UIResourceSubManager::Preload_StatusToolbar() {
     mgr->AddImage("status_character_ico", L"assets/interfaces/status_ico.png", 1, 1);
     mgr->AddImage("status_character_bg", L"assets/interfaces/status_bg.png", 1, 1);
     mgr->AddImage("status_hp_bar", L"assets/interfaces/HPBar.png", 1, 1);
-    mgr->AddImage("status_hp_bg", L"assets/interfaces/BarBg.png", 1, 1);
+    mgr->AddImage("status_hp_bg", L"assets/interfaces/player_hp_barbg.png", 1, 1);
     mgr->AddImage("status_exp_bar", L"assets/interfaces/ExpBar.png", 1, 1);
-    mgr->AddImage("status_exp_bg", L"assets/interfaces/BarBg.png", 1, 1);
+    mgr->AddImage("status_exp_bg", L"assets/interfaces/player_exp_barbg.png", 1, 1);
     mgr->AddImage("status_level", L"assets/interfaces/level_box.png", 1, 1);
 }
 

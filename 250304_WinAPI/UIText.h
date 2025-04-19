@@ -12,14 +12,15 @@ private:
     ID2D1SolidColorBrush* brush = nullptr;
 
 public:
-    ~UIText() {
+    ~UIText() override {
         if (format) format->Release();
         if (brush) brush->Release();
     }
 
-    void Init(const std::wstring& txt, const D2D1_RECT_F& layout, const TextStyle& s) {
-        text = txt;
+    void Init(const TextStyle& s, const std::wstring& txt, const D2D1_RECT_F& layout) {
         SetRect(layout);
+
+        text = txt;
         style = s;
 
         DWriteFactory::GetInstance()->CreateTextFormat(
@@ -52,6 +53,10 @@ public:
         if (brush) { brush->Release(); brush = nullptr; }
     }
 
+    TextStyle& GetStyle() {
+        return style;
+    }
+
     void Update(float) override {}
 
     void Render(ID2D1HwndRenderTarget* rt) override {
@@ -59,11 +64,15 @@ public:
         {
             rt->CreateSolidColorBrush(style.color, &brush);
         }
-
         if (format && brush)
         {
+
             D2D1_RECT_F rect = GetScaledDrawRect();
+
             rt->DrawTextW(text.c_str(), static_cast<UINT32>(text.length()), format, &rect, brush);
         }
+
+
     }
+
 };

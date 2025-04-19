@@ -177,6 +177,7 @@
     <ClInclude Include="CombatManager.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="FieldItem.h" />
+    <ClInclude Include="TestHeader.h" />
     <ClInclude Include="IUIInteractable.h" />
     <ClInclude Include="HPBarSet.h" />
     <ClInclude Include="UIButton.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="D2DImageManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="UIContainer.h" />
+    <ClInclude Include="UIContainerBase.h" />
     <ClInclude Include="UIIcon.h" />
     <ClInclude Include="UIImage.h" />
     <ClInclude Include="Image.h" />
@@ -210,6 +212,8 @@
     <ClInclude Include="UIText.h" />
     <ClInclude Include="UITextBox.h" />
     <ClInclude Include="UITextEffect.h" />
+    <ClInclude Include="UITextLogPanel.h" />
+    <ClInclude Include="UITextPool.h" />
     <ClInclude Include="UIValueBar.h" />
     <ClInclude Include="UI_Test.h" />
     <ClInclude Include="Tilemap.h" />

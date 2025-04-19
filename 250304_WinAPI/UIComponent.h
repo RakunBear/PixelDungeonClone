@@ -24,8 +24,10 @@ public:
     // ✅ scale 반영된 실제 그릴 영역 반환
     D2D1_RECT_F GetScaledDrawRect() const {
         D2D1_RECT_F r = GetWorldRect();
-        float width = (r.right - r.left) * scale.x;
-        float height = (r.bottom - r.top) * scale.y;
+        FPOINT ws = GetWorldScale();
+
+        float width = (r.right - r.left) * ws.x;
+        float height = (r.bottom - r.top) * ws.y;
 
         float centerX = (r.left + r.right) * 0.5f;
         float centerY = (r.top + r.bottom) * 0.5f;
@@ -37,6 +39,18 @@ public:
             centerY + height * 0.5f
         );
     }
+
+
+    // 월드 scale 반영 (재귀)
+    FPOINT GetWorldScale() const {
+        if (parent)
+        {
+            FPOINT ps = parent->GetWorldScale();
+            return { scale.x * ps.x, scale.y * ps.y };
+        }
+        return scale;
+    }
+
 
     // 절대 좌표 지정
     virtual void SetWorldRect(const D2D1_RECT_F& rect) {
@@ -53,6 +67,12 @@ public:
     void SetParent(UIComponent* p) {
         parent = p;
         UpdateWorldRect();
+
+    }
+
+    void AddChild(UIComponent* c) {
+        if (!c) return;
+        c->SetParent(this);
     }
 
     virtual void UpdateLocalRect() {

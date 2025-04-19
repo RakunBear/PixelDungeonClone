@@ -37,9 +37,6 @@
     <Filter Include="2D Framework\Item">
       <UniqueIdentifier>{c1441ce1-da0e-47b6-bcc0-4b07a17e40a4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2D Framework\VFX">
-      <UniqueIdentifier>{bc6fc023-6a98-43d7-94d4-690e9a6aafde}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2D Framework\UI\ValueBar">
       <UniqueIdentifier>{939389c9-22a6-452a-87b9-027698a0333c}</UniqueIdentifier>
     </Filter>
@@ -63,6 +60,12 @@
     </Filter>
     <Filter Include="2D Framework\UI\Effect">
       <UniqueIdentifier>{17853d04-1d14-483e-a11e-fad33971c36c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\UI\Panel">
+      <UniqueIdentifier>{01b25a49-2455-446f-a5c6-a93ea8c259ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\UI\Test">
+      <UniqueIdentifier>{8c935501-2ad1-4192-8f7a-18812a087caa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -328,6 +331,18 @@
     </ClInclude>
     <ClInclude Include="D2DBrush.h">
       <Filter>MainGame\D2D</Filter>
+    </ClInclude>
+    <ClInclude Include="UIContainerBase.h">
+      <Filter>2D Framework\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="UITextLogPanel.h">
+      <Filter>2D Framework\UI\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="UITextPool.h">
+      <Filter>2D Framework\UI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="TestHeader.h">
+      <Filter>2D Framework\UI\Test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
