@@ -85,3 +85,35 @@ D2DImage* D2DImageManager::FindImage(string key)
 
     return iter->second;
 }
+
+D2DImage* D2DImageManager::CreateImage(const wchar_t* filePath)
+{
+    D2DImage* image = nullptr;
+
+    image = new D2DImage();
+    if (FAILED(image->LoadFromFile(filePath)))
+    {
+        image->Release();
+        delete image;
+
+        return nullptr;
+    }
+
+    return image;
+}
+
+D2DImage* D2DImageManager::CreaetImage(const wchar_t* filePath, int maxFrameX, int maxFrameY)
+{
+    D2DImage* image = nullptr;
+
+    image = new D2DImage();
+    if (FAILED(image->LoadFromFile(filePath, maxFrameX, maxFrameY)))
+    {
+        image->Release();
+        delete image;
+
+        return nullptr;
+    }
+
+    return image;
+}

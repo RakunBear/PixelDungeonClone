@@ -26,5 +26,17 @@ public:
 
     void DeleteImage(string key);
     D2DImage* FindImage(string key);
+
+    D2DImage* CreateImage(const wchar_t* filePath);
+    D2DImage* CreaetImage(const wchar_t* filePath, int maxFrameX, int maxFrameY);
+
+    inline D2D1_RECT_F MakeRectTopLeft(FPOINT pos, float width, float height) {
+        return D2D1::RectF(pos.x, pos.y, pos.x + width, pos.y + height);
+    }
+    inline D2D1_RECT_F MakeRectCenter(FPOINT center, float width, float height) {
+        return D2D1::RectF(center.x - width / 2, center.y - height / 2,
+            center.x + width / 2, center.y + height / 2);
+    }
+
 };
 

@@ -132,6 +132,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="D2DImage.cpp" />
     <ClCompile Include="D2DImageManager.cpp" />
+    <ClCompile Include="DWriteFactory.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -150,6 +151,9 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="TurnManager.cpp" />
+    <ClCompile Include="UI\Test\UITestView.cpp" />
+    <ClCompile Include="UI\Utill\UIResourceSubManager.cpp" />
+    <ClCompile Include="UI_Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AstarScene.h" />
@@ -159,6 +163,7 @@
     <ClInclude Include="config.h" />
     <ClInclude Include="D2DImage.h" />
     <ClInclude Include="D2DImageManager.h" />
+    <ClInclude Include="DWriteFactory.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
@@ -177,6 +182,25 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
     <ClInclude Include="TurnManager.h" />
+    <ClInclude Include="UI\Button\UIButton.h" />
+    <ClInclude Include="UI\Core\UIComponent.h" />
+    <ClInclude Include="UI\Core\UIContainer.h" />
+    <ClInclude Include="UI\Core\UIContainerBase.h" />
+    <ClInclude Include="UI\Core\UILayout.h" />
+    <ClInclude Include="UI\Image\UIIcon.h" />
+    <ClInclude Include="UI\Image\UIImage.h" />
+    <ClInclude Include="UI\Panel\Container_FrontUIView.h" />
+    <ClInclude Include="UI\Panel\UITextLogPanel.h" />
+    <ClInclude Include="UI\Test\UITestHeader.h" />
+    <ClInclude Include="UI\Test\UITestView.h" />
+    <ClInclude Include="UI\Text\UIText.h" />
+    <ClInclude Include="UI\Text\UITextBox.h" />
+    <ClInclude Include="UI\Text\UITextEffect.h" />
+    <ClInclude Include="UI\Utill\IUIInteractable.h" />
+    <ClInclude Include="UI\Utill\UIResourceSubManager.h" />
+    <ClInclude Include="UI\Utill\UITextPool.h" />
+    <ClInclude Include="UI\VisualStyle.h" />
+    <ClInclude Include="UI_Test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

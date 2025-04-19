@@ -9,6 +9,9 @@
 #include "D2DImage.h"
 #include "D2DImageManager.h"
 
+#include "UI_Test.h"
+UI_TestScene uiTest;
+
 HRESULT MainGame::Init()
 {
 	ImageManager::GetInstance()->Init();
@@ -34,6 +37,9 @@ HRESULT MainGame::Init()
 	test = D2DImageManager::GetInstance()->AddImage("banner", L"Image/banners.png", 2, 4);
 	// test = new D2DImage();
 	// test->LoadFromFile(L"Image/banners.png", 2, 4);
+
+	// TODO
+	uiTest.Init();
 	
 	return S_OK;
 }
@@ -53,6 +59,9 @@ void MainGame::Release()
 	// 	delete test;
 	// 	test = nullptr;
 	// }
+
+	// TODO
+	uiTest.Release();
 	
 	ReleaseDC(g_hWnd, hdc);
 
@@ -65,27 +74,32 @@ void MainGame::Update()
 {
 	SceneManager::GetInstance()->Update();
 	InvalidateRect(g_hWnd, NULL, false);
+
+	// TODO
+	uiTest.Update();
 }
 
 void MainGame::Render()
 {
-	//D2DImage::BeginDraw();
-	//D2DImage::Clear(D2D1::ColorF(D2D1::ColorF::Black));
+	D2DImage::BeginDraw();
+	D2DImage::Clear(D2D1::ColorF(D2D1::ColorF::Black));
 
-	//test->Middle_RenderFrame(WINSIZE_X/2, WINSIZE_Y/2, 0, 3, DEG_TO_RAD(135),false,false,0.5f);
-	
-	// // 백버퍼에 먼저 복사
-	HDC hBackBufferDC = backBuffer->GetMemDC();
-	//
-	SceneManager::GetInstance()->Render(hBackBufferDC);
-	//
-	// TimerManager::GetInstance()->Render(hBackBufferDC);
-	// wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), g_ptMouse.x, g_ptMouse.y);
-	// TextOut(hBackBufferDC, 20, 60, szText, wcslen(szText));
-	//
-	// // 백버퍼에 있는 내용을 메인 hdc에 복사
-	backBuffer->Render(hdc);
-	//D2DImage::EndDraw();
+	// TODO
+	uiTest.Render();
+
+	D2DImage::EndDraw();
+
+	//// // 백버퍼에 먼저 복사
+	//HDC hBackBufferDC = backBuffer->GetMemDC();
+	////
+	//SceneManager::GetInstance()->Render(hBackBufferDC);
+	////
+	//// TimerManager::GetInstance()->Render(hBackBufferDC);
+	//// wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), g_ptMouse.x, g_ptMouse.y);
+	//// TextOut(hBackBufferDC, 20, 60, szText, wcslen(szText));
+	////
+	//// // 백버퍼에 있는 내용을 메인 hdc에 복사
+	//backBuffer->Render(hdc);
 }
 
 LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)

@@ -37,6 +37,27 @@
     <Filter Include="MainGame\GamePlay\Entity">
       <UniqueIdentifier>{9894a647-a07a-4953-b416-f5afb50aafc5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\UI\Core">
+      <UniqueIdentifier>{cc9caf51-92e6-4e42-89aa-225667a65444}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\UI\Image">
+      <UniqueIdentifier>{6208c651-2863-49a4-8207-ae934dd5131d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\UI\Panel">
+      <UniqueIdentifier>{5f87addc-0d0d-4d95-9932-a3d090d9307b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\UI\Test">
+      <UniqueIdentifier>{5abc6174-cc33-4905-804f-0230063e58a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\UI\Text">
+      <UniqueIdentifier>{cce0dd2e-8754-42f4-ab10-2f75b0831f51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\UI\Utill">
+      <UniqueIdentifier>{67b14c5a-242f-4c28-933d-93bf5f04b5d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\D2D">
+      <UniqueIdentifier>{9bd7c6ae-64d2-4064-baf3-f2db51029f78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -78,12 +99,6 @@
     <ClCompile Include="LoadingScene.cpp">
       <Filter>MainGame\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="D2DImage.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="D2DImageManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="TurnManager.cpp">
       <Filter>MainGame\GamePlay</Filter>
     </ClCompile>
@@ -107,6 +122,18 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Test\UITestView.cpp">
+      <Filter>2D Framework\UI\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Utill\UIResourceSubManager.cpp">
+      <Filter>2D Framework\UI\Utill</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DImageManager.cpp">
+      <Filter>MainGame\D2D</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DImage.cpp">
+      <Filter>MainGame\D2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,12 +185,6 @@
     <ClInclude Include="LoadingScene.h">
       <Filter>MainGame\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="D2DImage.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="D2DImageManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="TurnManager.h">
       <Filter>MainGame\GamePlay</Filter>
     </ClInclude>
@@ -184,6 +205,66 @@
     </ClInclude>
     <ClInclude Include="Monster.h">
       <Filter>MainGame\GamePlay\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\VisualStyle.h">
+      <Filter>2D Framework\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Core\UIComponent.h">
+      <Filter>2D Framework\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Core\UIContainer.h">
+      <Filter>2D Framework\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Core\UIContainerBase.h">
+      <Filter>2D Framework\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Core\UILayout.h">
+      <Filter>2D Framework\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Button\UIButton.h">
+      <Filter>2D Framework\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Image\UIIcon.h">
+      <Filter>2D Framework\UI\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Image\UIImage.h">
+      <Filter>2D Framework\UI\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Panel\Container_FrontUIView.h">
+      <Filter>2D Framework\UI\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Panel\UITextLogPanel.h">
+      <Filter>2D Framework\UI\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Test\UITestHeader.h">
+      <Filter>2D Framework\UI\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Test\UITestView.h">
+      <Filter>2D Framework\UI\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Text\UIText.h">
+      <Filter>2D Framework\UI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Text\UITextBox.h">
+      <Filter>2D Framework\UI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Text\UITextEffect.h">
+      <Filter>2D Framework\UI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Utill\IUIInteractable.h">
+      <Filter>2D Framework\UI\Utill</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Utill\UIResourceSubManager.h">
+      <Filter>2D Framework\UI\Utill</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Utill\UITextPool.h">
+      <Filter>2D Framework\UI\Utill</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DImage.h">
+      <Filter>MainGame\D2D</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DImageManager.h">
+      <Filter>MainGame\D2D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

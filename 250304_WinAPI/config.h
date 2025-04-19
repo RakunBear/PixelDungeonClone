@@ -9,6 +9,7 @@
 #include <bitset>
 #include <map>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -17,11 +18,19 @@ using namespace std;
 #include "TimerManager.h"
 #include "SceneManager.h"
 
+/* D2D */
+#include <dwrite.h>
+#include <d2d1.h>
+
+#pragma comment(lib, "d2d1.lib")
+#pragma comment(lib, "dwrite.lib")
+//////
+
 /*
-	컴파일러에서 해당 코드를 뒤에 정의된 코드로 변경한다. 
+	컴파일러에서 해당 코드를 뒤에 정의된 코드로 변경한다.
 */
 #define WINSIZE_X	1080
-#define WINSIZE_Y	500
+#define WINSIZE_Y	720
 #define TILEMAPTOOL_X	1420
 #define TILEMAPTOOL_Y	700
 
@@ -39,7 +48,7 @@ typedef struct tagFPOINT
 	void operator=(const tagFPOINT& other) {
 		x = other.x;
 		y = other.y;
-	}	
+	}
 	void operator+=(const tagFPOINT& other) {
 		x += other.x;
 		y += other.y;
@@ -53,6 +62,19 @@ typedef struct tagFPOINT
 	}
 	bool operator!=(const tagFPOINT& other) {
 		return x != other.x || y != other.y;
+	}
+
+	tagFPOINT operator+(const tagFPOINT& other) const {
+		return {
+			x + other.x,
+			y + other.y
+		};
+	}
+	tagFPOINT operator*(const tagFPOINT& other) const {
+		return {
+			x * other.x,
+			y * other.y
+		};
 	}
 
 	float LengthSquared()
@@ -106,3 +128,41 @@ typedef struct tagTile
 	int frameX;
 	int frameY;
 } TILE_INFO;
+
+typedef struct tagFRECT
+{
+	float left;
+	float top;
+	float right;
+	float bottom;
+
+	// + 연산자 오버로딩 (FRECT끼리의 합)
+	tagFRECT operator+(const tagFRECT& other) const {
+		return {
+			left + other.left,
+			top + other.top,
+			right + other.right,
+			bottom + other.bottom
+		};
+	}
+
+	tagFRECT AplyScale(const FPOINT& scale) {
+		float cx = (left + right) / 2.0f;
+		float cy = (top + bottom) / 2.0f;
+
+		left = cx + (left - cx) * scale.x;
+		right = cx + (right - cx) * scale.x;
+		top = cy + (top - cy) * scale.y;
+		bottom = cy + (bottom - cy) * scale.y;
+		return { left, top, right, bottom };
+	}
+
+} FRECT;
+
+// 0.0f ~ 1.0f
+struct RGBA {
+	float r;
+	float g;
+	float b;
+	float a;
+};
