@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include "UIComponent.h"
-#include "VisualStyle.h"
-#include "DWriteFactory.h"
+#include "../Core/UIComponent.h"
+#include "../VisualStyle.h"
+#include "../../DWriteFactory.h"
 
 class UIText : public UIComponent {
 private:

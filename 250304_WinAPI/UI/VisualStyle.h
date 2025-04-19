@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <string>
-#include "D2DImage.h"
+#include "../../D2DImage.h"
 
 struct ImageStyle {
     D2DImage* image = nullptr;
@@ -34,3 +34,9 @@ struct IconStyle {
     ImageStyle background;
     FRECT padding{ 0, 0, 0, 0 };
 };
+
+struct EffectStyle {
+    float lifetime = 1.0f;
+    float moveSpeed = -3.0f;
+};
+

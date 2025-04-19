@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include <d2d1.h>
-#include <vector>
+#include "../../config.h"
 
 class UIComponent {
 protected:

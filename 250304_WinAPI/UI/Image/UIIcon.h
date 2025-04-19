@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include "UIContainerBase.h"
-#include "D2DImageManager.h"
-#include "VisualStyle.h"
+#include "../Core/UIContainerBase.h"
+#include "../../D2DImageManager.h"
+#include "../VisualStyle.h"
 
 
 class UIIcon : public UIContainerBase {

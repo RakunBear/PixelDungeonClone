@@ -2,6 +2,7 @@
 #include "config.h"
 
 class D2DImage;
+class UITestView;
 class UI_TestScene
 {
 private:
@@ -10,5 +11,8 @@ public:
 	virtual void Release() ;
 	virtual void Update() ;
 	virtual void Render() ;
+
+public:
+	UITestView* testView;
 };
 

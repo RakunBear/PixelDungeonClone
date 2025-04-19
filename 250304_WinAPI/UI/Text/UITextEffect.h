@@ -1,25 +1,35 @@
 ﻿#pragma once
-#include "UIComponent.h"
-#include "VisualStyle.h"
-#include "UIText.h"
+#include "../Core/UIContainerBase.h"
+#include "../VisualStyle.h"
+#include "../Text/UIText.h"
 
 class UITextEffect : public UIContainerBase {
 private:
+    TextStyle textStyle;
+    EffectStyle effectStyle;
     UIText* text = nullptr;
-    float lifetime = 1.0f;   // 총 지속 시간
     float elapsed = 0.0f;    // 경과 시간
-    float moveSpeed = -3.0f; // 초당 y 이동량 (위로)
     float startY = 0.0f;
 
 public:
-    void Init(const std::wstring& str, const TextStyle& style, float duration = 1.0f) {
-        lifetime = duration;
+    void Init(const std::wstring& str, const TextStyle& textStyle, EffectStyle effectStyle) {
+        this->textStyle = textStyle;
+        this->effectStyle = effectStyle;
         elapsed = 0.0f;
         startY = worldRect.top;
 
         text = new UIText();
-        text->Init(style, str, {0, 0, localRect.right, localRect.bottom});
+        text->Init(textStyle, str, {0, 0, localRect.right, localRect.bottom});
         AddChild(text);
+    }
+
+    void SetTextStyle(const TextStyle& textStyle)
+    {
+        this->textStyle = textStyle;
+    }
+    void SetEffectStyle(const EffectStyle& effectStyle)
+    {
+        this->effectStyle = effectStyle;
     }
 
     void Update(float dt) override {
@@ -27,16 +37,15 @@ public:
 
         elapsed += dt;
 
-
         // 알파값 줄이기
         TextStyle s = text->GetStyle();
-        float t = min(elapsed / lifetime, 1.0f);
+        float t = min(elapsed / effectStyle.lifetime, 1.0f);
         s.color.a = 1.0f - t;
         text->SetStyle(s);
 
         // 위로 이동
         auto r = text->GetLocalRect();
-        float offset = moveSpeed * t;
+        float offset = effectStyle.moveSpeed * t;
         r.top = r.top + offset;
         r.bottom = r.bottom + offset;
         text->SetRect(r);
@@ -48,5 +57,5 @@ public:
         }
     }
 
-    bool IsDead() const { return elapsed >= lifetime; }
+    bool IsDead() const { return elapsed >= effectStyle.lifetime; }
 };

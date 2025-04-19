@@ -1,9 +1,9 @@
 ﻿#pragma once
-#include "UIContainer.h"
+#include "../Core/UIContainer.h"
+#include "../Text/UIText.h"
+#include "../Utill/UITextPool.h"
 #include <deque>
 #include <string>
-#include "UIText.h"
-#include "UITextPool.h"
 
 class UITextLogPanel : public UIContainer {
 private:

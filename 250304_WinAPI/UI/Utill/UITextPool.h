@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <stack>
-#include "UIText.h"
+#include "../Text/UIText.h"
 
 class UITextPool {
 private:

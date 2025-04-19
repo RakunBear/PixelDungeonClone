@@ -3,36 +3,29 @@
 #include "D2DImageManager.h"
 #include "CommonFunction.h"
 #include "config.h"
-#include "UITester.h"
-
-UI::UITester Tester;
+#include "UI/Test/UITestView.h"
 
 HRESULT UI_TestScene::Init()
 {
 	SetClientRect(g_hWnd, WINSIZE_X, WINSIZE_Y);
 
-	Tester.Init();
+	testView = new UITestView();
+
+	testView->Init();
     return S_OK;
 }
 
 void UI_TestScene::Release()
 {
-	Tester.Release();
+	testView->Release();
 }
 
 void UI_TestScene::Update()
 {
-	Tester.Update();
-	if (KeyManager::GetInstance()->IsOnceKeyDown('K'))
-	{
-	}
-
-	if (KeyManager::GetInstance()->IsOnceKeyDown('R'))
-	{
-	}
+	testView->Update();
 }
 
 void UI_TestScene::Render()
 {
-	Tester.Render();
+	testView->Render();
 }

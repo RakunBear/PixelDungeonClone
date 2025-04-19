@@ -1,11 +1,11 @@
-#include "Button.h"
+ï»¿#include "Button.h"
 #include "Image.h"
 
 HRESULT Button::Init(int posX, int posY)
 {
 	state = ButtonState::None;
 	image = ImageManager::GetInstance()->
-		AddImage("¹öÆ°", L"Image/button.bmp", 122, 62, 1, 2);
+		AddImage("ë²„íŠ¼", L"Image/button.bmp", 122, 62, 1, 2);
 	if (image == nullptr)
 	{
 		return E_FAIL;
@@ -41,7 +41,7 @@ void Button::Update()
 		{
 			state = ButtonState::Up;
 
-			// ±â´É ¼öÇà
+			// ê¸°ëŠ¥ ìˆ˜í–‰
 			// TilemapTool::Save()
 			//if (buttonFunc && obj)	obj->buttonFunc();
 			if (buttonFunc) buttonFunc();

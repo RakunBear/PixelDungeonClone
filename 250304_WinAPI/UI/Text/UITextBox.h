@@ -1,9 +1,8 @@
 ﻿#pragma once
-#include "UIComponent.h"
-#include "VisualStyle.h"
-#include "UIImage.h"
-#include "UIText.h"
-#include "UIContainerBase.h"
+#include "../Core/UIContainerBase.h"
+#include "../VisualStyle.h"
+#include "../Image/UIImage.h"
+#include "../Text/UIText.h"
 
 // ✅ 복합 UI: 배경 + 텍스트
 class UITextBox : public UIContainerBase {

@@ -1,8 +1,8 @@
 ﻿#pragma once
-#include "UIComponent.h"
-#include "VisualStyle.h"
-#include "ValueAnimator.h"
-#include "D2DImageManager.h"
+#include "../Core/UIComponent.h"
+#include "../VisualStyle.h"
+#include "../Bar/ValueAnimator.h"
+#include "../../D2DImageManager.h"
 
 class UIValueBar : public UIComponent {
 protected:
@@ -55,7 +55,7 @@ inline void UIValueBar::Render(ID2D1HwndRenderTarget* rt) {
     // 🔹 fill (퍼센트 만큼만 채움)
     if (style.fill.image) {
         float fillWidth = width * fillPercent;
-        style.fill.image->RenderFrameScale(rect.left, rect.top, ws.x, ws.y, 0, 0, style.fill.alpha);
+        style.fill.image->RenderPercent({ rect.left, rect.top }, 0, fillPercent * 100.f, style.fill.alpha);
     }
 
     // 🔹 handle (필요시)

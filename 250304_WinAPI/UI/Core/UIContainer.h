@@ -1,6 +1,6 @@
 ﻿#pragma once
-#include "UIContainerBase.h"
-#include "UILayout.h"
+#include "../Core/UIContainerBase.h"
+#include "../Core/UILayout.h"
 
 class UIContainer : public UIContainerBase {
 protected:

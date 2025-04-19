@@ -1,8 +1,8 @@
 ﻿#pragma once
-#include "UIComponent.h"
-#include "UIImage.h"
-#include "VisualStyle.h"
-#include "IUIInteractable.h"
+#include "../Core/UIComponent.h"
+#include "../Image/UIImage.h"
+#include "../VisualStyle.h"
+#include "../Utill/IUIInteractable.h"
 #include <functional>
 
 class UIButton : public UIComponent, public IUIInteractable {

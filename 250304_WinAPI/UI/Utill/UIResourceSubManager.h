@@ -1,6 +1,6 @@
 ﻿#pragma once
-#include "D2DImageManager.h"
-#include "DWriteFactory.h"
+#include "../../D2DImageManager.h"
+#include "../../DWriteFactory.h"
 
 class UIResourceSubManager {
 public:

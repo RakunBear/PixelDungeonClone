@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <vector>
-#include "UIComponent.h"
+#include "../Core/UIComponent.h"
 
 class UILayout {
 public:

@@ -1,16 +1,20 @@
 ﻿#pragma once
-#include "UIContainer.h"
-#include "UIIcon.h"
-#include "UIButton.h"
-#include "UIValueBar.h"
-#include "UITextBox.h"
-#include "UIText.h"
-#include "UIResourceSubManager.h"
+#include "../Core/UIContainer.h"
+#include "../Image/UIIcon.h"
+#include "../BUtton/UIButton.h"
+#include "../Bar/UIValueBar.h"
+#include "../Text/UITextBox.h"
+#include "../Text/UIText.h"
+#include "../Utill/UIResourceSubManager.h"
 
 //
 // ✅ Status Toolbar (좌측 하단)
 //
 class UIStatusToolbar : public UIContainer {
+public:
+    UIValueBar* hpBar;
+    UIValueBar* expBar;
+    UITextBox*  levelText;
 public:
     void Init() {
         UIResourceSubManager::Preload_StatusToolbar();
@@ -18,7 +22,7 @@ public:
         SetRect({ 0.0f, 610.0f, 398.0f, 711.0f });
 
         // HP 바
-        auto* hpBar = new UIValueBar();
+        hpBar = new UIValueBar();
         hpBar->Init({ 75, 37, 398.5f, 68+37.13 }, {
             { D2DImageManager::GetInstance()->FindImage("status_hp_bg"), 1.0f },
             { D2DImageManager::GetInstance()->FindImage("status_hp_bar"), 1.0f }
@@ -27,7 +31,7 @@ public:
         hpBar->SetValue(70);
 
         // EXP 바
-        auto* expBar = new UIValueBar();
+        expBar = new UIValueBar();
         expBar->Init({ 73, 69, 396.5f, 69+32.13 }, {
             { D2DImageManager::GetInstance()->FindImage("status_exp_bg"), 1.0f },
             { D2DImageManager::GetInstance()->FindImage("status_exp_bar"), 1.0f }
@@ -51,7 +55,7 @@ public:
                 DWRITE_TEXT_ALIGNMENT_CENTER,
                 DWRITE_PARAGRAPH_ALIGNMENT_CENTER
             } };
-        auto* levelText = new UITextBox();
+        levelText = new UITextBox();
         levelText->Init(
             boxStyle,
             L"Lv. 1",

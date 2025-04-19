@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "UIComponent.h"
+#include "../Core/UIComponent.h"
 
 class UIContainerBase : public UIComponent {
 protected:
