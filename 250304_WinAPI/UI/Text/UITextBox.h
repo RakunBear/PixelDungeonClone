@@ -9,6 +9,7 @@ class UITextBox : public UIContainerBase {
 private:
     TextBoxStyle style;
     UIText* text = nullptr;
+    UIImage* image = nullptr;
 
 public:
     void Init(const TextBoxStyle& s, const std::wstring& content, const D2D1_RECT_F& layout) {
@@ -16,9 +17,9 @@ public:
         SetRect(layout); // 자신의 위치 설정
 
         if (style.background.image) {
-            auto* bg = new UIImage();
-            bg->Init(style.background, { 0, 0, layout.right - layout.left, layout.bottom - layout.top });
-            AddChild(bg); // 배경도 자식으로
+            image = new UIImage;
+            image->Init(style.background, { 0, 0, layout.right - layout.left, layout.bottom - layout.top });
+            AddChild(image);
         }
 
         text = new UIText();
@@ -46,9 +47,7 @@ public:
 
         if (style.background.image)
         {
-            D2D1_RECT_F rect = GetScaledDrawRect();
-            auto ws = GetWorldScale();
-            style.background.image->RenderFrameScale(rect.left, rect.top, ws.x, ws.y, 0, 0, style.background.alpha);
+            image->Render(rt);
         }
 
         if (text)
