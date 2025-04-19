@@ -129,7 +129,6 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="AstarTile.cpp" />
-    <ClCompile Include="D2DTextRenderer.cpp" />
     <ClCompile Include="DWriteFactory.cpp" />
     <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="AstarScene.cpp" />
@@ -388,7 +387,6 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="AstarTile.h" />
     <ClInclude Include="D2DBrush.h" />
-    <ClInclude Include="D2DTextRenderer.h" />
     <ClInclude Include="DWriteFactory.h" />
     <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="AstarScene.h" />
