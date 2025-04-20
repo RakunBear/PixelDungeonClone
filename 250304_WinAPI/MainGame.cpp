@@ -10,7 +10,6 @@
 #include "Camera.h"
 #include "D2DImage.h"
 #include "D2DImageManager.h"
-#include "D2DTextRenderer.h"
 #include "UI_Test.h"
 
 UI_TestScene uiTest;

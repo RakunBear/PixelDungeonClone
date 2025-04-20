@@ -50,25 +50,64 @@ typedef struct tagFPOINT
 	float x;
 	float y;
 
-    // + 연산자 오버로딩 (FPOINT끼리의 합)
-    tagFPOINT operator+(const tagFPOINT& other) const {
-        return {
-            x + other.x,
-            y + other.y
-        };
-    }
-    tagFPOINT operator*(const tagFPOINT& other) const {
-        return {
-            x * other.x,
-            y * other.y
-        };
-    }
-    // 대입 연산자 오버로딩 (POINT 대입)
-    tagFPOINT& operator=(const POINT& other) {
-        x = static_cast<float>(other.x);
-        y = static_cast<float>(other.y);
-        return *this;
-    }
+	tagFPOINT operator-(const tagFPOINT& other) {
+		return { x - other.x , y - other.y };
+	}
+	void operator=(const tagFPOINT& other) {
+		x = other.x;
+		y = other.y;
+	}
+	void operator+=(const tagFPOINT& other) {
+		x += other.x;
+		y += other.y;
+	}
+	void operator-=(const tagFPOINT& other) {
+		x -= other.x;
+		y -= other.y;
+	}
+	bool operator==(const tagFPOINT& other) {
+		return x == other.x && y == other.y;
+	}
+	bool operator!=(const tagFPOINT& other) {
+		return x != other.x || y != other.y;
+	}
+	tagFPOINT operator+(const tagFPOINT& other) const {
+		return {
+			x + other.x,
+			y + other.y
+		};
+	}
+	tagFPOINT operator*(const tagFPOINT& other) const {
+		return {
+			x * other.x,
+			y * other.y
+		};
+	}
+
+	float LengthSquared()
+	{
+		return x * x + y * y;
+	}
+
+	float Length()
+	{
+		return ::sqrt(LengthSquared());
+	}
+
+	void Normalize()
+	{
+		float length = Length();
+		if (length < 0.00000000001f)
+			return;
+
+		x /= length;
+		y /= length;
+	}
+
+	float Dot(tagFPOINT other)
+	{
+		return x * other.x + y * other.y;
+	}
 } FPOINT;
 
 typedef struct tagFRECT

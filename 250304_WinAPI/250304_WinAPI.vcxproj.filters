@@ -37,9 +37,6 @@
     <Filter Include="2D Framework\Item">
       <UniqueIdentifier>{c1441ce1-da0e-47b6-bcc0-4b07a17e40a4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2D Framework\UI\ValueBar">
-      <UniqueIdentifier>{939389c9-22a6-452a-87b9-027698a0333c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2D Framework\UI\Text">
       <UniqueIdentifier>{0685621e-a631-45d7-bd9f-06266cca8a50}</UniqueIdentifier>
     </Filter>
@@ -52,20 +49,17 @@
     <Filter Include="2D Framework\UI\Core">
       <UniqueIdentifier>{eaf883cb-e414-46ca-aa3d-6e3e07cf268e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2D Framework\UI\Container">
-      <UniqueIdentifier>{da316274-315a-4364-a297-3723dfe35255}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2D Framework\UI\Utill">
       <UniqueIdentifier>{8ddd9e31-5cd7-4e49-a577-5e599f8eb764}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\UI\Effect">
-      <UniqueIdentifier>{17853d04-1d14-483e-a11e-fad33971c36c}</UniqueIdentifier>
     </Filter>
     <Filter Include="2D Framework\UI\Panel">
       <UniqueIdentifier>{01b25a49-2455-446f-a5c6-a93ea8c259ab}</UniqueIdentifier>
     </Filter>
     <Filter Include="2D Framework\UI\Test">
       <UniqueIdentifier>{8c935501-2ad1-4192-8f7a-18812a087caa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\UI\Bar">
+      <UniqueIdentifier>{939389c9-22a6-452a-87b9-027698a0333c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -162,11 +156,11 @@
     <ClCompile Include="DWriteFactory.cpp">
       <Filter>MainGame\D2D</Filter>
     </ClCompile>
-    <ClCompile Include="UI\Test\UITestView.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="UI\Utill\UIResourceSubManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>2D Framework\UI\Utill</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Test\UITestView.cpp">
+      <Filter>2D Framework\UI\Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -275,65 +269,65 @@
     <ClInclude Include="D2DBrush.h">
       <Filter>MainGame\D2D</Filter>
     </ClInclude>
-    <ClInclude Include="UI\Bar\UIValueBar.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Bar\ValueAnimator.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Button\UIButton.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Container\Container_FrontUIView.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="UI\VisualStyle.h">
+      <Filter>2D Framework\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\Core\UIComponent.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>2D Framework\UI\Core</Filter>
     </ClInclude>
     <ClInclude Include="UI\Core\UIContainer.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>2D Framework\UI\Core</Filter>
     </ClInclude>
     <ClInclude Include="UI\Core\UIContainerBase.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>2D Framework\UI\Core</Filter>
     </ClInclude>
     <ClInclude Include="UI\Core\UILayout.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Image\UIIcon.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Image\UIImage.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Panel\UITextLogPanel.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Test\UITestHeader.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Test\UITestView.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Text\UIText.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Text\UITextBox.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Text\UITextEffect.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>2D Framework\UI\Core</Filter>
     </ClInclude>
     <ClInclude Include="UI\Utill\IUIInteractable.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>2D Framework\UI\Utill</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Image\UIIcon.h">
+      <Filter>2D Framework\UI\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Image\UIImage.h">
+      <Filter>2D Framework\UI\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Button\UIButton.h">
+      <Filter>2D Framework\UI\Button</Filter>
     </ClInclude>
     <ClInclude Include="UI\Utill\UIResourceSubManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>2D Framework\UI\Utill</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Test\UITestHeader.h">
+      <Filter>2D Framework\UI\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Test\UITestView.h">
+      <Filter>2D Framework\UI\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Text\UIText.h">
+      <Filter>2D Framework\UI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Text\UITextBox.h">
+      <Filter>2D Framework\UI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Text\UITextEffect.h">
+      <Filter>2D Framework\UI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Panel\UITextLogPanel.h">
+      <Filter>2D Framework\UI\Panel</Filter>
     </ClInclude>
     <ClInclude Include="UI\Utill\UITextPool.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>2D Framework\UI\Utill</Filter>
     </ClInclude>
-    <ClInclude Include="UI\VisualStyle.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="UI\Bar\UIValueBar.h">
+      <Filter>2D Framework\UI\Bar</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Bar\ValueAnimator.h">
+      <Filter>2D Framework\UI\Bar</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Container\Container_FrontUIView.h">
+      <Filter>2D Framework\UI\Panel</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
