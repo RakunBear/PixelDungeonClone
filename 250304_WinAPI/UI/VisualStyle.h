@@ -4,6 +4,7 @@
 
 struct ImageStyle {
     D2DImage* image = nullptr;
+    FRECT padding = {0,0,0,0};
     float alpha = 1.0f;
     D2D1_COLOR_F tint = D2D1::ColorF(1, 1, 1, 1); // 색상 효과
     bool grayscale = false; // 비활성화 상태 표현
@@ -29,14 +30,13 @@ struct TextBoxStyle {
     TextStyle textStyle;
 };
 
-struct IconStyle {
-    ImageStyle foreground;
-    ImageStyle background;
-    FRECT padding{ 0, 0, 0, 0 };
-};
-
 struct EffectStyle {
     float lifetime = 1.0f;
     float moveSpeed = -3.0f;
 };
 
+struct InventorySlotStyle
+{
+    TextStyle countTextStyle;     // 좌상단 수량
+    TextStyle enhanceTextStyle;   // 우하단 강화 수치
+};

@@ -1,9 +1,10 @@
 ﻿#pragma once
 #include "../Core/UIContainer.h"
 #include "../Bar/UIValueBar.h"
-#include "../Image/UIIcon.h"
+#include "../Button/UIImageTextButton.h"
 #include "../Text/UITextBox.h"
 #include "../Utill/UIResourceSubManager.h"
+#include "../UIButtonStyle.h"
 
 class UIStatusToolbar : public UIContainer {
 private:
@@ -62,19 +63,32 @@ private:
     }
 
     void AddCharacterIcon() {
-        auto* icon = new UIIcon();
-        icon->Init(IconStyle{
-            {D2DImageManager::GetInstance()->FindImage("status_character_ico")},
-            {D2DImageManager::GetInstance()->FindImage("status_character_bg")},
-            { 17.32f, 9.0f, 0.0f, 0.0f }
-            }, { 0, 0, 74.25f, 99.0f });
+        auto* icon = new UIImageTextButton();
+        icon->Init({ 0, 0, 74.25f, 99.0f });
         AddChild(icon);
+
+        UIIconStyle charIconStyle =
+        {
+ {D2DImageManager::GetInstance()->FindImage("status_character_bg"), },
+{D2DImageManager::GetInstance()->FindImage("status_character_ico"), { 17.32f, 9.0f, 0.0f, 0.0f }},
+        };
+            
+        auto* bgImage = new UIImage();
+        bgImage->Init(
+            charIconStyle.bgStyle, icon->GetLocalRect()
+        );
+        AddChild(bgImage);
+        auto* iconImage = new UIImage();
+        iconImage->Init(
+            charIconStyle.iconStyle, icon->GetLocalRect()
+        );
+        AddChild(iconImage);
     }
 
     void AddLevelText() {
         TextBoxStyle style = {
             { D2DImageManager::GetInstance()->FindImage("status_level") },
-            { L"pixel", 16.0f, D2D1::ColorF::White, true,
+            { L"pixel", 16.0f, D2D1::ColorF(D2D1::ColorF::White), true,
               DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT_CENTER }
         };
         levelText = new UITextBox();

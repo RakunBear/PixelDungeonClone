@@ -10,11 +10,22 @@ protected:
 public:
     void Init(const ImageStyle& s, const D2D1_RECT_F& layout) {
         SetRect(layout);
-
-        style = s;
+        SetStyle(s);
     }
 
-    void SetStyle(const ImageStyle& s) { style = s; }
+    void SetStyle(const ImageStyle& s)
+    {
+        style = s;
+        
+        D2D1_RECT_F rect = GetLocalRect();
+        // 🔹 padding 적용
+        rect.left   += style.padding.left;
+        rect.top    += style.padding.top;
+        rect.right  -= style.padding.right;
+        rect.bottom -= style.padding.bottom;
+        
+        SetRect(rect);
+    }
 
     POINT GetImgSize()
     {

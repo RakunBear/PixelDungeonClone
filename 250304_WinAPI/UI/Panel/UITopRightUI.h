@@ -1,15 +1,14 @@
 ﻿#pragma once
 #include "../Core/UIContainer.h"
-#include "../Image/UIIcon.h"
-#include "../BUtton/UIButton.h"
+#include "../BUtton/UIImageTextButton.h"
 #include "../Text/UIText.h"
 #include "../Utill/UIResourceSubManager.h"
 
 class UITopRightUI : public UIContainer {
 private:
-    UIIcon* stairIcon = nullptr;
+    UIImage* stairIcon = nullptr;
     UIText* stairText = nullptr;
-    std::vector<UIButton*> menuButtons;
+    std::vector<UIImageTextButton*> menuButtons;
 
 public:
     void Init(const D2D1_RECT_F& rect = { 922.f, 0.f, 1080.f, 62.32f }) {
@@ -26,18 +25,18 @@ public:
 
     void SetMenuHandler(int index, std::function<void()> handler) {
         if (index >= 0 && index < menuButtons.size()) {
-            menuButtons[index]->SetOnClick(handler);
+            // menuButtons[index]->SetOnClick(handler);
         }
     }
 
 private:
     void AddStairInfo() {
-        stairIcon = new UIIcon();
-        stairIcon->Init({ D2DImageManager::GetInstance()->FindImage("stair_ico") }, { 0,0,29,31 });
+        stairIcon = new UIImage();
+        stairIcon->Init(ImageStyle { D2DImageManager::GetInstance()->FindImage("stair_ico") }, { 0,0,29,31 });
         AddChild(stairIcon);
 
         stairText = new UIText();
-        stairText->Init({ L"pixel", 16.0f, D2D1::ColorF::White }, L"1층", { 0,31,29,62 });
+        stairText->Init({ L"pixel", 16.0f, D2D1::ColorF(D2D1::ColorF::White) }, L"1층", { 0,31,29,62 });
         AddChild(stairText);
     }
 
@@ -48,12 +47,25 @@ private:
             { 95.68f, 0, 159.0f, 66.32f }
         };
 
-        for (int i = 0; i < 2; ++i) {
-            auto* btn = new UIButton();
-            btn->Init({ D2DImageManager::GetInstance()->FindImage(btns[i]) });
-            btn->SetRect(coords[i]);
-            AddChild(btn);
-            menuButtons.push_back(btn);
+        const int slotCount = 2;
+
+        for (int i = 0; i < slotCount; ++i) {
+            auto* slot = new UIImageTextButton();
+            slot->Init(coords[i]);
+            menuButtons.push_back(slot);
+            AddChild(slot);
+            
+            ImageStyle slotIconStyle =
+            {
+                D2DImageManager::GetInstance()->FindImage(btns[i])
+            };
+            
+            auto* bgImage = new UIImage();
+            bgImage->Init(
+                slotIconStyle, {0,0, slot->GetWidth(), slot->GetHeight()}
+            );
+            slot->AddChild(bgImage);
         }
+        
     }
 };

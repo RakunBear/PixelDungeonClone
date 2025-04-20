@@ -1,12 +1,13 @@
 ﻿#pragma once
 #include "../Core/UIContainer.h"
-#include "../BUtton/UIButton.h"
+#include "../BUtton/UIImageTextButton.h"
 #include "../Utill/UIResourceSubManager.h"
+#include "../UIButtonStyle.h"
 
 class UIQuickSlotToolbar : public UIContainer {
 private:
-    std::vector<UIButton*> itemSlots;
-    std::vector<UIButton*> actionButtons;
+    std::vector<UIImageTextButton*> itemSlots;
+    std::vector<UIImageTextButton*> actionButtons;
 
 public:
     void Init(const D2D1_RECT_F& rect = { 725.f, 648.f, 1080.f, 719.f }) {
@@ -17,17 +18,15 @@ public:
         AddActionButtons();
     }
 
-    void SetItemIcon(int index, D2DImage* image) {
-        if (index >= 0 && index < itemSlots.size()) {
-            ImageStyle style = itemSlots[index]->GetStyle();
-            style.image = image;
-            itemSlots[index]->SetStyle(style);
-        }
-    }
+    // void SetItemIcon(int index, const & style) {
+    //     if (index >= 0 && index < itemSlots.size()) {
+    //         itemSlots[index]->SetStyle(style);
+    //     }
+    // }
 
     void SetActionHandler(int index, std::function<void()> handler) {
         if (index >= 0 && index < actionButtons.size()) {
-            actionButtons[index]->SetOnClick(handler);
+            // actionButtons[index]->SetOnClick(handler);
         }
     }
 
@@ -37,12 +36,29 @@ private:
         const float slotWidth = 60.f;
         const float slotHeight = 71.f;
 
+        UIIconStyle slotIconStyle =
+        {
+            { D2DImageManager::GetInstance()->FindImage("item_quick") }
+        };
+        
         for (int i = 0; i < slotCount; ++i) {
-            auto* slot = new UIButton();
-            slot->Init({ D2DImageManager::GetInstance()->FindImage("item_quick") });
-            slot->SetRect({ slotWidth * i, 5.f, slotWidth * (i + 1), slotHeight });
-            AddChild(slot);
+            auto* slot = new UIImageTextButton();
+            slot->Init({ slotWidth * i, 5.f, slotWidth * (i + 1), slotHeight });
             itemSlots.push_back(slot);
+            AddChild(slot);
+            
+            auto* bgImage = new UIImage();
+            bgImage->Init(
+                slotIconStyle.bgStyle, { 0,0, slot->GetWidth(), slot->GetHeight() }
+            );
+            slot->AddChild(bgImage);
+            
+            auto* iconImage = new UIImage();
+            iconImage->Init(
+                slotIconStyle.iconStyle, { 0,0, slot->GetWidth(), slot->GetHeight() }
+            );
+            slot->AddChild(iconImage);
+
         }
     }
 
@@ -53,13 +69,30 @@ private:
             { 234.85f, 0.0f, 271.0f, 71.f },
             { 289.46f, 0.0f, 355.0f, 71.f }
         };
+        const int slotCount = 3;
 
-        for (int i = 0; i < 3; ++i) {
-            auto* btn = new UIButton();
-            btn->Init({ D2DImageManager::GetInstance()->FindImage(keys[i]) });
-            btn->SetRect(coords[i]);
-            AddChild(btn);
-            actionButtons.push_back(btn);
+        for (int i = 0; i < slotCount; ++i) {
+            auto* slot = new UIImageTextButton();
+            slot->Init(coords[i]);
+            itemSlots.push_back(slot);
+            AddChild(slot);
+            
+            UIIconStyle slotIconStyle =
+            {
+                { D2DImageManager::GetInstance()->FindImage("item_quick") },
+                { D2DImageManager::GetInstance()->FindImage(keys[i]) }
+            };
+            
+            auto* bgImage = new UIImage();
+            bgImage->Init(
+                slotIconStyle.bgStyle, {0,0, slot->GetWidth(), slot->GetHeight()}
+            );
+            slot->AddChild(bgImage);
+            auto* iconImage = new UIImage();
+            iconImage->Init(
+                slotIconStyle.iconStyle, { 0,0, slot->GetWidth(), slot->GetHeight() }
+            );
+            slot->AddChild(iconImage);
         }
     }
 };

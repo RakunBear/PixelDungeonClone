@@ -9,20 +9,24 @@ class UITextBox : public UIContainerBase {
 private:
     TextBoxStyle style;
     UIText* text = nullptr;
+    UIImage* bgImage = nullptr;
 
 public:
     void Init(const TextBoxStyle& s, const std::wstring& content, const D2D1_RECT_F& layout) {
         style = s;
         SetRect(layout); // 자신의 위치 설정
 
+        float width = layout.right - layout.left;
+        float height = layout.bottom - layout.top;
+
         if (style.background.image) {
-            auto* bg = new UIImage();
-            bg->Init(style.background, { 0, 0, layout.right - layout.left, layout.bottom - layout.top });
-            AddChild(bg); // 배경도 자식으로
+            bgImage = new UIImage();
+            bgImage->Init(style.background, { 0, 0, width, height });
+            AddChild(bgImage); // 배경도 자식으로
         }
 
         text = new UIText();
-        text->Init(style.textStyle, content, { 0, 0, layout.right - layout.left, layout.bottom - layout.top });
+        text->Init(style.textStyle, content, { 0, 0, width, height });
         AddChild(text);
     }
  

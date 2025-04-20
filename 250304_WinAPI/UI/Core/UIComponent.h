@@ -18,6 +18,20 @@ public:
     virtual void SetScale(FPOINT s) {
         this->scale = s;
     }
+    virtual void Init(const D2D1_RECT_F& rect)
+    {
+        SetRect(rect);
+    }
+
+    float GetWidth() const
+    {
+        return localRect.right - localRect.left;
+    }
+    float GetHeight() const
+    {
+        return localRect.bottom - localRect.top;
+    }
+    
     FPOINT GetScale() const { return scale; }
 
     // ✅ scale 반영된 실제 그릴 영역 반환

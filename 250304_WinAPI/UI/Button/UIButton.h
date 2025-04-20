@@ -7,41 +7,24 @@
 
 class UIButton : public UIComponent, public IUIInteractable {
 private:
-    ImageStyle style;             // 🔹 스타일 저장
-    UIImage* imageView = nullptr;
     std::function<void()> onClick;
 
 public:
-    void Init(const ImageStyle& s) {
-        style = s;
-
-        imageView = new UIImage();
-        imageView->SetStyle(style);
-        imageView->SetRect({ 0, 0, 0, 0 });
-        imageView->SetScale({ 1.0f, 1.0f });
-    }
-
-    void SetOnClick(std::function<void()> fn) {
+    void SetOnClick(std::function<void()> fn = nullptr) {
         onClick = fn;
     }
+    
+    void Update(float dt) override {}
 
     void Render(ID2D1HwndRenderTarget* rt) override {
-        if (imageView) {
-            imageView->SetRect(GetWorldRect());     // 버튼 자체 좌표에 맞춤
-            imageView->SetScale(GetScale());        // 버튼 scale과 일치
-            imageView->Render(rt);
-        }
-    }
+        D2D1_RECT_F rect = GetWorldRect();
+        
+        // 🔸 출력 영역 확인용 사각형 (얇은 외곽선)
+        ID2D1SolidColorBrush* debugBrush = nullptr;
+        rt->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Red), &debugBrush);
+        rt->DrawRectangle(rect, debugBrush, 1.0f);  // 1.0f: 선 두께
 
-    void Update(float dt) override {
-        if (imageView) imageView->Update(dt);
-    }
-
-    const ImageStyle& GetStyle() const { return style; }
-    void SetStyle(const ImageStyle& s) {
-        style = s;
-        if (imageView)
-            imageView->SetStyle(style);
+        if (debugBrush) debugBrush->Release();
     }
 
     bool HandleClick(int x, int y) override {
@@ -53,4 +36,5 @@ public:
         }
         return false;
     }
+
 };

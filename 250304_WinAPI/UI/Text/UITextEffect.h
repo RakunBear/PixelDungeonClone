@@ -40,7 +40,8 @@ public:
         // 알파값 줄이기
         TextStyle s = text->GetStyle();
         float t = min(elapsed / effectStyle.lifetime, 1.0f);
-        s.color.a = 1.0f - t;
+        float fade = 1.0f - std::pow(2.0f, 10.0f * (t - 1.0f)); 
+        s.color.a = fade;
         text->SetStyle(s);
 
         // 위로 이동

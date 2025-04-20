@@ -32,10 +32,10 @@ public:
 	}
 
 	void Render(ID2D1HwndRenderTarget* rt) {
-		statusToolBar.Render(rt);
+		// statusToolBar.Render(rt);
 		quickSlotToolBar.Render(rt);
-		topRightToolBar.Render(rt);
-		uiTester.RenderUI(rt);  // 로그/이펙트
+		// topRightToolBar.Render(rt);
+		// uiTester.RenderUI(rt);  // 로그/이펙트
 	}
 
 	void Reset() {

@@ -21,7 +21,7 @@ void UI_TestScene::Release()
 
 void UI_TestScene::Update()
 {
-	testView->Update(1.0f);
+	testView->Update(0.1f);
 }
 
 void UI_TestScene::Render()
