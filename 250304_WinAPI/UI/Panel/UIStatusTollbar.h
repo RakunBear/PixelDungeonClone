@@ -64,25 +64,16 @@ private:
 
     void AddCharacterIcon() {
         auto* icon = new UIImageTextButton();
-        icon->Init({ 0, 0, 74.25f, 99.0f });
+        icon->Init({ 0, 0, 74.25f, 74.25f });
         AddChild(icon);
 
         UIIconStyle charIconStyle =
         {
  {D2DImageManager::GetInstance()->FindImage("status_character_bg"), },
-{D2DImageManager::GetInstance()->FindImage("status_character_ico"), { 17.32f, 9.0f, 0.0f, 0.0f }},
+{D2DImageManager::GetInstance()->FindImage("status_character_ico"), { 17.32f, 9.0f, 17.32f, 9.0f }},
         };
             
-        auto* bgImage = new UIImage();
-        bgImage->Init(
-            charIconStyle.bgStyle, icon->GetLocalRect()
-        );
-        AddChild(bgImage);
-        auto* iconImage = new UIImage();
-        iconImage->Init(
-            charIconStyle.iconStyle, icon->GetLocalRect()
-        );
-        AddChild(iconImage);
+        icon->InitFromStyle(charIconStyle, {0,0, icon->GetWidth(), icon->GetHeight()});
     }
 
     void AddLevelText() {

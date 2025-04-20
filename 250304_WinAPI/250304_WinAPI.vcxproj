@@ -345,12 +345,13 @@
     <ClInclude Include="TurnManager.h" />
     <ClInclude Include="UI\Bar\UIValueBar.h" />
     <ClInclude Include="UI\Bar\ValueAnimator.h" />
-    <ClInclude Include="UI\Button\UIButton.h" />
+    <ClInclude Include="UI\Button\UIImageTextButton.h" />
     <ClInclude Include="UI\Core\UIComponent.h" />
     <ClInclude Include="UI\Core\UIContainer.h" />
     <ClInclude Include="UI\Core\UIContainerBase.h" />
     <ClInclude Include="UI\Core\UILayout.h" />
     <ClInclude Include="UI\Image\UIImage.h" />
+    <ClInclude Include="UI\Panel\UIInventory.h" />
     <ClInclude Include="UI\Panel\UIQuickSlotToolbar.h" />
     <ClInclude Include="UI\Panel\UIStatusTollbar.h" />
     <ClInclude Include="UI\Panel\UITextLogPanel.h" />
@@ -362,6 +363,7 @@
     <ClInclude Include="UI\Text\UITextBox.h" />
     <ClInclude Include="UI\Text\UITextEffect.h" />
     <ClInclude Include="UI\UIButtonStyle.h" />
+    <ClInclude Include="UI\UIData.h" />
     <ClInclude Include="UI\Utill\IUIInteractable.h" />
     <ClInclude Include="UI\Utill\UIResourceSubManager.h" />
     <ClInclude Include="UI\Utill\UITextPool.h" />

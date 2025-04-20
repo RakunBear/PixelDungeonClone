@@ -67,7 +67,7 @@ public:
         if (format && brush)
         {
 
-            D2D1_RECT_F rect = GetWorldRect();
+            D2D1_RECT_F rect = GetScaledDrawRect();
             rt->DrawTextW(text.c_str(), static_cast<UINT32>(text.length()), format, &rect, brush);
             
             // 🔸 출력 영역 확인용 사각형 (얇은 외곽선)

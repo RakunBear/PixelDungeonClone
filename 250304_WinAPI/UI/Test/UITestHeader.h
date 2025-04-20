@@ -1,13 +1,16 @@
-﻿#include "../Panel/UITextLogPanel.h"
+﻿#pragma once
+
+#include "../Panel/UITextLogPanel.h"
 #include "../../Timer.h"
 #include "UITestEffectManager.h"
+#include "../Panel/UIInventory.h"
 
-class UITestHeader
+class UITestHeader 
 {
 public:
     // 글로벌 영역 (예시)
     UITextLogPanel* logPanel = nullptr;
-    UITestEffectManager effectManager;
+    UITestEffectManager* effectManager;
 
     float timer = 0.0f;
     float logInterval = 0.2f; // 2초마다 로그 추가
@@ -55,13 +58,14 @@ public:
             -3.0f // y movespeed value
         };
         D2D1_RECT_F fxRect = { 600, 400, 800, 430 };
-        effectManager.AddEffect(messages[i], style, fxRect, effectStyle);
+        //effectManager->AddEffect(messages[i], style, fxRect, effectStyle);
     }
 
     void InitUI() {
         // UI 생성
         logPanel = new UITextLogPanel();
-        logPanel->Init({ 100, 100, 400, 500 }, 6, 20.0f, 2.0f);
+        logPanel->Init({ 700, 100, 1000, 500 }, 6, 20.0f, 2.0f);
+        effectManager = UITestEffectManager::GetInstance();
         timerC.Init();
 
     }
@@ -81,11 +85,42 @@ public:
 
 
         logPanel->Update(dt);
-        effectManager.Update(dt);
+        effectManager->Update(dt);
     }
 
     void RenderUI(ID2D1HwndRenderTarget* rt) {
         if (logPanel) logPanel->Render(rt);
-        effectManager.Render(rt);
+        effectManager->Render(rt);
+    }
+};
+
+
+class UITestInventoryView {
+private:
+    UIInventory* inventoryPanel = nullptr;
+
+public:
+    void Init() {
+        inventoryPanel = new UIInventory();
+        inventoryPanel->Init();
+    }
+
+    void Update(float dt) {
+        if (inventoryPanel) inventoryPanel->Update(dt);
+    }
+
+    void Render(ID2D1HwndRenderTarget* rt) {
+        if (inventoryPanel) inventoryPanel->Render(rt);
+    }
+
+    void HandleClick(int x, int y) {
+        // 간단한 클릭 처리 예시
+        if (!inventoryPanel) return ;
+
+        inventoryPanel->HandleClick(x, y);
+    }
+
+    ~UITestInventoryView() {
+        delete inventoryPanel;
     }
 };

@@ -13,26 +13,44 @@ public:
 class UIVerticalLayout : public UILayout {
 private:
     float spacing = 4.0f;
-    float paddingTop = 4.0f;
+    float padding = 4.0f;
+    bool  bottomToTop = true;
 
 public:
-    UIVerticalLayout(float spacing = 4.0f, float paddingTop = 4.0f)
-        : spacing(spacing), paddingTop(paddingTop) {
+    UIVerticalLayout(float spacing = 4.0f, float padding = 4.0f)
+        : spacing(spacing), padding(padding), bottomToTop(true) {
     }
 
     void Apply(std::vector<UIComponent*>& children, const D2D1_RECT_F& parentRect) override {
-        float x = parentRect.left;
-        float y = parentRect.top + paddingTop;
 
-        for (auto* child : children) {
-            D2D1_RECT_F r = child->GetLocalRect();
-            float height = r.bottom - r.top;
-            float width = r.right - r.left;
+        if (bottomToTop) {
+            float y = parentRect.bottom - padding;
 
-            D2D1_RECT_F newRect = D2D1::RectF(x, y, x + width, y + height);
-            child->SetRect(newRect);
+            // ✅ 역순 순회: 최근 추가된 애가 아래로 가게
+            for (auto it = children.rbegin(); it != children.rend(); ++it) {
+                UIComponent* child = *it;
+                D2D1_RECT_F r = child->GetLocalRect();
+                float height = r.bottom - r.top;
+                float width = r.right - r.left;
 
-            y += height + spacing;
+                y -= height;
+                D2D1_RECT_F newRect = D2D1::RectF(r.left, y, r.left + width, y + height);
+                child->SetRect(newRect);
+                y -= spacing;
+            }
+        }
+        else {
+            float y = parentRect.top + padding;
+
+            for (auto* child : children) {
+                D2D1_RECT_F r = child->GetLocalRect();
+                float height = r.bottom - r.top;
+                float width = r.right - r.left;
+
+                D2D1_RECT_F newRect = D2D1::RectF(r.left, y, r.left + width, y + height);
+                child->SetRect(newRect);
+                y += height + spacing;
+            }
         }
     }
 };

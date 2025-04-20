@@ -19,7 +19,7 @@ public:
 
     void UpdateLayout() {
         if (layout)
-            layout->Apply(children, GetLocalRect());
+            layout->Apply(children, GetSizeRect());
 
         for (auto* c : children)
             c->UpdateWorldRect();
@@ -30,6 +30,7 @@ public:
 
         UpdateLayout();
     }
+    
 };
 
 class UIAutoContainer : public UIContainer {

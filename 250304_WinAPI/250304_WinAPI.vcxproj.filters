@@ -159,9 +159,6 @@
     <ClCompile Include="UI\Utill\UIResourceSubManager.cpp">
       <Filter>2D Framework\UI\Utill</Filter>
     </ClCompile>
-    <ClCompile Include="UI\Test\UITestView.cpp">
-      <Filter>2D Framework\UI\Test</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">
@@ -287,14 +284,8 @@
     <ClInclude Include="UI\Utill\IUIInteractable.h">
       <Filter>2D Framework\UI\Utill</Filter>
     </ClInclude>
-    <ClInclude Include="UI\Image\UIIcon.h">
-      <Filter>2D Framework\UI\Image</Filter>
-    </ClInclude>
     <ClInclude Include="UI\Image\UIImage.h">
       <Filter>2D Framework\UI\Image</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Button\UIButton.h">
-      <Filter>2D Framework\UI\Button</Filter>
     </ClInclude>
     <ClInclude Include="UI\Utill\UIResourceSubManager.h">
       <Filter>2D Framework\UI\Utill</Filter>
@@ -326,11 +317,29 @@
     <ClInclude Include="UI\Bar\ValueAnimator.h">
       <Filter>2D Framework\UI\Bar</Filter>
     </ClInclude>
-    <ClInclude Include="UI\Container\Container_FrontUIView.h">
+    <ClInclude Include="UI\UIButtonStyle.h">
+      <Filter>2D Framework\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIData.h">
+      <Filter>2D Framework\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Panel\UIInventory.h">
       <Filter>2D Framework\UI\Panel</Filter>
     </ClInclude>
-    <ClInclude Include="UIStatusTollbar.h">
+    <ClInclude Include="UI\Panel\UIQuickSlotToolbar.h">
       <Filter>2D Framework\UI\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Panel\UIStatusTollbar.h">
+      <Filter>2D Framework\UI\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Panel\UITopRightUI.h">
+      <Filter>2D Framework\UI\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Test\UITestEffectManager.h">
+      <Filter>2D Framework\UI\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Button\UIImageTextButton.h">
+      <Filter>2D Framework\UI\Button</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

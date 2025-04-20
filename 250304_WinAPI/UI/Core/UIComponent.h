@@ -22,15 +22,6 @@ public:
     {
         SetRect(rect);
     }
-
-    float GetWidth() const
-    {
-        return localRect.right - localRect.left;
-    }
-    float GetHeight() const
-    {
-        return localRect.bottom - localRect.top;
-    }
     
     FPOINT GetScale() const { return scale; }
 
@@ -122,6 +113,15 @@ public:
         }
     }
 
+    float GetWidth() const
+    {
+        return localRect.right - localRect.left;
+    }
+    float GetHeight() const
+    {
+        return localRect.bottom - localRect.top;
+    }
     D2D1_RECT_F GetWorldRect() const { return worldRect; }
     D2D1_RECT_F GetLocalRect() const { return localRect; }
+    D2D1_RECT_F GetSizeRect() const { return { 0, 0, GetWidth(), GetHeight() }; }
 };

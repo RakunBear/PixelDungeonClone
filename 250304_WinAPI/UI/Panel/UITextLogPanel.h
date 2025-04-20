@@ -26,7 +26,7 @@ public:
     void SetMaxLineAndHeight(int maxLine, float lineHeight)
     {
         maxLines = maxLine;
-        lineRect = { 0, 0, GetLocalRect().right, lineHeight};
+        lineRect = { 0, 0, GetWidth(), lineHeight};
     }
 
     void AddLog(const std::wstring& content, const TextStyle& style) {

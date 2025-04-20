@@ -18,17 +18,25 @@ public:
         AddActionButtons();
     }
 
-    // void SetItemIcon(int index, const & style) {
-    //     if (index >= 0 && index < itemSlots.size()) {
-    //         itemSlots[index]->SetStyle(style);
-    //     }
-    // }
-
     void SetActionHandler(int index, std::function<void()> handler) {
         if (index >= 0 && index < actionButtons.size()) {
             // actionButtons[index]->SetOnClick(handler);
         }
     }
+
+    bool HandleClick(int x, int y) {
+        for (auto* button : itemSlots) {
+            if (button && button->HandleClick(x, y)) {
+                return true;
+            }
+        }
+        for (auto* button : actionButtons) {
+            if (button && button->HandleClick(x, y)) {
+                return true;
+            }
+        }
+    }
+
 
 private:
     void AddItemSlots() {
@@ -43,22 +51,9 @@ private:
         
         for (int i = 0; i < slotCount; ++i) {
             auto* slot = new UIImageTextButton();
-            slot->Init({ slotWidth * i, 5.f, slotWidth * (i + 1), slotHeight });
+            slot->InitFromStyle(slotIconStyle,{ slotWidth * i, 5.f, slotWidth * (i + 1), slotHeight });
             itemSlots.push_back(slot);
             AddChild(slot);
-            
-            auto* bgImage = new UIImage();
-            bgImage->Init(
-                slotIconStyle.bgStyle, { 0,0, slot->GetWidth(), slot->GetHeight() }
-            );
-            slot->AddChild(bgImage);
-            
-            auto* iconImage = new UIImage();
-            iconImage->Init(
-                slotIconStyle.iconStyle, { 0,0, slot->GetWidth(), slot->GetHeight() }
-            );
-            slot->AddChild(iconImage);
-
         }
     }
 
@@ -66,33 +61,43 @@ private:
         const char* keys[] = { "search_quick", "sleep_quick", "inven_quick" };
         const D2D1_RECT_F coords[] = {
             { 180.23f, 0.0f, 234.85f, 71.f },
-            { 234.85f, 0.0f, 271.0f, 71.f },
+            { 234.85f, 0.0f, 289.46f, 71.f },
             { 289.46f, 0.0f, 355.0f, 71.f }
         };
-        const int slotCount = 3;
 
-        for (int i = 0; i < slotCount; ++i) {
-            auto* slot = new UIImageTextButton();
-            slot->Init(coords[i]);
-            itemSlots.push_back(slot);
-            AddChild(slot);
-            
-            UIIconStyle slotIconStyle =
-            {
-                { D2DImageManager::GetInstance()->FindImage("item_quick") },
-                { D2DImageManager::GetInstance()->FindImage(keys[i]) }
-            };
-            
-            auto* bgImage = new UIImage();
-            bgImage->Init(
-                slotIconStyle.bgStyle, {0,0, slot->GetWidth(), slot->GetHeight()}
-            );
-            slot->AddChild(bgImage);
-            auto* iconImage = new UIImage();
-            iconImage->Init(
-                slotIconStyle.iconStyle, { 0,0, slot->GetWidth(), slot->GetHeight() }
-            );
-            slot->AddChild(iconImage);
-        }
+        UIIconStyle slotIconStyle =
+        {
+        { D2DImageManager::GetInstance()->FindImage("item_quick") },
+        { D2DImageManager::GetInstance()->FindImage(keys[0]) }
+        };
+        auto* slot = new UIImageTextButton();
+        slot->InitFromStyle(slotIconStyle, coords[0]);
+        AddChild(slot);
+        itemSlots.push_back(slot);
+        slot->SetOnClick([this]()
+        {
+            // TODO
+        });
+
+        slotIconStyle.iconStyle = { D2DImageManager::GetInstance()->FindImage(keys[1]) };
+        slot = new UIImageTextButton();
+        slot->InitFromStyle(slotIconStyle, coords[1]);
+        slot->SetOnClick([this]()
+        {
+            // TODO
+        });
+        AddChild(slot);
+        itemSlots.push_back(slot);
+        
+        slotIconStyle.iconStyle = { D2DImageManager::GetInstance()->FindImage(keys[2]) };
+        slot = new UIImageTextButton();
+        slot->InitFromStyle(slotIconStyle, coords[2]);
+        slot->SetOnClick([this]()
+        {
+            // TODO
+            OutputDebugStringW(L"클릭클기\n");
+        });
+        AddChild(slot);
+        itemSlots.push_back(slot);
     }
 };

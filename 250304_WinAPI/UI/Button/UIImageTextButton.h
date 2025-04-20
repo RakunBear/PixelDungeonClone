@@ -2,17 +2,19 @@
 
 #include "../Core/UIContainerBase.h"
 #include "../Image/UIImage.h"
-#include "../Button/UIButton.h"
+#include "../Utill/IUIInteractable.h"
 #include "../Text/UIText.h"
 #include "../VisualStyle.h"
+#include "../UIButtonStyle.h"
+#include <utility>
 #include <vector>
 #include <functional>
 
-class UIImageTextButton : public UIContainerBase {
+class UIImageTextButton : public UIContainerBase, public IUIInteractable {
 private:
     std::vector<UIImage*> images;
     std::vector<UIText*> texts;
-    UIButton* clickArea = nullptr;
+    std::function<void()> onClick = nullptr;
     
 public:
     void AddImage(const ImageStyle& imageStyle, const D2D1_RECT_F& rect)
@@ -30,35 +32,60 @@ public:
         texts.push_back(txt);
     }
 
-    void AddButton(const D2D1_RECT_F& rect, std::function<void()> fn = nullptr)
-    {
-        clickArea = new UIButton();
-        AddChild(clickArea);
-        clickArea->SetOnClick(fn);
-    }
-
-    void SetOnClick(std::function<void()> fn) {
-        if (clickArea == nullptr)
-        {
-            return;
-        }
-        clickArea->SetOnClick(fn);
-        
+    void SetOnClick(std::function<void()> fn = nullptr) {
+        onClick = std::move(fn);
     }
 
     const std::vector<UIText*>& GetTexts() const {
         return texts;
     }
 
-    // void Render(ID2D1HwndRenderTarget* rt) override {
-    //     if (!rt) return;
-    //
-    //     for (auto* txt : images) {
-    //         if (txt) txt->Render(rt);
-    //     }
-    //     for (auto* txt : texts) {
-    //         if (txt) txt->Render(rt);
-    //     }
-    //     if (clickArea) clickArea->Render(rt); // 버튼 효과가 렌더에 필요하다면
-    // }
+    // 조합
+    
+    void InitFromStyle(const UIIconStyle& style, const D2D1_RECT_F& layout) {
+        SetRect(layout);
+
+        auto childLayout = D2D1_RECT_F{0,0, GetWidth(), GetHeight()};
+        
+        // 아이콘 이미지
+        if (style.bgStyle.image) {
+            AddImage(style.bgStyle, childLayout);
+        }
+        if (style.iconStyle.image) {
+            AddImage(style.iconStyle, childLayout); // iconStyle.padding은 UIImage 내부에서 처리됨
+        }
+    }
+
+    void InitFromStyle(const UIInventorySlotStyle& style, const D2D1_RECT_F& layout) {
+        SetRect(layout);
+        
+        auto childLayout = D2D1_RECT_F{0,0, GetWidth(), GetHeight()};
+        
+        // 아이콘 이미지
+        if (style.background.image) {
+            AddImage(style.background, childLayout);
+        }
+        if (style.itemIcon.image) {
+            AddImage(style.itemIcon, childLayout); // iconStyle.padding은 UIImage 내부에서 처리됨
+        }
+
+        AddText(L"", style.quantityTextStyle, childLayout);
+        AddText(L"", style.enhancementTextStyle, childLayout);
+    }
+
+    bool HandleClick(int x, int y) override {
+        auto r = GetScaledDrawRect();
+
+        if (x >= r.left && x <= r.right &&
+            y >= r.top && y <= r.bottom)
+        {
+            OutputDebugStringA("__!!!!!_\n");
+            if (onClick) 
+            {
+                onClick();
+                return true;
+            }
+        }
+        return false;
+    }
 };

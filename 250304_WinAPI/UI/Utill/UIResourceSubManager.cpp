@@ -26,6 +26,13 @@ void UIResourceSubManager::Preload_TopRightUI() {
     mgr->AddImage("menu_btn", L"assets/interfaces/menu_btn.png", 1, 1);
 }
 
+void UIResourceSubManager::Preload_InventoryUI()
+{
+    auto mgr = D2DImageManager::GetInstance();
+    mgr->AddImage("inventory_bg", L"assets/interfaces/inventory_bg.png", 1, 1);
+    mgr->AddImage("inventory_slot", L"assets/interfaces/inventory_slot.png", 1, 1);
+}
+
 // ✅ 전체 리소스 초기화
 void UIResourceSubManager::PreloadAll() {
     InitFontResources();                 // ⬅ 폰트 먼저
