@@ -1,13 +1,13 @@
 ﻿#include "../Panel/UITextLogPanel.h"
-#include "../Text/UITextEffect.h"
 #include "../../Timer.h"
+#include "UITestEffectManager.h"
 
 class UITestHeader
 {
 public:
     // 글로벌 영역 (예시)
     UITextLogPanel* logPanel = nullptr;
-    std::vector<UITextEffect*> floatingTexts;
+    UITestEffectManager effectManager;
 
     float timer = 0.0f;
     float logInterval = 0.2f; // 2초마다 로그 추가
@@ -54,11 +54,8 @@ public:
             5.0f, // duration
             -3.0f // y movespeed value
         };
-
-        auto* fx = new UITextEffect();
-        fx->SetWorldRect({ 600, 400, 800, 430 });
-        fx->Init(messages[i], style, effectStyle);
-        floatingTexts.push_back(fx);
+        D2D1_RECT_F fxRect = { 600, 400, 800, 430 };
+        effectManager.AddEffect(messages[i], style, fxRect, effectStyle);
     }
 
     void InitUI() {
@@ -84,29 +81,11 @@ public:
 
 
         logPanel->Update(dt);
-        for (auto it = floatingTexts.begin(); it != floatingTexts.end();)
-        {
-            if ((*it)->IsDead())
-            {
-                delete* it;
-                *it = nullptr;
-                it = floatingTexts.erase(it);
-            }
-            else
-            {
-                (*it)->Update(dt);
-
-                ++it;
-            }
-        }
+        effectManager.Update(dt);
     }
 
     void RenderUI(ID2D1HwndRenderTarget* rt) {
         if (logPanel) logPanel->Render(rt);
-        for (auto* txt : floatingTexts)
-        {
-            if (!txt) return;
-            txt->Render(rt);
-        }
+        effectManager.Render(rt);
     }
 };

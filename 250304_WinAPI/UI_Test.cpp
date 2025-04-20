@@ -1,6 +1,5 @@
 ﻿#include "UI_Test.h"
 #include "D2DImage.h"
-#include "D2DImageManager.h"
 #include "CommonFunction.h"
 #include "config.h"
 #include "UI/Test/UITestView.h"
@@ -22,10 +21,10 @@ void UI_TestScene::Release()
 
 void UI_TestScene::Update()
 {
-	testView->Update();
+	testView->Update(1.0f);
 }
 
 void UI_TestScene::Render()
 {
-	testView->Render();
+	testView->Render(D2DImage::GetRenderTarget());
 }

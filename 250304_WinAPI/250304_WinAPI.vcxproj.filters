@@ -329,5 +329,8 @@
     <ClInclude Include="UI\Container\Container_FrontUIView.h">
       <Filter>2D Framework\UI\Panel</Filter>
     </ClInclude>
+    <ClInclude Include="UIStatusTollbar.h">
+      <Filter>2D Framework\UI\Panel</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

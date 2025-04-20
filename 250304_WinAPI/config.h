@@ -173,6 +173,7 @@ typedef struct tagTile
 	int frameY;
 } TILE_INFO;
 
+// UI에서 사용하는거 X
 enum Dir
 {
 	DIR_UP,
