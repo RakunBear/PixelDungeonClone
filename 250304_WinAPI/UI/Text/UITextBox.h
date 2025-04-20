@@ -52,7 +52,7 @@ public:
         {
             D2D1_RECT_F rect = GetScaledDrawRect();
             auto ws = GetWorldScale();
-            style.background.image->RenderFrameScale(rect.left, rect.top, ws.x, ws.y, 0, 0, style.background.alpha);
+            style.background.image->RenderFrameScale(rect.left, rect.top, ws.x, ws.y, 0, 0, 0.0f, false, false, style.background.alpha);
         }
 
         if (text)

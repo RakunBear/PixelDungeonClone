@@ -48,7 +48,8 @@ public:
         D2D1_RECT_F rect = GetScaledDrawRect();
         FPOINT ws = GetWorldScale();
 
-        style.image->RenderFrameScale(rect.left, rect.top, ws.x, ws.y, 0, 0, style.alpha);
+        style.image->RenderFrameScale(rect.left, rect.top, ws.x, ws.y, 0, 0, 
+            0.0f, false, false, style.alpha);
     
 
         // 🔸 출력 영역 확인용 사각형 (얇은 외곽선)

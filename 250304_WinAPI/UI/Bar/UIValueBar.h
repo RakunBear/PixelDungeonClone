@@ -50,7 +50,7 @@ inline void UIValueBar::Render(ID2D1HwndRenderTarget* rt) {
 
     // 🔹 배경
     if (style.background.image)
-        style.background.image->RenderFrameScale(rect.left, rect.top, ws.x, ws.y, 0, 0, style.background.alpha);
+        style.background.image->RenderFrameScale(rect.left, rect.top, ws.x, ws.y, 0, 0, 0.0f, false, false, style.background.alpha);
 
     // 🔹 fill (퍼센트 만큼만 채움)
     if (style.fill.image) {
@@ -65,6 +65,6 @@ inline void UIValueBar::Render(ID2D1HwndRenderTarget* rt) {
         float handleWidth = 8.0f;
         float handleHeight = height;
 
-        style.handle.image->RenderFrameScale(handleX, handleY, ws.x, ws.y, 0, 0, style.handle.alpha);
+        style.handle.image->RenderFrameScale(handleX, handleY, ws.x, ws.y, 0, 0, 0.0f, false, false, style.background.alpha);
     }
 }

@@ -43,8 +43,8 @@ private:
     void AddMenuButtons() {
         const char* btns[] = { "guidebook_btn", "menu_btn" };
         const D2D_RECT_F coords[] = {
-            { 29.f, 0, 95.68f, 66.32f },
-            { 95.68f, 0, 159.0f, 66.32f }
+            { 29.f, 0, 95.68f, 62.32f },
+            { 95.56f, 0, 158.0f, 62.32f }
         };
 
         const int slotCount = 2;
