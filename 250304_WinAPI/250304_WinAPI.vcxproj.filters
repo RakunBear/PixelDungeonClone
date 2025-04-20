@@ -341,5 +341,11 @@
     <ClInclude Include="UI\Button\UIImageTextButton.h">
       <Filter>2D Framework\UI\Button</Filter>
     </ClInclude>
+    <ClInclude Include="UI\Image\UIStretchImage.h">
+      <Filter>2D Framework\UI\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Panel\UI9PatchPanel.h">
+      <Filter>2D Framework\UI\Panel</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -359,7 +359,18 @@ void D2DImage::DrawCircle(FPOINT center, float radius, int color, float lineThic
     renderTarget->DrawEllipse(ellipse, brushes[color], lineThickness);
 }
 
+void D2DImage::RenderRaw(float x, float y, float width, float height, float alpha) {
+    if (!bitmap || !renderTarget) return;
 
+    D2D1_RECT_F srcRect = GetFullSourceRect(); // 원본 전체
+    D2D1_RECT_F destRect = D2D1::RectF(x, y, x + width, y + height);
+
+    renderTarget->DrawBitmap(bitmap, destRect, alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, &srcRect);
+}
+
+D2D1_RECT_F D2DImage::GetFullSourceRect() const {
+    return D2D1::RectF(0, 0, static_cast<float>(GetWidth()), static_cast<float>(GetHeight()));
+}
 
 void D2DImage::Release() {
 

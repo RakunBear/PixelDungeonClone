@@ -35,8 +35,10 @@ struct EffectStyle {
     float moveSpeed = -3.0f;
 };
 
-struct InventorySlotStyle
-{
-    TextStyle countTextStyle;     // 좌상단 수량
-    TextStyle enhanceTextStyle;   // 우하단 강화 수치
+// 9개 영역의 이미지 스타일
+struct NinePatchStyle {
+    ImageStyle topLeft, top, topRight;
+    ImageStyle left, center, right;
+    ImageStyle bottomLeft, bottom, bottomRight;
+    D2D1_SIZE_F cornerSize = { 8.0f, 8.0f };  // 기본 모서리 크기
 };

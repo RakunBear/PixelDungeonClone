@@ -7,6 +7,7 @@
 #include "../Utill/UIResourceSubManager.h"
 
 // TODO : 지우기
+#include "UI9PatchPanel.h"
 #include "../Test/UITestEffectManager.h"
 
 class UIInventory : public UIContainer {
@@ -28,13 +29,7 @@ public:
         SetRect(area);
         UIResourceSubManager::Preload_InventoryUI();
 
-        ImageStyle imgStyle = {
-            {D2DImageManager::GetInstance()->FindImage("inventory_bg")}
-        };
-        auto* bgImg = new UIImage();
-        bgImg->Init(imgStyle, GetSizeRect());
-        AddChild(bgImg);
-
+        AddBackGround();
         AddTitleSection();
         AddGridSection();
         AddBottomSection();
@@ -52,6 +47,33 @@ public:
     }
 
 private:
+    void AddBackGround() {
+        ImageStyle imgStyle = {
+            {D2DImageManager::GetInstance()->FindImage("inventory_bg")}
+        };
+        auto* bgImg = new UIImage();
+        bgImg->Init(imgStyle, GetSizeRect());
+        AddChild(bgImg);
+
+        // // 9-Patch 스타일 정의 (공통 테두리용)
+        // NinePatchStyle chromeStyle = {
+        //     { D2DImageManager::GetInstance()->FindImage("chrome_tl") },
+        //     { D2DImageManager::GetInstance()->FindImage("chrome_t") },
+        //     { D2DImageManager::GetInstance()->FindImage("chrome_tr") },
+        //     { D2DImageManager::GetInstance()->FindImage("chrome_l") },
+        //      { D2DImageManager::GetInstance()->FindImage("chrome_c") },
+        //      { D2DImageManager::GetInstance()->FindImage("chrome_r") },
+        //     { D2DImageManager::GetInstance()->FindImage("chrome_bl") },
+        //      { D2DImageManager::GetInstance()->FindImage("chrome_b") },
+        //     { D2DImageManager::GetInstance()->FindImage("chrome_br") },
+        //      { 6.0f, 6.0f } // 테두리 모서리 크기
+        // };
+        //
+        // auto* inventoryBox = new UI9PatchPanel();
+        // inventoryBox->Init(chromeStyle, GetSizeRect());  // 인벤토리 배경
+        // AddChild(inventoryBox);
+    }
+    
     void AddTitleSection() {
         TextBoxStyle titleStyle = {
             {},  // 배경 없음
@@ -60,13 +82,13 @@ private:
         };
 
         titleText = new UITextBox();
-        titleText->Init(titleStyle, L"배낭", { 0, 0, GetWidth(), 30 });
+        titleText->Init(titleStyle, L"배낭", { padding.left, 5, GetWidth(), 50 });
         AddChild(titleText);
     }
 
     void AddGridSection() {
         gridArea = new UIContainer();
-        gridArea->SetRect({ 0, 35, GetWidth(), 35 + (slotSize.width + gridSpacing) * numRows } );
+        gridArea->SetRect({ 0, 50, GetWidth(), 50 + (slotSize.width + gridSpacing) * numRows } );
         gridArea->SetLayout(new UIGridLayout(numCols, gridSpacing, gridSpacing, padding.left, padding.top));
         AddChild(gridArea);
 

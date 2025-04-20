@@ -31,6 +31,19 @@ void UIResourceSubManager::Preload_InventoryUI()
     auto mgr = D2DImageManager::GetInstance();
     mgr->AddImage("inventory_bg", L"assets/interfaces/inventory_bg.png", 1, 1);
     mgr->AddImage("inventory_slot", L"assets/interfaces/inventory_slot.png", 1, 1);
+
+    mgr->RegisterFrame("chrome_tl", "chrome", { 0, 0, 6, 6 });
+    mgr->RegisterFrame("chrome_t",  "chrome", { 6, 0, 14, 6 });
+    mgr->RegisterFrame("chrome_tr", "chrome", { 14, 0, 20, 6 });
+
+    mgr->RegisterFrame("chrome_l",  "chrome", { 0, 6, 6, 14 });
+    mgr->RegisterFrame("chrome_c",  "chrome", { 6, 6, 14, 14 });
+    mgr->RegisterFrame("chrome_r",  "chrome", { 14, 6, 20, 14 });
+
+    mgr->RegisterFrame("chrome_bl", "chrome", { 0, 14, 6, 20 });
+    mgr->RegisterFrame("chrome_b",  "chrome", { 6, 14, 14, 20 });
+    mgr->RegisterFrame("chrome_br", "chrome", { 14, 14, 20, 20 });
+
 }
 
 // ✅ 전체 리소스 초기화

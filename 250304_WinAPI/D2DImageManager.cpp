@@ -117,3 +117,20 @@ D2DImage* D2DImageManager::CreaetImage(const wchar_t* filePath, int maxFrameX, i
 
     return image;
 }
+
+void D2DImageManager::RegisterFrame(std::string key, const std::string& baseImageKey, D2D1_RECT_F rect) {
+    D2DImage* base = FindImage(baseImageKey);
+    if (!base) return;
+
+    D2DImageFrame frame;
+    frame.sourceImage = base;
+    frame.sourceRect = rect;
+
+    frameMap[key] = frame;
+}
+
+D2DImageFrame* D2DImageManager::FindFrame(std::string key) {
+    auto it = frameMap.find(key);
+    if (it == frameMap.end()) return nullptr;
+    return &it->second;
+}
