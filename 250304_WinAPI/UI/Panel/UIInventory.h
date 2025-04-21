@@ -9,6 +9,7 @@
 // TODO : 지우기
 #include "UI9PatchPanel.h"
 #include "../Test/UITestEffectManager.h"
+#include "../Utill/UIHelper.h"
 
 class UIInventory : public UIContainer {
 private:
@@ -93,7 +94,6 @@ private:
         AddChild(gridArea);
 
         for (int i = 0; i < numCols * numRows; ++i) {
-            auto* slot = new UIImageTextButton();
             D2D1_RECT_F dummyRect = { 0, 0, slotSize.width, slotSize.height };
             UIInventorySlotStyle inventorySlotStyle =
                 {
@@ -102,14 +102,16 @@ private:
                     { L"pixel", 14.0f, D2D1::ColorF::White },
                     { L"pixel", 14.0f, D2D1::ColorF::White }
                 };  // 예시 스타일
-            slot->InitFromStyle(inventorySlotStyle, dummyRect);
+            auto* slot = UIHelper::ApplyInventorySlotStyle(*gridArea, dummyRect, inventorySlotStyle);
+
             slot->SetOnClick([this, i, slot]()
             {
                 wstring debugString = (L"클릭 대상 [" + to_wstring(i) + L"] 클릭\n");
                 UITestEffectManager::GetInstance()->AddEffect(debugString, slot->GetWorldRect());
                 OutputDebugStringW(debugString.c_str());
             });
-            gridArea->AddChild(slot);
+            
+            
             buttons.push_back(slot);
         }
 

@@ -31,21 +31,13 @@ public:
 		UIButtonStyle buttonStyle;
 		buttonStyle.background = {D2DImageManager::GetInstance()->FindImage("inventory_slot")};
 		buttonStyle.textStyle = { L"pixel", 14.0f, D2D1::ColorF::White };
-		
-		UIImageTextButton* button = new UIImageTextButton();
-		button->Init({0,0,200,50});
-		UIHelper::ApplyButtonStyle(*button, buttonStyle);
-		UIHelper::SetButtonText(*button, L"스", 0);
-		button->SetOnClick([this]()
+		auto onCLick = [this]()
 		{
 			statusToolBar.SetActive(!statusToolBar.IsActive());
-		});
-		uiAutoTestMenu.AddChild(button);
-
-		UIImageTextButton* button2 = new UIImageTextButton();
-		button2->Init({0,00,30,50});
-		UIHelper::ApplyButtonStyle(*button2, buttonStyle);
-		uiAutoTestMenu.AddChild(button2);
+		};
+		auto* button = UIHelper::ApplyButtonStyle(uiAutoTestMenu,{0,0,200,50},
+			buttonStyle, onCLick);
+		UIHelper::SetButtonText(*button, L"스탯용", 0);
 	}
 
 	void Release() {
@@ -65,6 +57,8 @@ public:
 		if (KeyManager::GetInstance()->IsStayKeyDown(VK_LBUTTON))
 		{
 			GetCursorPos(&mousePoint);
+			GetCursorPos(&mousePoint); // 화면 기준 마우스 좌표 가져오기
+			ScreenToClient(g_hWnd, &mousePoint); // hWnd는 대상 창 핸들
 			uiInventoryView.HandleClick(mousePoint.x, mousePoint.y);
 			
 		}

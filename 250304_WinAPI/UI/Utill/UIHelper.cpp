@@ -8,18 +8,72 @@
 #include "StyleUtil.h"
 
 namespace UIHelper {
-    void ApplyInventorySlotStyle(UIImageTextButton& target, const UIInventorySlotStyle& style, bool clone) {
+    UIImageTextButton* ApplyInventorySlotStyle(UIContainerBase& target, const D2D1_RECT_F& localRect, const UIInventorySlotStyle& style,
+        const std::function<void()>& onClick, bool clone) {
         // auto effectiveStyle = clone ? StyleUtil::CloneInventorySlotStyle(style) : style;
 
         auto& effectiveStyle = style;
-        
-        target.Clear(); // 기존 이미지/텍스트 제거
 
-        auto rect = target.GetSizeRect();
-        target.AddImage(effectiveStyle.background, rect);
-        target.AddImage(effectiveStyle.itemIcon, rect);
-        target.AddText(L"", effectiveStyle.quantityTextStyle, rect);     // 좌상단 수량
-        target.AddText(L"", effectiveStyle.enhancementTextStyle, rect);  // 우하단 강화
+        auto button = new UIImageTextButton();
+        button->Init(localRect);
+        target.AddChild(button);
+        
+        auto rect = button->GetSizeRect();
+        button->AddImage(effectiveStyle.background, rect);
+        button->AddImage(effectiveStyle.itemIcon, rect);
+        button->AddText(L"", effectiveStyle.quantityTextStyle, rect);     // 좌상단 수량
+        button->AddText(L"", effectiveStyle.enhancementTextStyle, rect);  // 우하단 강화
+        button->SetOnClick(onClick);
+
+        return button;
+    }
+
+    UIImageTextButton* ApplyIconStyle(UIContainerBase& target, const D2D1_RECT_F& localRect, const UIIconStyle& style,
+        const std::function<void()>& onClick, bool clone)
+    {
+        // auto effectiveStyle = clone ? StyleUtil::CloneIconStyle(style) : style;
+        auto& effectiveStyle =  style;
+        
+        auto button = new UIImageTextButton();
+        button->Init(localRect);
+        target.AddChild(button);
+        
+        auto rect = button->GetSizeRect();
+        button->AddImage(effectiveStyle.bgStyle, rect);
+        button->AddImage(effectiveStyle.iconStyle, rect);
+        button->SetOnClick(onClick);
+
+        return button;
+    }
+
+    UIImageTextButton* ApplyButtonStyle(UIContainerBase& target, const D2D1_RECT_F& localRect, const UIButtonStyle& style,
+        const std::function<void()>& onClick, bool clone) {
+        
+        // auto effectiveStyle = clone ? StyleUtil::CloneButtonStyle(style) : style;
+        auto& effectiveStyle =  style;
+
+        auto button = new UIImageTextButton();
+        button->Init(localRect);
+        target.AddChild(button);
+        
+        auto rect = button->GetSizeRect();
+        button->AddImage(effectiveStyle.background, rect);
+        button->AddText(L"", effectiveStyle.textStyle, rect);
+        button->SetOnClick(onClick);
+
+        return button;
+    }
+
+    void SetButtonText(const UIImageTextButton& btn, const std::wstring& text, size_t index) {
+        if (btn.GetTexts().size() <= index || index < 0) return;
+        
+        btn.GetTexts()[index]->SetText(text);
+    }
+
+    void SetButtonImage(const UIImageTextButton& btn, const ImageStyle& style, size_t index) {
+        if (btn.GetImages().size() <= index || index < 0) return;
+        
+        btn.GetImages()[index]->SetStyle(style);
     }
 
     void SetInventorySlotData(const UIImageTextButton& target, const UIInventorySlotData* data) {
@@ -38,8 +92,8 @@ namespace UIHelper {
         }
     }
     
-    void UpdateInventorySlot(const UIImageTextButton& slot, const UIInventorySlotStyle& style,
-                         const UIInventorySlotData& data) {
+    void UpdateInventorySlot(UIImageTextButton& slot, const UIInventorySlotStyle& style,
+                         const UIInventorySlotData& data, const std::function<void()>& onClick) {
         const auto& images = slot.GetImages();
         const auto& texts = slot.GetTexts();
 
@@ -69,44 +123,8 @@ namespace UIHelper {
             std::wstring enhanceStr = std::to_wstring(data.enhancement);
             texts[1]->SetText(enhanceStr);
         }
+
+        slot.SetOnClick(onClick);
     }
-
-    void ApplyIconStyle(UIImageTextButton& target, const UIIconStyle& style, bool clone)
-    {
-        // auto effectiveStyle = clone ? StyleUtil::CloneIconStyle(style) : style;
-        auto& effectiveStyle =  style;
-        
-        target.Clear();
-
-        D2D1_RECT_F rect = target.GetSizeRect();
-        target.AddImage(effectiveStyle.bgStyle, rect);
-        target.AddImage(effectiveStyle.iconStyle, rect);
-    }
-
-    void ApplyButtonStyle(UIImageTextButton& target, const UIButtonStyle& style, bool clone) {
-        
-        // auto effectiveStyle = clone ? StyleUtil::CloneButtonStyle(style) : style;
-        auto& effectiveStyle =  style;
-
-        target.Clear();
-
-        D2D1_RECT_F rect = target.GetSizeRect();
-        target.AddImage(effectiveStyle.background, rect);
-        target.AddText(L"", effectiveStyle.textStyle, rect);
-    }
-
-    void SetButtonText(const UIImageTextButton& btn, const std::wstring& text, size_t index) {
-        if (btn.GetTexts().size() <= index || index < 0) return;
-        
-        btn.GetTexts()[index]->SetText(text);
-    }
-
-    void SetButtonImage(const UIImageTextButton& btn, const ImageStyle& style, size_t index) {
-        if (btn.GetImages().size() <= index || index < 0) return;
-        
-        btn.GetImages()[index]->SetStyle(style);
-    }
-
-
 
 }
