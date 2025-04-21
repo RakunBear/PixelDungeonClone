@@ -59,6 +59,7 @@ public:
 
     void Render(ID2D1HwndRenderTarget* rt) override {
         if (!isVisible || !isActive) return;
+        if (text.length() < 1) return;
         
         if (!brush && rt)
         {
@@ -66,7 +67,6 @@ public:
         }
         if (format && brush)
         {
-
             D2D1_RECT_F rect = GetScaledDrawRect();
             rt->DrawTextW(text.c_str(), static_cast<UINT32>(text.length()), format, &rect, brush);
             

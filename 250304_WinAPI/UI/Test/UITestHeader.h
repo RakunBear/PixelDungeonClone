@@ -96,7 +96,7 @@ public:
 
 
 class UITestInventoryView {
-private:
+public:
     UIInventory* inventoryPanel = nullptr;
 
 public:

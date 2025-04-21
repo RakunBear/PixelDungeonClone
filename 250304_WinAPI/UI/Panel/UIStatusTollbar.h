@@ -3,7 +3,7 @@
 #include "../Bar/UIValueBar.h"
 #include "../Button/UIImageTextButton.h"
 #include "../Text/UITextBox.h"
-#include "../Utill/UIResourceSubManager.h"
+#include "../Util/UIResourceSubManager.h"
 
 class UIStatusToolbar : public UIContainer {
 private:

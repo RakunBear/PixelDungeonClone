@@ -33,25 +33,26 @@ public:
     }
 
     void Update(float dt) override {
-        if (!isActive) return;
-        
-        if (IsDead() || !text) return;
+        if (!isActive || IsDead() || !text) return;
 
         elapsed += dt;
 
         // 알파값 줄이기
-        TextStyle s = text->GetStyle();
         float t = min(elapsed / effectStyle.lifetime, 1.0f);
-        float fade = 1.0f - std::pow(2.0f, 10.0f * (t - 1.0f)); 
+        float fade = 1.0f - std::pow(2.0f, 10.0f * (t - 1.0f));
+        TextStyle s = text->GetStyle();
         s.color.a = fade;
         text->SetStyle(s);
 
-        // 위로 이동
-        auto r = text->GetLocalRect();
+        // 기준 위치 + offset 계산
         float offset = effectStyle.moveSpeed * t;
-        r.top = r.top + offset;
-        r.bottom = r.bottom + offset;
-        text->SetRect(r);
+        D2D1_RECT_F newRect = {
+            0.0f,
+            offset,
+            localRect.right,
+            localRect.bottom + offset
+        };
+        text->SetLocalRect(newRect);  // ✅ local 기준으로 위치 세팅
     }
 
     void Render(ID2D1HwndRenderTarget* rt) override {

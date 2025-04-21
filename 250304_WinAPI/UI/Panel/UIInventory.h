@@ -4,21 +4,19 @@
 #include "../Button/UIImageTextButton.h"
 #include "../Core/UILayout.h"
 #include "../VisualStyle.h"
-#include "../Utill/UIResourceSubManager.h"
+#include "../Util/UIResourceSubManager.h"
 
 // TODO : 지우기
 #include "UI9PatchPanel.h"
 #include "../Test/UITestEffectManager.h"
-#include "../Utill/UIHelper.h"
+#include "../Util/UIHelper.h"
 
 class UIInventory : public UIContainer {
 private:
     UITextBox* titleText = nullptr;
     UIContainer* gridArea = nullptr;
     UIContainer* bottomSection = nullptr;
-
-    std::vector<IUIInteractable*> buttons;
-
+    
     const int numCols = 5;
     const int numRows = 5;
     const D2D1_SIZE_F slotSize = {60.f,60.f};
@@ -34,17 +32,6 @@ public:
         AddTitleSection();
         AddGridSection();
         AddBottomSection();
-    }
-
-    bool HandleClick(int x, int y) const
-    {
-        for (auto* button : buttons) {
-            if (button && button->HandleClick(x, y)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
 private:
@@ -110,9 +97,6 @@ private:
                 UITestEffectManager::GetInstance()->AddEffect(debugString, slot->GetWorldRect());
                 OutputDebugStringW(debugString.c_str());
             });
-            
-            
-            buttons.push_back(slot);
         }
 
         gridArea->UpdateLayout();
@@ -139,8 +123,6 @@ private:
 
         bottomSection->AddChild(btn1);
         bottomSection->AddChild(btn2);
-        buttons.push_back(btn1);
-        buttons.push_back(btn2);
 
         AddChild(bottomSection);
 

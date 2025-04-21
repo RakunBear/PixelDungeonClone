@@ -25,12 +25,15 @@ public:
         // 기본 Render 내용 또는 순수 가상으로 유지
     }
 
-    virtual void SetScale(FPOINT s) {
-        this->scale = s;
-    }
     virtual void Init(const D2D1_RECT_F& rect)
     {
         SetRect(rect);
+    }
+    
+    virtual bool HandleClick(int x, int y) { return false; }
+
+    virtual void SetScale(FPOINT s) {
+        this->scale = s;
     }
     
     FPOINT GetScale() const { return scale; }

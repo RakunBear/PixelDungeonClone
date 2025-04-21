@@ -157,8 +157,8 @@
     <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TurnManager.cpp" />
-    <ClCompile Include="UI\Utill\UIHelper.cpp" />
-    <ClCompile Include="UI\Utill\UIResourceSubManager.cpp">
+    <ClCompile Include="UI\Util\UIHelper.cpp" />
+    <ClCompile Include="UI\Util\UIResourceSubManager.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <Optimization>Disabled</Optimization>
@@ -367,17 +367,17 @@
     <ClInclude Include="UI\Text\UITextBox.h" />
     <ClInclude Include="UI\Text\UITextEffect.h" />
     <ClInclude Include="UI\UIData.h" />
-    <ClInclude Include="UI\Utill\IUIInteractable.h" />
-    <ClInclude Include="UI\Utill\StyleUtil.h" />
-    <ClInclude Include="UI\Utill\UIResourceSubManager.h" />
-    <ClInclude Include="UI\Utill\UITextPool.h" />
+    <ClInclude Include="UI\Util\IUIInteractable.h" />
+    <ClInclude Include="UI\Util\StyleUtil.h" />
+    <ClInclude Include="UI\Util\UIResourceSubManager.h" />
+    <ClInclude Include="UI\Util\UITextPool.h" />
     <ClInclude Include="UI\VisualStyle.h" />
     <ClInclude Include="UI_Test.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="UI\Button\UIImageTextButton.h" />
     <Content Include="UI\Panel\UI9PatchPanel.h" />
-    <Content Include="UI\Utill\UIHelper.h" />
+    <Content Include="UI\Util\UIHelper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

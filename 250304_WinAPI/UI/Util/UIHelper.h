@@ -12,6 +12,7 @@ struct UIInventorySlotStyle;
 class UIImageTextButton;
 class UIContainerBase;
 
+
 namespace UIHelper {
     /* 생성 코드 */
     UIImageTextButton* ApplyInventorySlotStyle(UIContainerBase& target, const D2D1_RECT_F& localRect, const UIInventorySlotStyle& style,

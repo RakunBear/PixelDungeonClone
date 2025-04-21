@@ -1,11 +1,18 @@
 ﻿#pragma once
 #include "../Core/UIComponent.h"
 
+class IUIInteractable;
+#include "../Util/IUIInteractable.h"
+
 class UIContainerBase : public UIComponent {
 protected:
     std::vector<UIComponent*> children;
 
 public:
+    UIContainerBase() = default;
+    UIContainerBase(const UIContainerBase&) = delete;   // 댕글링 방지를 위한 것, 값 복사하면 안되요
+    UIContainerBase& operator=(const UIContainerBase&) = delete; // 댕글링 방지를 위한 것, 값 복사하면 안되요
+    
     ~UIContainerBase() override
     {
         ClearChild();
@@ -31,13 +38,15 @@ public:
             target = nullptr;
         }
     }
-    void ClearChild()
-    {
-        for (auto* c : children) {
-            delete c;
+    void ClearChild() {
+        for (auto* child : children) {
+            if (!child) continue;
+            child->SetParent(nullptr);
+            delete child;
         }
-        children.clear();
+        children.clear(); // 🔥 전부 비움
     }
+
 
     const std::vector<UIComponent*>& GetChildren() const {
         return children;
@@ -84,5 +93,37 @@ public:
         UIComponent::UpdateWorldRect();
         for (auto* c : children)
             c->UpdateWorldRect();
+    }
+
+    bool HandleClick(int x, int y) override {
+        if (!isActive) return false;
+
+        // 🔄 역순 탐색
+        for (auto it = children.rbegin(); it != children.rend(); ++it) {
+            auto* c = *it;
+            if (!c || !c->IsActive()) continue;
+
+            if (c->HandleClick(x, y)) return true;
+        }
+        return false;
+    }
+
+    // 클릭 자식 객체들 전부 가져오기
+    std::vector<IUIInteractable*> GetInteractables() const {
+        std::vector<IUIInteractable*> result;
+        CollectInteractablesRecursive(this, result);
+        return result;
+    }
+    // 자식 재귀 탐색용
+    static void CollectInteractablesRecursive(const UIComponent* current, std::vector<IUIInteractable*>& result) {
+        if (auto* interact = dynamic_cast<IUIInteractable*>(const_cast<UIComponent*>(current))) {
+            result.push_back(interact);
+        }
+
+        if (auto* container = dynamic_cast<const UIContainerBase*>(current)) {
+            for (auto* child : container->GetChildren()) {
+                if (child) CollectInteractablesRecursive(child, result);
+            }
+        }
     }
 };

@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "../Core/UIContainer.h"
 #include "../BUtton/UIImageTextButton.h"
-#include "../Utill/UIResourceSubManager.h"
+#include "../Util/UIResourceSubManager.h"
 
 class UIQuickSlotToolbar : public UIContainer {
 private:

@@ -15,7 +15,7 @@ private:
     EffectStyle defaultEffectStyle =
     {
         20.0f, // duration
-        -3.0f // y movespeed value
+        -50.0f // y movespeed value
     };
 
 public:

@@ -2,7 +2,7 @@
 #include "../Core/UIContainer.h"
 #include "../BUtton/UIImageTextButton.h"
 #include "../Text/UIText.h"
-#include "../Utill/UIResourceSubManager.h"
+#include "../Util/UIResourceSubManager.h"
 
 class UITopRightUI : public UIContainer {
 private:

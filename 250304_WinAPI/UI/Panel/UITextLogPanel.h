@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "../Core/UIContainer.h"
 #include "../Text/UIText.h"
-#include "../Utill/UITextPool.h"
+#include "../Util/UITextPool.h"
 #include <deque>
 #include <string>
 
