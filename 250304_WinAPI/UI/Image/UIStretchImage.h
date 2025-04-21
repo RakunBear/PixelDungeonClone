@@ -24,6 +24,8 @@ public:
     }
 
     void Render(ID2D1HwndRenderTarget* rt) override {
+        if (!isVisible || !isActive) return;
+        
         if (!style.image || !rt) return;
 
         D2D1_RECT_F rect = GetWorldRect();

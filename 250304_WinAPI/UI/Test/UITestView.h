@@ -4,6 +4,7 @@
 #include "../Panel/UITopRightUI.h"
 #include "UITestHeader.h"
 #include "../../config.h"
+#include "../Utill/UIHelper.h"
 
 class UITestView 
 {
@@ -13,6 +14,7 @@ private:
 	UITopRightUI topRightToolBar;
 	UITestHeader uiTester;
 	UITestInventoryView uiInventoryView;
+	UIAutoContainer uiAutoTestMenu;
 
 	POINT mousePoint;
 	float mOffset = 10.0f;
@@ -24,6 +26,10 @@ public:
 		topRightToolBar.Init();
 		uiTester.InitUI();  // logPanel, floatingText 등 포함
 		uiInventoryView.Init();
+		uiAutoTestMenu.Init({0,0,0,0});
+
+		UIHelper::ApplyButtonStyle();
+		uiAutoTestMenu.AddChild();
 	}
 
 	void Release() {
@@ -43,6 +49,10 @@ public:
 		{
 			GetCursorPos(&mousePoint);
 			uiInventoryView.HandleClick(mousePoint.x, mousePoint.y);
+		}
+		else if (KeyManager::GetInstance()->IsOnceKeyDown('C'))
+		{
+			statusToolBar.SetActive(!statusToolBar.IsActive());
 		}
 	}
 

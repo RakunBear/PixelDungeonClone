@@ -33,6 +33,8 @@ public:
     }
 
     void Update(float dt) override {
+        if (!isActive) return;
+        
         if (IsDead() || !text) return;
 
         elapsed += dt;
@@ -53,6 +55,8 @@ public:
     }
 
     void Render(ID2D1HwndRenderTarget* rt) override {
+        if (!isVisible || !isActive) return;
+        
         if (!IsDead() && text) {
             text->Render(rt);
         }

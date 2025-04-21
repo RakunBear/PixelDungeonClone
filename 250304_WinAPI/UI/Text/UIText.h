@@ -57,9 +57,9 @@ public:
         return style;
     }
 
-    void Update(float) override {}
-
     void Render(ID2D1HwndRenderTarget* rt) override {
+        if (!isVisible || !isActive) return;
+        
         if (!brush && rt)
         {
             rt->CreateSolidColorBrush(style.color, &brush);

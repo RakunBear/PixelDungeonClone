@@ -48,6 +48,7 @@ public:
     }
 
     void Update(float dt) override {
+        if (!isActive) return;
         for (auto* c : children)
         {
             c->Update(dt);
@@ -55,6 +56,8 @@ public:
     }
 
     void Render(ID2D1HwndRenderTarget* rt) override {
+        if (!isVisible || !isActive) return;
+        
         for (auto* c : children)
         {
             c->Render(rt);

@@ -9,11 +9,21 @@ protected:
     D2D1_RECT_F worldRect{};   // 실제 화면 위치
     FPOINT scale = { 1.0f , 1.0f };
 
+    bool isVisible = true;  // 렌더링 여부
+    bool isActive = true;   // Update 여부
+
 public:
     virtual ~UIComponent() = default;
 
-    virtual void Update(float dt) = 0;
-    virtual void Render(ID2D1HwndRenderTarget* rt) = 0;
+    virtual void Update(float dt) {
+        if (!isActive) return;
+        // 기본 Update 내용 또는 순수 가상으로 유지
+    }
+
+    virtual void Render(ID2D1HwndRenderTarget* rt) {
+        if (!isVisible || !isActive) return;
+        // 기본 Render 내용 또는 순수 가상으로 유지
+    }
 
     virtual void SetScale(FPOINT s) {
         this->scale = s;
@@ -74,11 +84,6 @@ public:
 
     }
 
-    void AddChild(UIComponent* c) {
-        if (!c) return;
-        c->SetParent(this);
-    }
-
     virtual void UpdateLocalRect() {
         float width = worldRect.right - worldRect.left;
         float height = worldRect.bottom - worldRect.top;
@@ -124,4 +129,10 @@ public:
     D2D1_RECT_F GetWorldRect() const { return worldRect; }
     D2D1_RECT_F GetLocalRect() const { return localRect; }
     D2D1_RECT_F GetSizeRect() const { return { 0, 0, GetWidth(), GetHeight() }; }
+
+    void SetVisible(bool visible) { isVisible = visible; }
+    bool IsVisible() const { return isVisible; }
+
+    void SetActive(bool active) { isActive = active; }
+    bool IsActive() const { return isActive; }
 };

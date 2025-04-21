@@ -40,9 +40,9 @@ public:
         return { 0, 0 };
     }
 
-    void Update(float dt) override {}
-
     void Render(ID2D1HwndRenderTarget* rt) override {
+        if (!isVisible || !isActive) return;
+        
         if (!style.image || !rt) return;
 
         D2D1_RECT_F rect = GetScaledDrawRect();

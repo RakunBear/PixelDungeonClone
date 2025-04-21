@@ -376,6 +376,7 @@
   <ItemGroup>
     <Content Include="UI\Button\UIImageTextButton.h" />
     <Content Include="UI\Panel\UI9PatchPanel.h" />
+    <Content Include="UI\Utill\UIHelper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
