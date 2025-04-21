@@ -2,7 +2,6 @@
 #include "../Core/UIContainer.h"
 #include "../BUtton/UIImageTextButton.h"
 #include "../Utill/UIResourceSubManager.h"
-#include "../UIButtonStyle.h"
 
 class UIQuickSlotToolbar : public UIContainer {
 private:

@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "../Core/UIComponent.h"
 #include "../../D2DImage.h"
+#include "../VisualStyle.h"
 
 
 class UIImage : public UIComponent {
@@ -25,6 +26,11 @@ public:
         rect.bottom -= style.padding.bottom;
         
         SetRect(rect);
+    }
+
+    void SetImage(D2DImage* image)
+    {
+        style.image = image;
     }
 
     POINT GetImgSize()

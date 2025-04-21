@@ -5,7 +5,6 @@
 #include "../Utill/IUIInteractable.h"
 #include "../Text/UIText.h"
 #include "../VisualStyle.h"
-#include "../UIButtonStyle.h"
 #include <utility>
 #include <vector>
 #include <functional>
@@ -38,6 +37,18 @@ public:
 
     const std::vector<UIText*>& GetTexts() const {
         return texts;
+    }
+    const std::vector<UIImage*>& GetImages() const
+    {
+        return images;
+    }
+
+    // All Child Crear (delete)
+    void Clear()
+    {
+        images.clear();
+        texts.clear();
+        ClearChild();
     }
 
     // 조합

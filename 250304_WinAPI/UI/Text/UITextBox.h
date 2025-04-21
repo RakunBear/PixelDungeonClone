@@ -7,12 +7,12 @@
 // ✅ 복합 UI: 배경 + 텍스트
 class UITextBox : public UIContainerBase {
 private:
-    TextBoxStyle style;
+    UIButtonStyle style;
     UIText* text = nullptr;
     UIImage* bgImage = nullptr;
 
 public:
-    void Init(const TextBoxStyle& s, const std::wstring& content, const D2D1_RECT_F& layout) {
+    void Init(const UIButtonStyle& s, const std::wstring& content, const D2D1_RECT_F& layout) {
         style = s;
         SetRect(layout); // 자신의 위치 설정
 

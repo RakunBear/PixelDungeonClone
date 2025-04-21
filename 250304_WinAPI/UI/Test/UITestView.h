@@ -26,10 +26,26 @@ public:
 		topRightToolBar.Init();
 		uiTester.InitUI();  // logPanel, floatingText 등 포함
 		uiInventoryView.Init();
-		uiAutoTestMenu.Init({0,0,0,0});
+		uiAutoTestMenu.Init({100,400,200,0});
 
-		UIHelper::ApplyButtonStyle();
-		uiAutoTestMenu.AddChild();
+		UIButtonStyle buttonStyle;
+		buttonStyle.background = {D2DImageManager::GetInstance()->FindImage("inventory_slot")};
+		buttonStyle.textStyle = { L"pixel", 14.0f, D2D1::ColorF::White };
+		
+		UIImageTextButton* button = new UIImageTextButton();
+		button->Init({0,0,200,50});
+		UIHelper::ApplyButtonStyle(*button, buttonStyle);
+		UIHelper::SetButtonText(*button, L"스", 0);
+		button->SetOnClick([this]()
+		{
+			statusToolBar.SetActive(!statusToolBar.IsActive());
+		});
+		uiAutoTestMenu.AddChild(button);
+
+		UIImageTextButton* button2 = new UIImageTextButton();
+		button2->Init({0,00,30,50});
+		UIHelper::ApplyButtonStyle(*button2, buttonStyle);
+		uiAutoTestMenu.AddChild(button2);
 	}
 
 	void Release() {
@@ -42,6 +58,7 @@ public:
 		quickSlotToolBar.Update(dt);
 		topRightToolBar.Update(dt);
 		uiInventoryView.Update(dt);
+		uiAutoTestMenu.Update(dt);
 
 		uiTester.UpdateUI(dt);  // 로그/이펙트
 
@@ -49,6 +66,7 @@ public:
 		{
 			GetCursorPos(&mousePoint);
 			uiInventoryView.HandleClick(mousePoint.x, mousePoint.y);
+			
 		}
 		else if (KeyManager::GetInstance()->IsOnceKeyDown('C'))
 		{
@@ -62,6 +80,7 @@ public:
 		quickSlotToolBar.Render(rt);
 		topRightToolBar.Render(rt);
 		uiInventoryView.Render(rt);
+		uiAutoTestMenu.Render(rt);
 
 		uiTester.RenderUI(rt);  // 로그/이펙트
 

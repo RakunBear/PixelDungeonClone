@@ -34,10 +34,17 @@ public:
 };
 
 class UIAutoContainer : public UIContainer {
-protected:
-    UILayout* layout = nullptr;
-
 public:
+    UIAutoContainer()
+    {
+        layout = new UIVerticalLayout();
+    }
+
+    ~UIAutoContainer() override
+    {
+        layout = nullptr;
+    }
+    
     void AddChild(UIComponent* child) override
     {
         UIContainerBase::AddChild(child);
@@ -52,5 +59,6 @@ public:
 
         D2D1_RECT_F local = GetLocalRect();
         SetRect(D2D1::RectF(local.left, local.top, local.right, local.top + totalHeight));
+        UpdateLayout();
     }
 };

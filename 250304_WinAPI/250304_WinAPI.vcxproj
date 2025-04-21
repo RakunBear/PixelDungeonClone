@@ -157,6 +157,7 @@
     <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TurnManager.cpp" />
+    <ClCompile Include="UI\Utill\UIHelper.cpp" />
     <ClCompile Include="UI\Utill\UIResourceSubManager.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -365,9 +366,9 @@
     <ClInclude Include="UI\Text\UIText.h" />
     <ClInclude Include="UI\Text\UITextBox.h" />
     <ClInclude Include="UI\Text\UITextEffect.h" />
-    <ClInclude Include="UI\UIButtonStyle.h" />
     <ClInclude Include="UI\UIData.h" />
     <ClInclude Include="UI\Utill\IUIInteractable.h" />
+    <ClInclude Include="UI\Utill\StyleUtil.h" />
     <ClInclude Include="UI\Utill\UIResourceSubManager.h" />
     <ClInclude Include="UI\Utill\UITextPool.h" />
     <ClInclude Include="UI\VisualStyle.h" />

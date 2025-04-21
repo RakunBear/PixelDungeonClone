@@ -4,7 +4,6 @@
 #include "../Button/UIImageTextButton.h"
 #include "../Text/UITextBox.h"
 #include "../Utill/UIResourceSubManager.h"
-#include "../UIButtonStyle.h"
 
 class UIStatusToolbar : public UIContainer {
 private:
@@ -77,7 +76,7 @@ private:
     }
 
     void AddLevelText() {
-        TextBoxStyle style = {
+        UIButtonStyle style = {
             { D2DImageManager::GetInstance()->FindImage("status_level") },
             { L"pixel", 16.0f, D2D1::ColorF(D2D1::ColorF::White), true,
               DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT_CENTER }

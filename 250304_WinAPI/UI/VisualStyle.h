@@ -25,11 +25,6 @@ struct TextStyle {
     DWRITE_PARAGRAPH_ALIGNMENT verticalAlign = DWRITE_PARAGRAPH_ALIGNMENT_NEAR;
 };
 
-struct TextBoxStyle {
-    ImageStyle background;
-    TextStyle textStyle;
-};
-
 struct EffectStyle {
     float lifetime = 1.0f;
     float moveSpeed = -3.0f;
@@ -41,4 +36,21 @@ struct NinePatchStyle {
     ImageStyle left, center, right;
     ImageStyle bottomLeft, bottom, bottomRight;
     D2D1_SIZE_F cornerSize = { 8.0f, 8.0f };  // 기본 모서리 크기
+};
+
+struct UIIconStyle {
+    ImageStyle bgStyle{nullptr};
+    ImageStyle iconStyle{nullptr};
+};
+
+struct UIInventorySlotStyle {
+    ImageStyle background;         // 슬롯 배경
+    ImageStyle itemIcon;          // 아이템 아이콘 이미지
+    TextStyle quantityTextStyle;  // 좌상단 수량 텍스트
+    TextStyle enhancementTextStyle; // 우하단 강화 수치 텍스트
+};
+
+struct UIButtonStyle {
+    ImageStyle background;
+    TextStyle textStyle;
 };

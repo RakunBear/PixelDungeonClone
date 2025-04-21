@@ -75,7 +75,7 @@ private:
     }
     
     void AddTitleSection() {
-        TextBoxStyle titleStyle = {
+        UIButtonStyle titleStyle = {
             {},  // 배경 없음
             { L"pixel", 18.0f, D2D1::ColorF::White, true,
               DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT_CENTER }

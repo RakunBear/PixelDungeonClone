@@ -12,12 +12,12 @@ public:
 
 class UIVerticalLayout : public UILayout {
 private:
-    float spacing = 4.0f;
-    float padding = 4.0f;
+    float spacing = 0.0f;
+    float padding = 0.0f;
     bool  bottomToTop = true;
 
 public:
-    UIVerticalLayout(float spacing = 4.0f, float padding = 4.0f)
+    UIVerticalLayout(float spacing = 0.0f, float padding = 0.0f)
         : spacing(spacing), padding(padding), bottomToTop(true) {
     }
 
@@ -57,11 +57,11 @@ public:
 
 class UIHorizontalLayout : public UILayout {
 private:
-    float spacing = 4.0f;
-    float paddingLeft = 4.0f;
+    float spacing = 0.0f;
+    float paddingLeft = 0.0f;
 
 public:
-    UIHorizontalLayout(float spacing = 4.0f, float paddingLeft = 4.0f)
+    UIHorizontalLayout(float spacing = 0.0f, float paddingLeft = 0.0f)
         : spacing(spacing), paddingLeft(paddingLeft) {
     }
 
@@ -86,13 +86,13 @@ public:
 class UIGridLayout : public UILayout {
 private:
     int columns = 1;
-    float spacingX = 4.0f;
-    float spacingY = 4.0f;
-    float paddingLeft = 4.0f;
-    float paddingTop = 4.0f;
+    float spacingX = 0.0f;
+    float spacingY = 0.0f;
+    float paddingLeft = 0.0f;
+    float paddingTop = 0.0f;
 
 public:
-    UIGridLayout(int columns, float spacingX = 4.0f, float spacingY = 4.0f, float paddingLeft = 4.0f, float paddingTop = 4.0f)
+    UIGridLayout(int columns, float spacingX = 0.0f, float spacingY = 0.0f, float paddingLeft = 0.0f, float paddingTop = 0.0f)
         : columns(columns), spacingX(spacingX), spacingY(spacingY), paddingLeft(paddingLeft), paddingTop(paddingTop) {
     }
 

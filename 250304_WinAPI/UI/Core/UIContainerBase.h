@@ -6,11 +6,9 @@ protected:
     std::vector<UIComponent*> children;
 
 public:
-    virtual ~UIContainerBase() {
-        for (auto* c : children) {
-            delete c;
-        }
-        children.clear();
+    ~UIContainerBase() override
+    {
+        ClearChild();
     }
 
     virtual void AddChild(UIComponent* child) {
@@ -32,6 +30,13 @@ public:
             }
             target = nullptr;
         }
+    }
+    void ClearChild()
+    {
+        for (auto* c : children) {
+            delete c;
+        }
+        children.clear();
     }
 
     const std::vector<UIComponent*>& GetChildren() const {
