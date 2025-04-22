@@ -5,6 +5,7 @@
 #include "UITestHeader.h"
 #include "../../config.h"
 #include "../Util/UIHelper.h"
+#include "../Panel/UIStatusPanel.h"
 
 class UITestView 
 {
@@ -15,7 +16,9 @@ private:
 	UITestHeader uiTester;
 	UITestInventoryView uiInventoryView;
 	UIAutoContainer uiAutoTestMenu;
-
+	UIStatusPanel uiStatPanel;
+	UIAutoContainer uiContainer;
+	
 	POINT mousePoint;
 	float mOffset = 10.0f;
 
@@ -24,6 +27,22 @@ private:
 
 public:
 	void Init() {
+		UIResourceSubManager::Preload_NinePatch();
+		NinePatchStyle defaultNinePatchStyle = UIHelper::CreateNinePatchFromSheet("chrome", {6.0f, 6.0f});
+		uiContainer.Init({0,0,WINSIZE_X,WINSIZE_Y});
+		uiContainer.SetLayout(new UIVerticalLayout());
+
+		// 나인패치 이미지 (가변 크기 이미지)
+		// for (int i = 0; i < 9; ++i)
+		// {
+		// 	float rx = rand() % 100;
+		// 	float ry = rand() % 100;
+		//
+		// 	auto u9Img = UIHelper::ApplyNinePathStyle(&uiContainer, {0, 0, rx, ry}, defaultNinePatchStyle);
+		// }
+		// uiContainer.UpdateLayout();
+
+		
 		// 기본 초기화
 		statusToolBar.Init();
 		quickSlotToolBar.Init();
@@ -31,6 +50,7 @@ public:
 		uiTester.InitUI();  // logPanel, floatingText 등 포함
 		uiInventoryView.Init();
 		uiAutoTestMenu.Init({100,400,200,0});
+		uiStatPanel.Init();
 
 		// 클릭 대상 탐색을 위해 벡터저장
 		rootComponents.push_back(&statusToolBar);
@@ -48,7 +68,7 @@ public:
 		{
 			statusToolBar.SetActive(!statusToolBar.IsActive());
 		};
-		auto* button = UIHelper::ApplyButtonStyle(uiAutoTestMenu,{0,0,200,50},
+		auto* button = UIHelper::ApplyButtonStyle(&uiAutoTestMenu,{0,0,200,50},
 			buttonStyle, onCLick);
 		UIHelper::SetButtonText(*button, L"스탯용", 0);
 
@@ -113,8 +133,12 @@ public:
 		quickSlotToolBar.Render(rt);
 		topRightToolBar.Render(rt);
 		uiInventoryView.Render(rt);
+		uiStatPanel.Render(rt);
+
 		uiAutoTestMenu.Render(rt);
 		uiTester.RenderUI(rt);  // 로그/이펙트
+
+		uiContainer.Render(rt);
 
 		// TODO : 지우기
 		D2D1_RECT_F rect = { mousePoint.x - mOffset, mousePoint.y - mOffset, mousePoint.x + mOffset, mousePoint.y + mOffset };

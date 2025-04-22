@@ -5,11 +5,9 @@
 #include "../Core/UILayout.h"
 #include "../VisualStyle.h"
 #include "../Util/UIResourceSubManager.h"
-
-// TODO : 지우기
-#include "UI9PatchPanel.h"
 #include "../Test/UITestEffectManager.h"
 #include "../Util/UIHelper.h"
+#include "../Image/UI9PatchImage.h"
 
 class UIInventory : public UIContainer {
 private:
@@ -36,30 +34,11 @@ public:
 
 private:
     void AddBackGround() {
-        ImageStyle imgStyle = {
-            {D2DImageManager::GetInstance()->FindImage("inventory_bg")}
-        };
-        auto* bgImg = new UIImage();
-        bgImg->Init(imgStyle, GetSizeRect());
-        AddChild(bgImg);
-
-        // // 9-Patch 스타일 정의 (공통 테두리용)
-        // NinePatchStyle chromeStyle = {
-        //     { D2DImageManager::GetInstance()->FindImage("chrome_tl") },
-        //     { D2DImageManager::GetInstance()->FindImage("chrome_t") },
-        //     { D2DImageManager::GetInstance()->FindImage("chrome_tr") },
-        //     { D2DImageManager::GetInstance()->FindImage("chrome_l") },
-        //      { D2DImageManager::GetInstance()->FindImage("chrome_c") },
-        //      { D2DImageManager::GetInstance()->FindImage("chrome_r") },
-        //     { D2DImageManager::GetInstance()->FindImage("chrome_bl") },
-        //      { D2DImageManager::GetInstance()->FindImage("chrome_b") },
-        //     { D2DImageManager::GetInstance()->FindImage("chrome_br") },
-        //      { 6.0f, 6.0f } // 테두리 모서리 크기
-        // };
-        //
-        // auto* inventoryBox = new UI9PatchPanel();
-        // inventoryBox->Init(chromeStyle, GetSizeRect());  // 인벤토리 배경
-        // AddChild(inventoryBox);
+        UIResourceSubManager::Preload_NinePatch();
+        NinePatchStyle defaultNinePatchStyle =
+            UIHelper::CreateNinePatchFromSheet("chrome", {6.0f, 6.0f});
+        
+        auto* inventoryBox = UIHelper::ApplyNinePathStyle(this, this->GetSizeRect(), defaultNinePatchStyle);
     }
     
     void AddTitleSection() {
@@ -81,7 +60,7 @@ private:
         { D2DImageManager::GetInstance()->FindImage("")}
         };
 
-        auto* exitBtn = UIHelper::ApplyIconStyle(*this, dummyRect, defaultIconStyle);
+        auto* exitBtn = UIHelper::ApplyIconStyle(this, dummyRect, defaultIconStyle);
         exitBtn->SetOnClick([this, exitBtn]() {
             wstring debugString = (L"클릭 [닫기] 클릭\n");
             UITestEffectManager::GetInstance()->AddEffect(debugString, exitBtn->GetWorldRect());
@@ -104,7 +83,7 @@ private:
                     { L"pixel", 14.0f, D2D1::ColorF::White },
                     { L"pixel", 14.0f, D2D1::ColorF::White }
                 };  // 예시 스타일
-            auto* slot = UIHelper::ApplyInventorySlotStyle(*gridArea, dummyRect, inventorySlotStyle);
+            auto* slot = UIHelper::ApplyInventorySlotStyle(gridArea, dummyRect, inventorySlotStyle);
 
             slot->SetOnClick([this, i, slot]()
             {
@@ -135,13 +114,13 @@ private:
 
         D2D1_RECT_F dummyRect = { 0, 0, 164, 40 };
         
-        auto* btn1 = UIHelper::ApplyIconStyle(*bottomSection, dummyRect, defaultIconStyle);
+        auto* btn1 = UIHelper::ApplyIconStyle(bottomSection, dummyRect, defaultIconStyle);
         btn1->SetOnClick([this, btn1]() {
             wstring debugString = (L"클릭 [BTN1] 클릭\n");
             UITestEffectManager::GetInstance()->AddEffect(debugString, btn1->GetWorldRect());
             });
 
-        auto* btn2 = UIHelper::ApplyIconStyle(*bottomSection, dummyRect, defaultIconStyle);
+        auto* btn2 = UIHelper::ApplyIconStyle(bottomSection, dummyRect, defaultIconStyle);
         btn2->SetOnClick([this, btn2]() {
             wstring debugString = (L"클릭 [BTN2] 클릭\n");
             UITestEffectManager::GetInstance()->AddEffect(debugString, btn2->GetWorldRect());

@@ -32,7 +32,8 @@ public:
 private:
     void AddStairInfo() {
         stairIcon = new UIImage();
-        stairIcon->Init(ImageStyle { D2DImageManager::GetInstance()->FindImage("stair_ico") }, { 0,0,29,31 });
+        stairIcon->Init({ 0,0,29,31 });
+        stairIcon->SetStyle(ImageStyle { D2DImageManager::GetInstance()->FindImage("stair_ico") });
         AddChild(stairIcon);
 
         stairText = new UIText();
@@ -61,9 +62,8 @@ private:
             };
             
             auto* bgImage = new UIImage();
-            bgImage->Init(
-                slotIconStyle, {0,0, slot->GetWidth(), slot->GetHeight()}
-            );
+            bgImage->Init({0,0, slot->GetWidth(), slot->GetHeight()});
+            bgImage->SetStyle(slotIconStyle);
             slot->AddChild(bgImage);
         }
         

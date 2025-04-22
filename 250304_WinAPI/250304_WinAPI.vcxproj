@@ -352,11 +352,12 @@
     <ClInclude Include="UI\Core\UIContainer.h" />
     <ClInclude Include="UI\Core\UIContainerBase.h" />
     <ClInclude Include="UI\Core\UILayout.h" />
+    <ClInclude Include="UI\Image\UIBaseImage.h" />
     <ClInclude Include="UI\Image\UIImage.h" />
-    <ClInclude Include="UI\Image\UIStretchImage.h" />
-    <ClInclude Include="UI\Panel\UI9PatchPanel.h" />
+    <ClInclude Include="UI\Image\UI9PatchImage.h" />
     <ClInclude Include="UI\Panel\UIInventory.h" />
     <ClInclude Include="UI\Panel\UIQuickSlotToolbar.h" />
+    <ClInclude Include="UI\Panel\UIStatusPanel.h" />
     <ClInclude Include="UI\Panel\UIStatusTollbar.h" />
     <ClInclude Include="UI\Panel\UITextLogPanel.h" />
     <ClInclude Include="UI\Panel\UITopRightUI.h" />

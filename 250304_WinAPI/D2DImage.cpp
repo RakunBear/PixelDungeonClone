@@ -359,13 +359,73 @@ void D2DImage::DrawCircle(FPOINT center, float radius, int color, float lineThic
     renderTarget->DrawEllipse(ellipse, brushes[color], lineThickness);
 }
 
-void D2DImage::RenderRaw(float x, float y, float width, float height, float alpha) {
-    if (!bitmap || !renderTarget) return;
+void D2DImage::Middle_RenderRaw(ID2D1HwndRenderTarget* rt, const D2D1_RECT_F& destRect, const D2D1_RECT_F& srcRect,
+    float scaleX, float scaleY, float angle, bool flipX, bool flipY, float alpha)
+{
+    if (!bitmap || !rt) return;
 
-    D2D1_RECT_F srcRect = GetFullSourceRect(); // 원본 전체
-    D2D1_RECT_F destRect = D2D1::RectF(x, y, x + width, y + height);
+    float halfWidth = (destRect.right - destRect.left) * 0.5f;
+    float halfHeight = (destRect.bottom - destRect.top) * 0.5f;
+    float x = destRect.left - halfWidth;
+    float y = destRect.top - halfHeight;
 
-    renderTarget->DrawBitmap(bitmap, destRect, alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, &srcRect);
+
+    float finalScaleX = scaleX * (flipX ? -1.0f : 1.0f);
+    float finalScaleY = scaleY * (flipY ? -1.0f : 1.0f);
+
+    D2D1::Matrix3x2F transform = D2D1::Matrix3x2F::Identity();
+
+    // 스케일 적용
+    transform = transform * D2D1::Matrix3x2F::Scale(
+        finalScaleX,
+        finalScaleY,
+        D2D1::Point2F(x, y)
+    );
+
+    // 회전 적용
+    if (angle != 0.0f) {
+        transform = transform * D2D1::Matrix3x2F::Rotation(
+            angle,
+            D2D1::Point2F(x, y)
+        );
+    }
+
+    rt->SetTransform(transform);
+    rt->DrawBitmap(bitmap, destRect, alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, srcRect);
+    rt->SetTransform(D2D1::Matrix3x2F::Identity());
+}
+
+void D2DImage::RenderRaw(ID2D1HwndRenderTarget* rt, const D2D1_RECT_F& destRect, const D2D1_RECT_F& srcRect,
+    float scaleX, float scaleY, float angle, bool flipX, bool flipY, float alpha)
+{
+    if (!bitmap || !rt) return;
+
+    float x = destRect.left;
+    float y = destRect.top;
+
+    float finalScaleX = scaleX * (flipX ? -1.0f : 1.0f);
+    float finalScaleY = scaleY * (flipY ? -1.0f : 1.0f);
+
+    D2D1::Matrix3x2F transform = D2D1::Matrix3x2F::Identity();
+
+    // 스케일 적용
+    transform = transform * D2D1::Matrix3x2F::Scale(
+        finalScaleX,
+        finalScaleY,
+        D2D1::Point2F(x, y)
+    );
+
+    // 회전 적용
+    if (angle != 0.0f) {
+        transform = transform * D2D1::Matrix3x2F::Rotation(
+            angle,
+            D2D1::Point2F(x, y)
+        );
+    }
+
+    rt->SetTransform(transform);
+    rt->DrawBitmap(bitmap, destRect, alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, srcRect);
+    rt->SetTransform(D2D1::Matrix3x2F::Identity());
 }
 
 D2D1_RECT_F D2DImage::GetFullSourceRect() const {

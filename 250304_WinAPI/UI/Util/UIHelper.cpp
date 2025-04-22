@@ -5,18 +5,65 @@
 #include "../Bar/UIValueBar.h"
 #include "../Text/UIText.h"               // 텍스트 적용
 #include "../VisualStyle.h"
+#include "../Image/UI9PatchImage.h"
 #include "StyleUtil.h"
 
 namespace UIHelper {
-    UIImageTextButton* ApplyInventorySlotStyle(UIContainerBase& target, const D2D1_RECT_F& localRect, const UIInventorySlotStyle& style,
-        const std::function<void()>& onClick, bool clone) {
-        // auto effectiveStyle = clone ? StyleUtil::CloneInventorySlotStyle(style) : style;
+    UI9PatchImage* ApplyNinePathStyle(UIContainerBase* target, const D2D1_RECT_F& localRect, const NinePatchStyle& style)
+    {
+        auto& effectiveStyle = style;
+
+        auto ninePatchImage = new UI9PatchImage;
+        
+        ninePatchImage->Init(localRect);
+        ninePatchImage->SetStyle(effectiveStyle);
+
+        if (target)
+            target->AddChild(ninePatchImage);
+
+        return ninePatchImage;
+    }
+
+    UIText* ApplyTextStyle(UIContainerBase* target, const D2D1_RECT_F& localRect, const TextStyle& style)
+    {
+        // auto& effectiveStyle = clone ? StyleUtil::CloneInventorySlotStyle(style) : style;
+        auto& effectiveStyle = style;
+
+        auto text = new UIText();
+        text->Init(effectiveStyle, L"", localRect);
+        
+        if (target)
+            target->AddChild(text);
+        
+        return text;
+    }
+
+    UIImage* ApplyImageStyle(UIContainerBase* target, const D2D1_RECT_F& localRect, const ImageStyle& style)
+    {
+        // auto& effectiveStyle = clone ? StyleUtil::CloneInventorySlotStyle(style) : style;
+        auto& effectiveStyle = style;
+
+        auto image = new UIImage();
+        image->Init(localRect);
+        image->SetStyle(effectiveStyle);
+
+        if (target)
+            target->AddChild(image);
+        
+        return image;
+    }
+
+    UIImageTextButton* ApplyInventorySlotStyle(UIContainerBase* target, const D2D1_RECT_F& localRect, const UIInventorySlotStyle& style,
+                                               const std::function<void()>& onClick, bool clone) {
+        // auto& effectiveStyle = clone ? StyleUtil::CloneInventorySlotStyle(style) : style;
 
         auto& effectiveStyle = style;
 
         auto button = new UIImageTextButton();
         button->Init(localRect);
-        target.AddChild(button);
+
+        if (target)
+            target->AddChild(button);
         
         auto rect = button->GetSizeRect();
         button->AddImage(effectiveStyle.background, rect);
@@ -28,15 +75,17 @@ namespace UIHelper {
         return button;
     }
 
-    UIImageTextButton* ApplyIconStyle(UIContainerBase& target, const D2D1_RECT_F& localRect, const UIIconStyle& style,
+    UIImageTextButton* ApplyIconStyle(UIContainerBase* target, const D2D1_RECT_F& localRect, const UIIconStyle& style,
         const std::function<void()>& onClick, bool clone)
     {
-        // auto effectiveStyle = clone ? StyleUtil::CloneIconStyle(style) : style;
+        // auto& effectiveStyle = clone ? StyleUtil::CloneIconStyle(style) : style;
         auto& effectiveStyle =  style;
         
         auto button = new UIImageTextButton();
         button->Init(localRect);
-        target.AddChild(button);
+
+        if (target)
+            target->AddChild(button);
         
         auto rect = button->GetSizeRect();
         button->AddImage(effectiveStyle.bgStyle, rect);
@@ -46,15 +95,17 @@ namespace UIHelper {
         return button;
     }
 
-    UIImageTextButton* ApplyButtonStyle(UIContainerBase& target, const D2D1_RECT_F& localRect, const UIButtonStyle& style,
+    UIImageTextButton* ApplyButtonStyle(UIContainerBase* target, const D2D1_RECT_F& localRect, const UIButtonStyle& style,
         const std::function<void()>& onClick, bool clone) {
         
-        // auto effectiveStyle = clone ? StyleUtil::CloneButtonStyle(style) : style;
+        // auto& effectiveStyle = clone ? StyleUtil::CloneButtonStyle(style) : style;
         auto& effectiveStyle =  style;
 
         auto button = new UIImageTextButton();
         button->Init(localRect);
-        target.AddChild(button);
+
+        if (target)
+            target->AddChild(button);
         
         auto rect = button->GetSizeRect();
         button->AddImage(effectiveStyle.background, rect);
@@ -64,6 +115,45 @@ namespace UIHelper {
         return button;
     }
 
+    UIImageTextButton* ApplyNinePatchButtonStyle(
+    UIContainerBase& target,
+    const D2D1_RECT_F& localRect,
+    const UIButtonStyle& style,
+    const NinePatchStyle& patchStyle,
+    const std::function<void()>& onClick = nullptr,
+    bool clone = false
+) {
+        auto* button = new UIImageTextButton();
+        button->SetRect(localRect);
+        button->AddImage(patchStyle, localRect);
+        button->AddText(L"", style.textStyle, localRect);
+        button->SetOnClick(onClick);
+        target.AddChild(button);
+        return button;
+    }
+
+
+    NinePatchStyle CreateNinePatchFromSheet(const std::string& imageKey, const D2D1_SIZE_F& cornerSize)
+    {
+        NinePatchStyle style;
+        style.image = D2DImageManager::GetInstance()->FindImage(imageKey);
+        style.cornerSize = cornerSize;
+
+        const char* suffixes[9] = {
+            "tl", "t", "tr", "l", "c", "r", "bl", "b", "br"
+        };
+
+        for (int i = 0; i < 9; ++i) {
+            std::string key = imageKey + "_" + suffixes[i];
+            auto* frame = D2DImageManager::GetInstance()->FindFrame(key);
+            if (frame)
+                style.regions[i].srcRect = frame->sourceRect;
+        }
+
+        return style;
+    }
+    
+
     void SetButtonText(const UIImageTextButton& btn, const std::wstring& text, size_t index) {
         if (btn.GetTexts().size() <= index || index < 0) return;
         
@@ -72,9 +162,20 @@ namespace UIHelper {
 
     void SetButtonImage(const UIImageTextButton& btn, const ImageStyle& style, size_t index) {
         if (btn.GetImages().size() <= index || index < 0) return;
-        
-        btn.GetImages()[index]->SetStyle(style);
+
+        UIImage* image = btn.GetImages()[index];
+        if (image)
+            image->SetStyle(style);
     }
+
+    void SetButtonImage(const UIImageTextButton& btn, const NinePatchStyle& style, size_t index) {
+        if (btn.GetPatchImages().size() <= index || index < 0) return;
+
+        UI9PatchImage* patch = btn.GetPatchImages()[index];
+        if (patch)
+            patch->SetStyle(style);
+    }
+
 
     void SetInventorySlotData(const UIImageTextButton& target, const UIInventorySlotData* data) {
         if (!data) return;

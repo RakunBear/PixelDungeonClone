@@ -2,6 +2,7 @@
 
 #include "../Core/UIContainerBase.h"
 #include "../Image/UIImage.h"
+#include "../Image/UI9PatchImage.h"
 #include "../Util/IUIInteractable.h"
 #include "../Text/UIText.h"
 #include "../VisualStyle.h"
@@ -9,19 +10,31 @@
 #include <vector>
 #include <functional>
 
+
 class UIImageTextButton : public UIContainerBase, public IUIInteractable {
 private:
     std::vector<UIImage*> images;
+    std::vector<UI9PatchImage*> patchImages;
     std::vector<UIText*> texts;
     std::function<void()> onClick = nullptr;
     
 public:
+
     void AddImage(const ImageStyle& imageStyle, const D2D1_RECT_F& rect)
     {
         auto* img = new UIImage();
-        img->Init(imageStyle, rect);
+        img->Init(rect);
+        img->SetStyle(imageStyle);
         AddChild(img);
         images.push_back(img);
+    }
+    void AddImage(const NinePatchStyle& imageStyle, const D2D1_RECT_F& rect)
+    {
+        auto* img = new UI9PatchImage();
+        img->Init(rect);
+        img->SetStyle(imageStyle);
+        AddChild(img);
+        patchImages.push_back(img);
     }
     
     void AddText(const std::wstring& content, const TextStyle& style, const D2D1_RECT_F& layout) {
@@ -42,11 +55,16 @@ public:
     {
         return images;
     }
+    const std::vector<UI9PatchImage*>& GetPatchImages() const
+    {
+        return patchImages;
+    }
 
     // All Child Crear (delete)
     void Clear()
     {
         images.clear();
+        patchImages.clear();
         texts.clear();
         ClearChild();
     }

@@ -3,7 +3,13 @@
 #include <functional>
 #include <string>
 
+#include "../Core/UIContainerBase.h"
 
+
+class UI9PatchImage;
+class UIImage;
+class UIText;
+struct TextStyle;
 struct ImageStyle;
 struct UIButtonStyle;
 struct UIIconStyle;
@@ -11,16 +17,23 @@ struct UIInventorySlotData;
 struct UIInventorySlotStyle;
 class UIImageTextButton;
 class UIContainerBase;
+struct NinePatchStyle;
 
 
 namespace UIHelper {
     /* 생성 코드 */
-    UIImageTextButton* ApplyInventorySlotStyle(UIContainerBase& target, const D2D1_RECT_F& localRect, const UIInventorySlotStyle& style,
+    UI9PatchImage* ApplyNinePathStyle(UIContainerBase* target, const D2D1_RECT_F& localRect, const NinePatchStyle& style);
+    UIText* ApplyTextStyle(UIContainerBase* target, const D2D1_RECT_F& localRect, const TextStyle& style);
+    UIImage* ApplyImageStyle(UIContainerBase* target, const D2D1_RECT_F& localRect, const ImageStyle& style);
+    UIImageTextButton* ApplyInventorySlotStyle(UIContainerBase* target, const D2D1_RECT_F& localRect, const UIInventorySlotStyle& style,
         const std::function<void()>& onClick = nullptr, bool clone = false);
-    UIImageTextButton* ApplyIconStyle(UIContainerBase& target, const D2D1_RECT_F& localRect, const UIIconStyle& style,
+    UIImageTextButton* ApplyIconStyle(UIContainerBase* target, const D2D1_RECT_F& localRect, const UIIconStyle& style,
         const std::function<void()>& onClick = nullptr, bool clone = false);
-    UIImageTextButton* ApplyButtonStyle(UIContainerBase& target, const D2D1_RECT_F& localRect, const UIButtonStyle& style,
+    UIImageTextButton* ApplyButtonStyle(UIContainerBase* target, const D2D1_RECT_F& localRect, const UIButtonStyle& style,
         const std::function<void()>& onClick = nullptr, bool clone = false);
+
+    NinePatchStyle CreateNinePatchFromSheet(const std::string& imageKey, const D2D1_SIZE_F& cornerSize);
+    
     /* 범용 값 변경 코드 */
     void SetButtonText(const UIImageTextButton& btn, const std::wstring& text, size_t index = 0);
     void SetButtonImage(const UIImageTextButton& btn, const ImageStyle& style, size_t index = 0);

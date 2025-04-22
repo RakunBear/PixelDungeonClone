@@ -21,7 +21,8 @@ public:
 
         if (style.background.image) {
             bgImage = new UIImage();
-            bgImage->Init(style.background, { 0, 0, width, height });
+            bgImage->Init({ 0, 0, width, height });
+            bgImage->SetStyle(style.background);
             AddChild(bgImage); // 배경도 자식으로
         }
 
