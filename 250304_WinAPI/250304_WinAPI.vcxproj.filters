@@ -251,9 +251,6 @@
     <ClInclude Include="DungeonTilemap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="PathFinder.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Tilemap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -332,15 +329,6 @@
     <ClInclude Include="UI\Button\UIImageTextButton.h">
       <Filter>2D Framework\UI\Button</Filter>
     </ClInclude>
-    <ClInclude Include="UI\Image\UIStretchImage.h">
-      <Filter>2D Framework\UI\Image</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Panel\UI9PatchPanel.h">
-      <Filter>2D Framework\UI\Panel</Filter>
-    </ClInclude>
-    <ClInclude Include="D2DTypes.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="UI\Util\UITextPool.h">
       <Filter>2D Framework\UI\Utill</Filter>
     </ClInclude>
@@ -355,6 +343,21 @@
     </ClInclude>
     <ClInclude Include="UI\Util\IUIInteractable.h">
       <Filter>2D Framework\UI\Utill</Filter>
+    </ClInclude>
+    <ClInclude Include="PathFinder.h">
+      <Filter>MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Panel\UIStatusPanel.h">
+      <Filter>2D Framework\UI\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Image\UIBaseImage.h">
+      <Filter>2D Framework\UI\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DTypes.h">
+      <Filter>MainGame\D2D</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Image\UI9PatchImage.h">
+      <Filter>2D Framework\UI\Image</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

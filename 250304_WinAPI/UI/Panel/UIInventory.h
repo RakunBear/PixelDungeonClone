@@ -36,7 +36,7 @@ private:
     void AddBackGround() {
         UIResourceSubManager::Preload_NinePatch();
         NinePatchStyle defaultNinePatchStyle =
-            UIHelper::CreateNinePatchFromSheet("chrome", {6.0f, 6.0f});
+            UIHelper::CreateNinePatchFromSheet("chrome", "chrome", {6.0f, 6.0f});
         
         auto* inventoryBox = UIHelper::ApplyNinePathStyle(this, this->GetSizeRect(), defaultNinePatchStyle);
     }

@@ -116,27 +116,31 @@ namespace UIHelper {
     }
 
     UIImageTextButton* ApplyNinePatchButtonStyle(
-    UIContainerBase& target,
+    UIContainerBase* target,
     const D2D1_RECT_F& localRect,
     const UIButtonStyle& style,
     const NinePatchStyle& patchStyle,
-    const std::function<void()>& onClick = nullptr,
-    bool clone = false
+    const std::function<void()>& onClick,
+    bool clone
 ) {
         auto* button = new UIImageTextButton();
-        button->SetRect(localRect);
-        button->AddImage(patchStyle, localRect);
-        button->AddText(L"", style.textStyle, localRect);
+        button->Init(localRect);
+        if (target)
+            target->AddChild(button);
+        auto rect = button->GetSizeRect();
+        button->AddImage(patchStyle, rect);
+        button->AddText(L"", style.textStyle, rect);
         button->SetOnClick(onClick);
-        target.AddChild(button);
+
+
         return button;
     }
 
 
-    NinePatchStyle CreateNinePatchFromSheet(const std::string& imageKey, const D2D1_SIZE_F& cornerSize)
+    NinePatchStyle CreateNinePatchFromSheet(const std::string& srcKey, const std::string& targetKey, const D2D1_SIZE_F& cornerSize)
     {
         NinePatchStyle style;
-        style.image = D2DImageManager::GetInstance()->FindImage(imageKey);
+        style.image = D2DImageManager::GetInstance()->FindImage(srcKey);
         style.cornerSize = cornerSize;
 
         const char* suffixes[9] = {
@@ -144,7 +148,7 @@ namespace UIHelper {
         };
 
         for (int i = 0; i < 9; ++i) {
-            std::string key = imageKey + "_" + suffixes[i];
+            std::string key = targetKey + "_" + suffixes[i];
             auto* frame = D2DImageManager::GetInstance()->FindFrame(key);
             if (frame)
                 style.regions[i].srcRect = frame->sourceRect;

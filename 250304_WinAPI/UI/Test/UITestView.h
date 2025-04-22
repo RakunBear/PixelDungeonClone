@@ -28,7 +28,7 @@ private:
 public:
 	void Init() {
 		UIResourceSubManager::Preload_NinePatch();
-		NinePatchStyle defaultNinePatchStyle = UIHelper::CreateNinePatchFromSheet("chrome", {6.0f, 6.0f});
+		NinePatchStyle defaultNinePatchStyle = UIHelper::CreateNinePatchFromSheet("chrome", "chrome", {6.0f, 6.0f});
 		uiContainer.Init({0,0,WINSIZE_X,WINSIZE_Y});
 		uiContainer.SetLayout(new UIVerticalLayout());
 

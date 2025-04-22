@@ -31,12 +31,15 @@ namespace UIHelper {
         const std::function<void()>& onClick = nullptr, bool clone = false);
     UIImageTextButton* ApplyButtonStyle(UIContainerBase* target, const D2D1_RECT_F& localRect, const UIButtonStyle& style,
         const std::function<void()>& onClick = nullptr, bool clone = false);
+    UIImageTextButton* ApplyNinePatchButtonStyle(UIContainerBase* target, const D2D1_RECT_F& localRect, const UIButtonStyle& style,
+    const NinePatchStyle& patchStyle, const std::function<void()>& onClick = nullptr, bool clone = false );
 
-    NinePatchStyle CreateNinePatchFromSheet(const std::string& imageKey, const D2D1_SIZE_F& cornerSize);
+    NinePatchStyle CreateNinePatchFromSheet(const std::string& srcKey, const std::string& targetKey, const D2D1_SIZE_F& cornerSize);
     
     /* 범용 값 변경 코드 */
     void SetButtonText(const UIImageTextButton& btn, const std::wstring& text, size_t index = 0);
     void SetButtonImage(const UIImageTextButton& btn, const ImageStyle& style, size_t index = 0);
+    void SetButtonImage(const UIImageTextButton& btn, const NinePatchStyle& style, size_t index = 0);
     /* 인벤 전용 */
     void SetInventorySlotData(const UIImageTextButton& target, const UIInventorySlotData* data);
     void UpdateInventorySlot(UIImageTextButton& slot, const UIInventorySlotStyle& style,
@@ -49,4 +52,5 @@ namespace UIHelper {
     T* MakeUI(Args&&... args) {
         return new T(std::forward<Args>(args)...);
     }
+
 }
