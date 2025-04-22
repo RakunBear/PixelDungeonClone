@@ -104,6 +104,10 @@ LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 			SceneManager::GetInstance()->ChangeScene("픽셀던전");
 			break;
 		}
+		KeyManager::GetInstance()->SetKeyDown(wParam, true);
+		break;
+	case WM_KEYUP:
+		KeyManager::GetInstance()->SetKeyDown(wParam, false);
 		break;
 	case WM_LBUTTONDOWN:
 		g_ptMouse.x = LOWORD(lParam);

@@ -90,7 +90,6 @@ public:
         if (x >= r.left && x <= r.right &&
             y >= r.top && y <= r.bottom)
         {
-            OutputDebugStringA("__!!!!!_\n");
             if (onClick) 
             {
                 onClick();

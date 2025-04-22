@@ -156,7 +156,10 @@
     <ClCompile Include="DWriteFactory.cpp">
       <Filter>MainGame\D2D</Filter>
     </ClCompile>
-    <ClCompile Include="UI\Utill\UIResourceSubManager.cpp">
+    <ClCompile Include="UI\Util\UIHelper.cpp">
+      <Filter>2D Framework\UI\Utill</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Util\UIResourceSubManager.cpp">
       <Filter>2D Framework\UI\Utill</Filter>
     </ClCompile>
   </ItemGroup>
@@ -281,14 +284,8 @@
     <ClInclude Include="UI\Core\UILayout.h">
       <Filter>2D Framework\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="UI\Utill\IUIInteractable.h">
-      <Filter>2D Framework\UI\Utill</Filter>
-    </ClInclude>
     <ClInclude Include="UI\Image\UIImage.h">
       <Filter>2D Framework\UI\Image</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Utill\UIResourceSubManager.h">
-      <Filter>2D Framework\UI\Utill</Filter>
     </ClInclude>
     <ClInclude Include="UI\Test\UITestHeader.h">
       <Filter>2D Framework\UI\Test</Filter>
@@ -308,17 +305,11 @@
     <ClInclude Include="UI\Panel\UITextLogPanel.h">
       <Filter>2D Framework\UI\Panel</Filter>
     </ClInclude>
-    <ClInclude Include="UI\Utill\UITextPool.h">
-      <Filter>2D Framework\UI\Utill</Filter>
-    </ClInclude>
     <ClInclude Include="UI\Bar\UIValueBar.h">
       <Filter>2D Framework\UI\Bar</Filter>
     </ClInclude>
     <ClInclude Include="UI\Bar\ValueAnimator.h">
       <Filter>2D Framework\UI\Bar</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\UIButtonStyle.h">
-      <Filter>2D Framework\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\UIData.h">
       <Filter>2D Framework\UI</Filter>
@@ -346,6 +337,24 @@
     </ClInclude>
     <ClInclude Include="UI\Panel\UI9PatchPanel.h">
       <Filter>2D Framework\UI\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DTypes.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Util\UITextPool.h">
+      <Filter>2D Framework\UI\Utill</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Util\UIResourceSubManager.h">
+      <Filter>2D Framework\UI\Utill</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Util\UIHelper.h">
+      <Filter>2D Framework\UI\Utill</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Util\StyleUtil.h">
+      <Filter>2D Framework\UI\Utill</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Util\IUIInteractable.h">
+      <Filter>2D Framework\UI\Utill</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

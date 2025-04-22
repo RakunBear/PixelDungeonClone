@@ -72,6 +72,21 @@ private:
         titleText = new UITextBox();
         titleText->Init(titleStyle, L"배낭", { padding.left, 5, GetWidth(), 50 });
         AddChild(titleText);
+
+        float imgSize = 30;
+        D2D1_RECT_F dummyRect = { GetWidth() - padding.right - imgSize, 5, GetWidth() - padding.right, 5 + imgSize};
+        UIIconStyle defaultIconStyle =
+        {
+        { D2DImageManager::GetInstance()->FindImage("exit_btn")},
+        { D2DImageManager::GetInstance()->FindImage("")}
+        };
+
+        auto* exitBtn = UIHelper::ApplyIconStyle(*this, dummyRect, defaultIconStyle);
+        exitBtn->SetOnClick([this, exitBtn]() {
+            wstring debugString = (L"클릭 [닫기] 클릭\n");
+            UITestEffectManager::GetInstance()->AddEffect(debugString, exitBtn->GetWorldRect());
+            this->SetActive(false);
+            });
     }
 
     void AddGridSection() {
@@ -95,7 +110,6 @@ private:
             {
                 wstring debugString = (L"클릭 대상 [" + to_wstring(i) + L"] 클릭\n");
                 UITestEffectManager::GetInstance()->AddEffect(debugString, slot->GetWorldRect());
-                OutputDebugStringW(debugString.c_str());
             });
         }
 
@@ -106,25 +120,33 @@ private:
         const int col = 2;
         const float padding = 10.0f;
         const float width = (GetWidth() - padding * (col + 1)) / col;
+
+        UIIconStyle defaultIconStyle =
+            {
+            { D2DImageManager::GetInstance()->FindImage("default_btn")},
+            { D2DImageManager::GetInstance()->FindImage(""), {62,0,width-62,0 }}
+            };
         
         bottomSection = new UIContainer();
-        bottomSection->SetRect({ 0, GetHeight() - 40, GetWidth(), GetHeight() });
-        bottomSection->SetLayout(new UIHorizontalLayout(padding, padding));
-
-        auto* btn1 = new UIImageTextButton();
-        btn1->Init({ 0, 0, width, 30 });
-        btn1->AddText(L"정렬", { L"pixel", 14.0f, D2D1::ColorF::White }, btn1->GetSizeRect());
-        btn1->SetOnClick([]() { /* 1번창 */ });
-
-        auto* btn2 = new UIImageTextButton();
-        btn2->Init({ 0, 0, width, 30 });
-        btn2->AddText(L"닫기", { L"pixel", 14.0f, D2D1::ColorF::White }, btn2->GetSizeRect());
-        btn2->SetOnClick([]() { /* 2번창 */ });
-
-        bottomSection->AddChild(btn1);
-        bottomSection->AddChild(btn2);
-
+        bottomSection->SetRect({0, GetHeight() - 60, GetWidth(), GetHeight() });
+        bottomSection->SetLayout(new UIHorizontalLayout(9, 20));
         AddChild(bottomSection);
+
+
+        D2D1_RECT_F dummyRect = { 0, 0, 164, 40 };
+        
+        auto* btn1 = UIHelper::ApplyIconStyle(*bottomSection, dummyRect, defaultIconStyle);
+        btn1->SetOnClick([this, btn1]() {
+            wstring debugString = (L"클릭 [BTN1] 클릭\n");
+            UITestEffectManager::GetInstance()->AddEffect(debugString, btn1->GetWorldRect());
+            });
+
+        auto* btn2 = UIHelper::ApplyIconStyle(*bottomSection, dummyRect, defaultIconStyle);
+        btn2->SetOnClick([this, btn2]() {
+            wstring debugString = (L"클릭 [BTN2] 클릭\n");
+            UITestEffectManager::GetInstance()->AddEffect(debugString, btn2->GetWorldRect());
+            });
+
 
         bottomSection->UpdateLayout();
     }

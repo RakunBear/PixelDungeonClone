@@ -17,25 +17,11 @@ public:
         AddActionButtons();
     }
 
-    void SetActionHandler(int index, std::function<void()> handler) {
+    void SetActionOnClick(int index, std::function<void()> onClick) {
         if (index >= 0 && index < actionButtons.size()) {
-            // actionButtons[index]->SetOnClick(handler);
+             actionButtons[index]->SetOnClick(onClick);
         }
     }
-
-    bool HandleClick(int x, int y) {
-        for (auto* button : itemSlots) {
-            if (button && button->HandleClick(x, y)) {
-                return true;
-            }
-        }
-        for (auto* button : actionButtons) {
-            if (button && button->HandleClick(x, y)) {
-                return true;
-            }
-        }
-    }
-
 
 private:
     void AddItemSlots() {
@@ -72,31 +58,19 @@ private:
         auto* slot = new UIImageTextButton();
         slot->InitFromStyle(slotIconStyle, coords[0]);
         AddChild(slot);
-        itemSlots.push_back(slot);
-        slot->SetOnClick([this]()
-        {
-            // TODO
-        });
+        actionButtons.push_back(slot);
+
 
         slotIconStyle.iconStyle = { D2DImageManager::GetInstance()->FindImage(keys[1]) };
         slot = new UIImageTextButton();
         slot->InitFromStyle(slotIconStyle, coords[1]);
-        slot->SetOnClick([this]()
-        {
-            // TODO
-        });
         AddChild(slot);
-        itemSlots.push_back(slot);
+        actionButtons.push_back(slot);
         
         slotIconStyle.iconStyle = { D2DImageManager::GetInstance()->FindImage(keys[2]) };
         slot = new UIImageTextButton();
         slot->InitFromStyle(slotIconStyle, coords[2]);
-        slot->SetOnClick([this]()
-        {
-            // TODO
-            OutputDebugStringW(L"클릭클기\n");
-        });
         AddChild(slot);
-        itemSlots.push_back(slot);
+        actionButtons.push_back(slot);
     }
 };

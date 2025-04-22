@@ -24,6 +24,7 @@ private:
 
 public:
 	void Init() {
+		// 기본 초기화
 		statusToolBar.Init();
 		quickSlotToolBar.Init();
 		topRightToolBar.Init();
@@ -31,12 +32,15 @@ public:
 		uiInventoryView.Init();
 		uiAutoTestMenu.Init({100,400,200,0});
 
+		// 클릭 대상 탐색을 위해 벡터저장
 		rootComponents.push_back(&statusToolBar);
 		rootComponents.push_back(&quickSlotToolBar);
 		rootComponents.push_back(&topRightToolBar);
 		rootComponents.push_back(&uiAutoTestMenu);
 		rootComponents.push_back(uiInventoryView.inventoryPanel);
 
+
+		// 테스트 버튼
 		UIButtonStyle buttonStyle;
 		buttonStyle.background = {D2DImageManager::GetInstance()->FindImage("inventory_slot")};
 		buttonStyle.textStyle = { L"pixel", 14.0f, D2D1::ColorF(D2D1::ColorF::White) };
@@ -48,7 +52,16 @@ public:
 			buttonStyle, onCLick);
 		UIHelper::SetButtonText(*button, L"스탯용", 0);
 
+		// 클릭 태그 가져오기 테스트
 		invenInteractables = uiInventoryView.inventoryPanel->GetInteractables();
+
+		// 인벤 띄우기 활성 클릭 등록
+		quickSlotToolBar.SetActionOnClick(2, [this]()
+			{
+				uiInventoryView.inventoryPanel->SetActive(true);
+				wstring debugString = (L"클릭 [인벤] 클릭\n");
+				UITestEffectManager::GetInstance()->AddEffect(debugString, quickSlotToolBar.GetWorldRect());
+			});
 	}
 
 	void Release() {
@@ -57,13 +70,14 @@ public:
 	}
 
 	void Update(float dt) {
+		// 기본 업뎃
 		statusToolBar.Update(dt);
 		quickSlotToolBar.Update(dt);
 		topRightToolBar.Update(dt);
 		uiInventoryView.Update(dt);
 		uiAutoTestMenu.Update(dt);
-
 		uiTester.UpdateUI(dt);  // 로그/이펙트
+
 
 		// 입력 인식 안되면 A 글자키 입력 후, 마우스 클릭
 		if (KeyManager::GetInstance()->IsOnceKeyDown(VK_LBUTTON))
@@ -78,11 +92,12 @@ public:
 			// 	interactable->HandleClick(mousePoint.x, mousePoint.y);
 			// }
 
+			// 클릭 돌리기, 넣은 순서기준 (자식 역순)
 			for (auto& rootComponent : rootComponents)
 			{
 				if (rootComponent->HandleClick(mousePoint.x, mousePoint.y))
 				{
-					OutputDebugStringA("AAAAA\n");
+					break;
 				}
 			}
 		}
@@ -99,7 +114,6 @@ public:
 		topRightToolBar.Render(rt);
 		uiInventoryView.Render(rt);
 		uiAutoTestMenu.Render(rt);
-
 		uiTester.RenderUI(rt);  // 로그/이펙트
 
 		// TODO : 지우기
